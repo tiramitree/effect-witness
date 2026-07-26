@@ -1,0 +1,44 @@
+name: Bug report
+description: Report a reproducible problem in the controlled local fixture.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        EffectWitness is a pre-alpha loopback fixture. Do not include personal
+        data, credentials, private paths, hostnames, or production data.
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Provide the smallest synthetic, loopback-only reproduction.
+      placeholder: Commands and synthetic inputs only
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Public OS and Python versions only; omit device identifiers.
+      placeholder: Windows or Linux; Python 3.12
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed personal data, secrets, private infrastructure details, and production data.
+          required: true
