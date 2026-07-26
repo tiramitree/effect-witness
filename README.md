@@ -62,6 +62,9 @@ The registered ten-scenario matrix expects:
 An expected `MISMATCH` is a passing negative control. It is not a JUnit
 failure.
 
+The bundled [reference artifact](evidence/README.md) records this matrix and
+binds it to the exact source revision used to build the 0.1.0 wheel.
+
 ## Quick start
 
 Python 3.11 or newer is required.

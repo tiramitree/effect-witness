@@ -1,0 +1,205 @@
+{
+  "client_journal": {
+    "client_events": [
+      {
+        "attempt_id": null,
+        "canonical_payload_sha256": "ea7dea4de4ea3bff1d12712fa7bf50d4743a8bf504d6a6dfefc80d1348c7293e",
+        "event_type": "OPERATION_CREATED",
+        "payload": {
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "retry_budget": 1
+        },
+        "scenario_id": "idempotent_truth_sequential",
+        "seq": 1
+      },
+      {
+        "attempt_id": "a1",
+        "canonical_payload_sha256": "6f487133c25cb707687be56d487d5126165e5bd806758059d8fbcd7ee667e245",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a1",
+          "tool_name": "truthful_idempotent_write"
+        },
+        "scenario_id": "idempotent_truth_sequential",
+        "seq": 2
+      },
+      {
+        "attempt_id": "a1",
+        "canonical_payload_sha256": "72a92e6809e9bde1ff5c77d3649fa5315c25d56a6de3f3563876bc99a38bf059",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "74d8adfe8b39783a9fb09642ac3437455b23b8c8f1addd531a84ab57103dc2d6"
+        },
+        "scenario_id": "idempotent_truth_sequential",
+        "seq": 3
+      },
+      {
+        "attempt_id": "a2",
+        "canonical_payload_sha256": "0b802bd4b54d970f103cfb0caf09cba98738a0229cd3a4dd010a6fc8adb55c9e",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a2",
+          "tool_name": "truthful_idempotent_write"
+        },
+        "scenario_id": "idempotent_truth_sequential",
+        "seq": 4
+      },
+      {
+        "attempt_id": "a2",
+        "canonical_payload_sha256": "3c7bdca5eabe853f98e003ecb281bb9eb88a680736de161d99a6e89a3dee9e99",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "a96174291e2957bed0c1e48ae00547c9deef37801e9f6f3192a33d820093c382"
+        },
+        "scenario_id": "idempotent_truth_sequential",
+        "seq": 5
+      }
+    ],
+    "client_operations": [
+      {
+        "attempts_used": 2,
+        "operation_id": "op-1",
+        "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+        "retry_budget": 1,
+        "scenario_id": "idempotent_truth_sequential",
+        "state": "RECEIVED"
+      }
+    ]
+  },
+  "client_outcome": "SUCCEEDED",
+  "contract_basis": "idempotentHint=true with repeated identical arguments",
+  "contract_result": "MATCH",
+  "declared_annotations": {
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false,
+    "readOnlyHint": false,
+    "title": null
+  },
+  "declared_input_schema": {
+    "properties": {
+      "operation_id": {
+        "title": "Operation Id",
+        "type": "string"
+      },
+      "payload": {
+        "additionalProperties": true,
+        "title": "Payload",
+        "type": "object"
+      }
+    },
+    "required": [
+      "operation_id",
+      "payload"
+    ],
+    "title": "truthful_idempotent_writeArguments",
+    "type": "object"
+  },
+  "evidence_checks": {
+    "both_calls_succeeded": true,
+    "clean_fault_plan_is_exact": true,
+    "control_effect_count_is_exact": true,
+    "declared_annotations_are_exact": true,
+    "declared_idempotentHint_is_true": true,
+    "protocol_schema_is_exact": true,
+    "request_arguments_are_identical": true,
+    "server_attempt_count_is_two": true
+  },
+  "expectation_input": {
+    "expected_max_effects": 1
+  },
+  "expectation_met": true,
+  "expected": {
+    "client_outcome": "SUCCEEDED",
+    "contract_result": "MATCH"
+  },
+  "observations": [
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": false,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"truthful_idempotent_write\",\n  \"effect_id\": 1\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": false,
+          "effect_id": 1,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "truthful_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": true,\n  \"effect_id\": 1,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"truthful_idempotent_write\"\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": true,
+          "effect_id": 1,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "truthful_idempotent_write"
+        }
+      }
+    }
+  ],
+  "protocol": {
+    "name": "MCP",
+    "python_sdk": "1.28.1"
+  },
+  "scenario_id": "idempotent_truth_sequential",
+  "stimulus": {
+    "calls": 2,
+    "fault": "clean",
+    "policy": "direct_repeat",
+    "request_argument_sha256s": [
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832"
+    ]
+  },
+  "witness": {
+    "attempt_count": 2,
+    "attempt_fault_mode_counts": {
+      "clean": 2
+    },
+    "attempt_state_counts": {
+      "DEDUP_HIT": 1,
+      "EFFECT_COMMITTED": 1
+    },
+    "effect_count": 1,
+    "effect_payload_sha256": [
+      "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6"
+    ],
+    "operation_id": "op-1",
+    "tool_name": "truthful_idempotent_write"
+  }
+}

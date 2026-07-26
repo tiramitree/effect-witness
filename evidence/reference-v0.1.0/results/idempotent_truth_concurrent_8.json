@@ -1,0 +1,511 @@
+{
+  "client_journal": {
+    "client_events": [
+      {
+        "attempt_id": null,
+        "canonical_payload_sha256": "6d1526b146e5e6ea9600c059606c2252a597ba036138e8c1769737c605c57496",
+        "event_type": "OPERATION_CREATED",
+        "payload": {
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "retry_budget": 7
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 1
+      },
+      {
+        "attempt_id": "a1",
+        "canonical_payload_sha256": "6f487133c25cb707687be56d487d5126165e5bd806758059d8fbcd7ee667e245",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a1",
+          "tool_name": "truthful_idempotent_write"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 2
+      },
+      {
+        "attempt_id": "a2",
+        "canonical_payload_sha256": "0b802bd4b54d970f103cfb0caf09cba98738a0229cd3a4dd010a6fc8adb55c9e",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a2",
+          "tool_name": "truthful_idempotent_write"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 3
+      },
+      {
+        "attempt_id": "a3",
+        "canonical_payload_sha256": "4dedfa6357d15e279b7fd51bc04bb179c20b406ea8099b57ef571ad906093896",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a3",
+          "tool_name": "truthful_idempotent_write"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 4
+      },
+      {
+        "attempt_id": "a4",
+        "canonical_payload_sha256": "7a7485b8d5a1dbdbce867fc75b9047b13c06669371e692daf23d19d9dbb6bc0f",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a4",
+          "tool_name": "truthful_idempotent_write"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 5
+      },
+      {
+        "attempt_id": "a5",
+        "canonical_payload_sha256": "6b06dd60a402d7377923cdf60ee26e2b8e8408b2d8381351987bf862bfb8aa05",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a5",
+          "tool_name": "truthful_idempotent_write"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 6
+      },
+      {
+        "attempt_id": "a6",
+        "canonical_payload_sha256": "9efa352d00d83581e6cf88f5caa83b1e0b27991c738988fb5fd719535ffbf0f1",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a6",
+          "tool_name": "truthful_idempotent_write"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 7
+      },
+      {
+        "attempt_id": "a7",
+        "canonical_payload_sha256": "65a4b3fe54c1e666d0b3f5a993da12927bdcfe5639431fb82cf0942399165e77",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a7",
+          "tool_name": "truthful_idempotent_write"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 8
+      },
+      {
+        "attempt_id": "a8",
+        "canonical_payload_sha256": "3c27b8c19ec0e0aa8c130df6244d5fb3a618386fe51e803af82fc825672447e1",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a8",
+          "tool_name": "truthful_idempotent_write"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 9
+      },
+      {
+        "attempt_id": "a1",
+        "canonical_payload_sha256": "3c7bdca5eabe853f98e003ecb281bb9eb88a680736de161d99a6e89a3dee9e99",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "a96174291e2957bed0c1e48ae00547c9deef37801e9f6f3192a33d820093c382"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 10
+      },
+      {
+        "attempt_id": "a2",
+        "canonical_payload_sha256": "3c7bdca5eabe853f98e003ecb281bb9eb88a680736de161d99a6e89a3dee9e99",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "a96174291e2957bed0c1e48ae00547c9deef37801e9f6f3192a33d820093c382"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 11
+      },
+      {
+        "attempt_id": "a3",
+        "canonical_payload_sha256": "3c7bdca5eabe853f98e003ecb281bb9eb88a680736de161d99a6e89a3dee9e99",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "a96174291e2957bed0c1e48ae00547c9deef37801e9f6f3192a33d820093c382"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 12
+      },
+      {
+        "attempt_id": "a4",
+        "canonical_payload_sha256": "3c7bdca5eabe853f98e003ecb281bb9eb88a680736de161d99a6e89a3dee9e99",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "a96174291e2957bed0c1e48ae00547c9deef37801e9f6f3192a33d820093c382"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 13
+      },
+      {
+        "attempt_id": "a5",
+        "canonical_payload_sha256": "3c7bdca5eabe853f98e003ecb281bb9eb88a680736de161d99a6e89a3dee9e99",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "a96174291e2957bed0c1e48ae00547c9deef37801e9f6f3192a33d820093c382"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 14
+      },
+      {
+        "attempt_id": "a6",
+        "canonical_payload_sha256": "3c7bdca5eabe853f98e003ecb281bb9eb88a680736de161d99a6e89a3dee9e99",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "a96174291e2957bed0c1e48ae00547c9deef37801e9f6f3192a33d820093c382"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 15
+      },
+      {
+        "attempt_id": "a7",
+        "canonical_payload_sha256": "3c7bdca5eabe853f98e003ecb281bb9eb88a680736de161d99a6e89a3dee9e99",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "a96174291e2957bed0c1e48ae00547c9deef37801e9f6f3192a33d820093c382"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 16
+      },
+      {
+        "attempt_id": "a8",
+        "canonical_payload_sha256": "72a92e6809e9bde1ff5c77d3649fa5315c25d56a6de3f3563876bc99a38bf059",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "74d8adfe8b39783a9fb09642ac3437455b23b8c8f1addd531a84ab57103dc2d6"
+        },
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "seq": 17
+      }
+    ],
+    "client_operations": [
+      {
+        "attempts_used": 8,
+        "operation_id": "op-1",
+        "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+        "retry_budget": 7,
+        "scenario_id": "idempotent_truth_concurrent_8",
+        "state": "RECEIVED"
+      }
+    ]
+  },
+  "client_outcome": "SUCCEEDED",
+  "concurrency_witness": {
+    "barrier_parties": 8,
+    "barrier_passed": 8,
+    "max_in_flight": 8
+  },
+  "contract_basis": "idempotentHint=true under eight identical concurrent calls",
+  "contract_result": "MATCH",
+  "declared_annotations": {
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false,
+    "readOnlyHint": false,
+    "title": null
+  },
+  "declared_input_schema": {
+    "properties": {
+      "operation_id": {
+        "title": "Operation Id",
+        "type": "string"
+      },
+      "payload": {
+        "additionalProperties": true,
+        "title": "Payload",
+        "type": "object"
+      }
+    },
+    "required": [
+      "operation_id",
+      "payload"
+    ],
+    "title": "truthful_idempotent_writeArguments",
+    "type": "object"
+  },
+  "evidence_checks": {
+    "all_eight_calls_succeeded": true,
+    "clean_fault_plan_is_exact": true,
+    "concurrency_barrier_released_all_eight": true,
+    "control_effect_count_is_exact": true,
+    "declared_annotations_are_exact": true,
+    "declared_idempotentHint_is_true": true,
+    "protocol_schema_is_exact": true,
+    "request_arguments_are_identical": true,
+    "server_attempt_count_is_eight": true
+  },
+  "expectation_input": {
+    "expected_max_effects": 1
+  },
+  "expectation_met": true,
+  "expected": {
+    "client_outcome": "SUCCEEDED",
+    "contract_result": "MATCH"
+  },
+  "observations": [
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": true,\n  \"effect_id\": 1,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"truthful_idempotent_write\"\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": true,
+          "effect_id": 1,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "truthful_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": true,\n  \"effect_id\": 1,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"truthful_idempotent_write\"\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": true,
+          "effect_id": 1,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "truthful_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": true,\n  \"effect_id\": 1,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"truthful_idempotent_write\"\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": true,
+          "effect_id": 1,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "truthful_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": true,\n  \"effect_id\": 1,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"truthful_idempotent_write\"\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": true,
+          "effect_id": 1,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "truthful_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": true,\n  \"effect_id\": 1,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"truthful_idempotent_write\"\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": true,
+          "effect_id": 1,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "truthful_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": true,\n  \"effect_id\": 1,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"truthful_idempotent_write\"\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": true,
+          "effect_id": 1,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "truthful_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": true,\n  \"effect_id\": 1,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"truthful_idempotent_write\"\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": true,
+          "effect_id": 1,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "truthful_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": false,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"truthful_idempotent_write\",\n  \"effect_id\": 1\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": false,
+          "effect_id": 1,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "truthful_idempotent_write"
+        }
+      }
+    }
+  ],
+  "protocol": {
+    "name": "MCP",
+    "python_sdk": "1.28.1"
+  },
+  "scenario_id": "idempotent_truth_concurrent_8",
+  "stimulus": {
+    "calls": 8,
+    "fault": "clean",
+    "policy": "concurrent_repeat",
+    "request_argument_sha256s": [
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832"
+    ]
+  },
+  "witness": {
+    "attempt_count": 8,
+    "attempt_fault_mode_counts": {
+      "clean": 8
+    },
+    "attempt_state_counts": {
+      "DEDUP_HIT": 7,
+      "EFFECT_COMMITTED": 1
+    },
+    "effect_count": 1,
+    "effect_payload_sha256": [
+      "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6"
+    ],
+    "operation_id": "op-1",
+    "tool_name": "truthful_idempotent_write"
+  }
+}

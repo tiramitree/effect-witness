@@ -1,0 +1,517 @@
+{
+  "client_journal": {
+    "client_events": [
+      {
+        "attempt_id": null,
+        "canonical_payload_sha256": "6d1526b146e5e6ea9600c059606c2252a597ba036138e8c1769737c605c57496",
+        "event_type": "OPERATION_CREATED",
+        "payload": {
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "retry_budget": 7
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 1
+      },
+      {
+        "attempt_id": "a1",
+        "canonical_payload_sha256": "4e9d1657f2babdcc02c0ae2b0ffd5a285f69aafee8ad45bd694467fb7d06fa36",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a1",
+          "tool_name": "misleading_idempotent_write"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 2
+      },
+      {
+        "attempt_id": "a2",
+        "canonical_payload_sha256": "5847ef77aec15370d3747a46934a1a7e31585c5591ff42bb6311e96d9aa6d77f",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a2",
+          "tool_name": "misleading_idempotent_write"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 3
+      },
+      {
+        "attempt_id": "a3",
+        "canonical_payload_sha256": "f0f0cd06998e7c1503befe31a26ed12e9ec52905beb11a9030189adbdd822fb9",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a3",
+          "tool_name": "misleading_idempotent_write"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 4
+      },
+      {
+        "attempt_id": "a4",
+        "canonical_payload_sha256": "82430c27f22ca6591d69ee837a00c9bab8104b7dca3337459d39326df59301aa",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a4",
+          "tool_name": "misleading_idempotent_write"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 5
+      },
+      {
+        "attempt_id": "a5",
+        "canonical_payload_sha256": "c73fe25e0a8630b1ba37f4ce214bb14a8347d1f6a3bf802d9849efc82dc634ed",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a5",
+          "tool_name": "misleading_idempotent_write"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 6
+      },
+      {
+        "attempt_id": "a6",
+        "canonical_payload_sha256": "2ab2e4fd5bf37f2b1aac69d9a2407886c0cc1a75d1b88a1c6649c215078679ac",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a6",
+          "tool_name": "misleading_idempotent_write"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 7
+      },
+      {
+        "attempt_id": "a7",
+        "canonical_payload_sha256": "3831b09171d5baf70773e6e1d6ac23e17696d4a10271f1703ce3c0060365932f",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a7",
+          "tool_name": "misleading_idempotent_write"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 8
+      },
+      {
+        "attempt_id": "a8",
+        "canonical_payload_sha256": "aa265b21652dcb04f3519e3132a62128bfa4efe4236456ff2ebe5d5a2c375c6b",
+        "event_type": "SENT",
+        "payload": {
+          "arguments_sha256": "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+          "attempt_id": "a8",
+          "tool_name": "misleading_idempotent_write"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 9
+      },
+      {
+        "attempt_id": "a1",
+        "canonical_payload_sha256": "f867118a72ce7d2fd5ddeffda05fd94d714713a67b27d02ce0e4e127ea22b3a0",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "1e417ffe3a95a1ff9b5256cb4220409ecebc408e6bc10d387d681055628e74ee"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 10
+      },
+      {
+        "attempt_id": "a2",
+        "canonical_payload_sha256": "408a650e7b67346b475599c6612e66cd0edd778803507d1f3cc13ba7d154fe5f",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "b0d269de3c8645a96dc38b6a818f102dbc2fd4724853b59c98c6eb449937d2a9"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 11
+      },
+      {
+        "attempt_id": "a3",
+        "canonical_payload_sha256": "9d39f4803f366f79ec6505d3aab177e648ffee00aa796b12430a29c2fc3ab136",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "736c8f0aac24c8923ff74c22696b065328d486b4c87db2e9b0f7e53ecc3109e3"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 12
+      },
+      {
+        "attempt_id": "a4",
+        "canonical_payload_sha256": "986adb8cfba53d04780e7ec8c945f68db00df4b69a8cc7c45ef08f93f11e7f0a",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "f764e49bf60560667c546285a06cd64e1a06417d950ad7633602055f98d2dc53"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 13
+      },
+      {
+        "attempt_id": "a5",
+        "canonical_payload_sha256": "a713638da13ad6b5c18f56b80c279e23f971aec8c46387874777d1f22ff0bf79",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "c7eead000a64039120a93a04984d686f1cb1e2bfe5e9c023325c5448bae4dfe6"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 14
+      },
+      {
+        "attempt_id": "a6",
+        "canonical_payload_sha256": "623aa417c989649caf1c3d241bdf99f1c171ccd7c82929722a39e1abeee73df8",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "861ab481e7127ed8c32fe564423ca9d3c48bd21357e49c695a25a3b9404754f7"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 15
+      },
+      {
+        "attempt_id": "a7",
+        "canonical_payload_sha256": "f42c2d4106c03e654504b029db55b2d7ae255e29e39ba75bcea08945b4ed1407",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "48dba4f34b88bd49177f12ff218911d226da6a2cad910159f4dd44494193c814"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 16
+      },
+      {
+        "attempt_id": "a8",
+        "canonical_payload_sha256": "78536547ce00e24d2947117f9d47f53a8935f0b30b999f288f68e135c6d9f980",
+        "event_type": "RECEIVED",
+        "payload": {
+          "completed": true,
+          "exception_types": [],
+          "is_error": false,
+          "response_sha256": "5f2f61e0e40f56d9e316a3e25067d8e08515d8cc2c5525bc933f65c55fa29dfa"
+        },
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "seq": 17
+      }
+    ],
+    "client_operations": [
+      {
+        "attempts_used": 8,
+        "operation_id": "op-1",
+        "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+        "retry_budget": 7,
+        "scenario_id": "idempotent_misleading_concurrent_8",
+        "state": "RECEIVED"
+      }
+    ]
+  },
+  "client_outcome": "SUCCEEDED",
+  "concurrency_witness": {
+    "barrier_parties": 8,
+    "barrier_passed": 8,
+    "max_in_flight": 8
+  },
+  "contract_basis": "idempotentHint=true under eight identical concurrent calls",
+  "contract_result": "MISMATCH",
+  "declared_annotations": {
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false,
+    "readOnlyHint": false,
+    "title": null
+  },
+  "declared_input_schema": {
+    "properties": {
+      "operation_id": {
+        "title": "Operation Id",
+        "type": "string"
+      },
+      "payload": {
+        "additionalProperties": true,
+        "title": "Payload",
+        "type": "object"
+      }
+    },
+    "required": [
+      "operation_id",
+      "payload"
+    ],
+    "title": "misleading_idempotent_writeArguments",
+    "type": "object"
+  },
+  "evidence_checks": {
+    "all_eight_calls_succeeded": true,
+    "clean_fault_plan_is_exact": true,
+    "concurrency_barrier_released_all_eight": true,
+    "control_effect_count_is_exact": true,
+    "declared_annotations_are_exact": true,
+    "declared_idempotentHint_is_true": true,
+    "protocol_schema_is_exact": true,
+    "request_arguments_are_identical": true,
+    "server_attempt_count_is_eight": true
+  },
+  "expectation_input": {
+    "expected_max_effects": 1
+  },
+  "expectation_met": true,
+  "expected": {
+    "client_outcome": "SUCCEEDED",
+    "contract_result": "MISMATCH"
+  },
+  "observations": [
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": false,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"misleading_idempotent_write\",\n  \"effect_id\": 7\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": false,
+          "effect_id": 7,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "misleading_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": false,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"misleading_idempotent_write\",\n  \"effect_id\": 2\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": false,
+          "effect_id": 2,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "misleading_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": false,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"misleading_idempotent_write\",\n  \"effect_id\": 6\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": false,
+          "effect_id": 6,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "misleading_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": false,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"misleading_idempotent_write\",\n  \"effect_id\": 1\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": false,
+          "effect_id": 1,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "misleading_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": false,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"misleading_idempotent_write\",\n  \"effect_id\": 4\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": false,
+          "effect_id": 4,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "misleading_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": false,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"misleading_idempotent_write\",\n  \"effect_id\": 3\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": false,
+          "effect_id": 3,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "misleading_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": false,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"misleading_idempotent_write\",\n  \"effect_id\": 8\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": false,
+          "effect_id": 8,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "misleading_idempotent_write"
+        }
+      }
+    },
+    {
+      "completed": true,
+      "exception_types": [],
+      "is_error": false,
+      "response": {
+        "_meta": null,
+        "content": [
+          {
+            "_meta": null,
+            "annotations": null,
+            "text": "{\n  \"deduplicated\": false,\n  \"operation_id\": \"op-1\",\n  \"payload_sha256\": \"48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6\",\n  \"tool_name\": \"misleading_idempotent_write\",\n  \"effect_id\": 5\n}",
+            "type": "text"
+          }
+        ],
+        "isError": false,
+        "structuredContent": {
+          "deduplicated": false,
+          "effect_id": 5,
+          "operation_id": "op-1",
+          "payload_sha256": "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+          "tool_name": "misleading_idempotent_write"
+        }
+      }
+    }
+  ],
+  "protocol": {
+    "name": "MCP",
+    "python_sdk": "1.28.1"
+  },
+  "scenario_id": "idempotent_misleading_concurrent_8",
+  "stimulus": {
+    "calls": 8,
+    "fault": "clean",
+    "policy": "concurrent_repeat",
+    "request_argument_sha256s": [
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832",
+      "24905331cfb3656c08acb26dc76a4dcfb9c076a8c70b2d1875acaa137b95b832"
+    ]
+  },
+  "witness": {
+    "attempt_count": 8,
+    "attempt_fault_mode_counts": {
+      "clean": 8
+    },
+    "attempt_state_counts": {
+      "EFFECT_COMMITTED": 8
+    },
+    "effect_count": 8,
+    "effect_payload_sha256": [
+      "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+      "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+      "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+      "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+      "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+      "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+      "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6",
+      "48208f9428d64634bd8e28ff345bf0eab60d53c18fa2fbdb0b9bc1e84df2b5f6"
+    ],
+    "operation_id": "op-1",
+    "tool_name": "misleading_idempotent_write"
+  }
+}

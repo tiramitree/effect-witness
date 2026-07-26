@@ -1,0 +1,34 @@
+{
+  "all_expectations_met": true,
+  "blocked_claims": [
+    "exactly-once execution",
+    "official MCP certification",
+    "production reliability",
+    "security",
+    "distributed consistency",
+    "framework superiority",
+    "external adoption"
+  ],
+  "contract_result_counts": {
+    "MATCH": 3,
+    "MISMATCH": 4,
+    "NOT_APPLICABLE": 3
+  },
+  "dependencies": {
+    "effect-witness": "0.1.0",
+    "httpx": "0.28.1",
+    "mcp": "1.28.1"
+  },
+  "evidence_scope": "synthetic local SQLite effects over loopback MCP Streamable HTTP",
+  "model_api_calls": 0,
+  "paid_service_calls": 0,
+  "runtime": {
+    "implementation": "CPython",
+    "platform_system": "Windows",
+    "python": "3.12.10",
+    "sqlite": "3.49.1"
+  },
+  "scenario_count": 10,
+  "schema_version": 2,
+  "source_revision": "f4575f88cf6a17f6c32bd2c7462063142d37c56a"
+}
