@@ -1,3 +1,4 @@
 * text=auto eol=lf
 evidence/reference-v0.1.0/** binary
 evidence/reference-v0.3.0-langgraph-replay-windows/** binary
+evidence/reference-v0.3.1-langgraph-replay-windows/** binary

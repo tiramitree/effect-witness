@@ -1,0 +1,1759 @@
+{
+  "all_registered_checks_met": true,
+  "policy": "blind",
+  "round_count": 10,
+  "rounds": [
+    {
+      "all_checks_met": true,
+      "checks": {
+        "decisions_registered": true,
+        "event_sequence_registered": true,
+        "fault_process_registered": true,
+        "mutating_call_count_registered": true,
+        "mutating_call_results_registered": true,
+        "mutating_call_shapes_registered": true,
+        "resume_process_registered": true,
+        "s0_differs_s1": true,
+        "s0_registered": true,
+        "s1_equals_s2_before_resume": true,
+        "s1_registered": true,
+        "s2_equals_s3_after_resume": true
+      },
+      "decisions": [],
+      "events": [
+        {
+          "phase": "fault",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "fault",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "fault",
+          "type": "FAULT_AFTER_EFFECT_BEFORE_TASK_RETURN"
+        },
+        {
+          "phase": "resume",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "resume",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_RETURNED"
+        }
+      ],
+      "fault_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 1,
+          "next": [
+            "workflow"
+          ]
+        },
+        "error_types": [
+          "InjectedPostEffectFailure"
+        ],
+        "exit_code": 17,
+        "status": "failed",
+        "stderr_empty": true,
+        "stdout_record_count": 1
+      },
+      "mutating_call_observations": [
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        },
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        }
+      ],
+      "resume_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 2,
+          "next": []
+        },
+        "exit_code": 0,
+        "status": "completed",
+        "stderr_empty": true,
+        "stdout_record_count": 1,
+        "workflow_result": {
+          "decision": "TOOL_RESULT",
+          "mutating_call_performed": true,
+          "observation": {
+            "completed": true,
+            "content_types": [
+              "text"
+            ],
+            "exception_types": [],
+            "is_error": false,
+            "response_text_included": false,
+            "response_text_redacted": true,
+            "structured_content_present": true,
+            "text_block_count": 1
+          }
+        }
+      },
+      "round": 1,
+      "s0": {
+        "entries": [],
+        "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "s1": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s2": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s3": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      }
+    },
+    {
+      "all_checks_met": true,
+      "checks": {
+        "decisions_registered": true,
+        "event_sequence_registered": true,
+        "fault_process_registered": true,
+        "mutating_call_count_registered": true,
+        "mutating_call_results_registered": true,
+        "mutating_call_shapes_registered": true,
+        "resume_process_registered": true,
+        "s0_differs_s1": true,
+        "s0_registered": true,
+        "s1_equals_s2_before_resume": true,
+        "s1_registered": true,
+        "s2_equals_s3_after_resume": true
+      },
+      "decisions": [],
+      "events": [
+        {
+          "phase": "fault",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "fault",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "fault",
+          "type": "FAULT_AFTER_EFFECT_BEFORE_TASK_RETURN"
+        },
+        {
+          "phase": "resume",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "resume",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_RETURNED"
+        }
+      ],
+      "fault_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 1,
+          "next": [
+            "workflow"
+          ]
+        },
+        "error_types": [
+          "InjectedPostEffectFailure"
+        ],
+        "exit_code": 17,
+        "status": "failed",
+        "stderr_empty": true,
+        "stdout_record_count": 1
+      },
+      "mutating_call_observations": [
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        },
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        }
+      ],
+      "resume_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 2,
+          "next": []
+        },
+        "exit_code": 0,
+        "status": "completed",
+        "stderr_empty": true,
+        "stdout_record_count": 1,
+        "workflow_result": {
+          "decision": "TOOL_RESULT",
+          "mutating_call_performed": true,
+          "observation": {
+            "completed": true,
+            "content_types": [
+              "text"
+            ],
+            "exception_types": [],
+            "is_error": false,
+            "response_text_included": false,
+            "response_text_redacted": true,
+            "structured_content_present": true,
+            "text_block_count": 1
+          }
+        }
+      },
+      "round": 2,
+      "s0": {
+        "entries": [],
+        "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "s1": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s2": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s3": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      }
+    },
+    {
+      "all_checks_met": true,
+      "checks": {
+        "decisions_registered": true,
+        "event_sequence_registered": true,
+        "fault_process_registered": true,
+        "mutating_call_count_registered": true,
+        "mutating_call_results_registered": true,
+        "mutating_call_shapes_registered": true,
+        "resume_process_registered": true,
+        "s0_differs_s1": true,
+        "s0_registered": true,
+        "s1_equals_s2_before_resume": true,
+        "s1_registered": true,
+        "s2_equals_s3_after_resume": true
+      },
+      "decisions": [],
+      "events": [
+        {
+          "phase": "fault",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "fault",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "fault",
+          "type": "FAULT_AFTER_EFFECT_BEFORE_TASK_RETURN"
+        },
+        {
+          "phase": "resume",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "resume",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_RETURNED"
+        }
+      ],
+      "fault_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 1,
+          "next": [
+            "workflow"
+          ]
+        },
+        "error_types": [
+          "InjectedPostEffectFailure"
+        ],
+        "exit_code": 17,
+        "status": "failed",
+        "stderr_empty": true,
+        "stdout_record_count": 1
+      },
+      "mutating_call_observations": [
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        },
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        }
+      ],
+      "resume_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 2,
+          "next": []
+        },
+        "exit_code": 0,
+        "status": "completed",
+        "stderr_empty": true,
+        "stdout_record_count": 1,
+        "workflow_result": {
+          "decision": "TOOL_RESULT",
+          "mutating_call_performed": true,
+          "observation": {
+            "completed": true,
+            "content_types": [
+              "text"
+            ],
+            "exception_types": [],
+            "is_error": false,
+            "response_text_included": false,
+            "response_text_redacted": true,
+            "structured_content_present": true,
+            "text_block_count": 1
+          }
+        }
+      },
+      "round": 3,
+      "s0": {
+        "entries": [],
+        "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "s1": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s2": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s3": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      }
+    },
+    {
+      "all_checks_met": true,
+      "checks": {
+        "decisions_registered": true,
+        "event_sequence_registered": true,
+        "fault_process_registered": true,
+        "mutating_call_count_registered": true,
+        "mutating_call_results_registered": true,
+        "mutating_call_shapes_registered": true,
+        "resume_process_registered": true,
+        "s0_differs_s1": true,
+        "s0_registered": true,
+        "s1_equals_s2_before_resume": true,
+        "s1_registered": true,
+        "s2_equals_s3_after_resume": true
+      },
+      "decisions": [],
+      "events": [
+        {
+          "phase": "fault",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "fault",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "fault",
+          "type": "FAULT_AFTER_EFFECT_BEFORE_TASK_RETURN"
+        },
+        {
+          "phase": "resume",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "resume",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_RETURNED"
+        }
+      ],
+      "fault_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 1,
+          "next": [
+            "workflow"
+          ]
+        },
+        "error_types": [
+          "InjectedPostEffectFailure"
+        ],
+        "exit_code": 17,
+        "status": "failed",
+        "stderr_empty": true,
+        "stdout_record_count": 1
+      },
+      "mutating_call_observations": [
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        },
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        }
+      ],
+      "resume_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 2,
+          "next": []
+        },
+        "exit_code": 0,
+        "status": "completed",
+        "stderr_empty": true,
+        "stdout_record_count": 1,
+        "workflow_result": {
+          "decision": "TOOL_RESULT",
+          "mutating_call_performed": true,
+          "observation": {
+            "completed": true,
+            "content_types": [
+              "text"
+            ],
+            "exception_types": [],
+            "is_error": false,
+            "response_text_included": false,
+            "response_text_redacted": true,
+            "structured_content_present": true,
+            "text_block_count": 1
+          }
+        }
+      },
+      "round": 4,
+      "s0": {
+        "entries": [],
+        "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "s1": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s2": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s3": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      }
+    },
+    {
+      "all_checks_met": true,
+      "checks": {
+        "decisions_registered": true,
+        "event_sequence_registered": true,
+        "fault_process_registered": true,
+        "mutating_call_count_registered": true,
+        "mutating_call_results_registered": true,
+        "mutating_call_shapes_registered": true,
+        "resume_process_registered": true,
+        "s0_differs_s1": true,
+        "s0_registered": true,
+        "s1_equals_s2_before_resume": true,
+        "s1_registered": true,
+        "s2_equals_s3_after_resume": true
+      },
+      "decisions": [],
+      "events": [
+        {
+          "phase": "fault",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "fault",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "fault",
+          "type": "FAULT_AFTER_EFFECT_BEFORE_TASK_RETURN"
+        },
+        {
+          "phase": "resume",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "resume",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_RETURNED"
+        }
+      ],
+      "fault_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 1,
+          "next": [
+            "workflow"
+          ]
+        },
+        "error_types": [
+          "InjectedPostEffectFailure"
+        ],
+        "exit_code": 17,
+        "status": "failed",
+        "stderr_empty": true,
+        "stdout_record_count": 1
+      },
+      "mutating_call_observations": [
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        },
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        }
+      ],
+      "resume_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 2,
+          "next": []
+        },
+        "exit_code": 0,
+        "status": "completed",
+        "stderr_empty": true,
+        "stdout_record_count": 1,
+        "workflow_result": {
+          "decision": "TOOL_RESULT",
+          "mutating_call_performed": true,
+          "observation": {
+            "completed": true,
+            "content_types": [
+              "text"
+            ],
+            "exception_types": [],
+            "is_error": false,
+            "response_text_included": false,
+            "response_text_redacted": true,
+            "structured_content_present": true,
+            "text_block_count": 1
+          }
+        }
+      },
+      "round": 5,
+      "s0": {
+        "entries": [],
+        "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "s1": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s2": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s3": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      }
+    },
+    {
+      "all_checks_met": true,
+      "checks": {
+        "decisions_registered": true,
+        "event_sequence_registered": true,
+        "fault_process_registered": true,
+        "mutating_call_count_registered": true,
+        "mutating_call_results_registered": true,
+        "mutating_call_shapes_registered": true,
+        "resume_process_registered": true,
+        "s0_differs_s1": true,
+        "s0_registered": true,
+        "s1_equals_s2_before_resume": true,
+        "s1_registered": true,
+        "s2_equals_s3_after_resume": true
+      },
+      "decisions": [],
+      "events": [
+        {
+          "phase": "fault",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "fault",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "fault",
+          "type": "FAULT_AFTER_EFFECT_BEFORE_TASK_RETURN"
+        },
+        {
+          "phase": "resume",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "resume",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_RETURNED"
+        }
+      ],
+      "fault_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 1,
+          "next": [
+            "workflow"
+          ]
+        },
+        "error_types": [
+          "InjectedPostEffectFailure"
+        ],
+        "exit_code": 17,
+        "status": "failed",
+        "stderr_empty": true,
+        "stdout_record_count": 1
+      },
+      "mutating_call_observations": [
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        },
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        }
+      ],
+      "resume_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 2,
+          "next": []
+        },
+        "exit_code": 0,
+        "status": "completed",
+        "stderr_empty": true,
+        "stdout_record_count": 1,
+        "workflow_result": {
+          "decision": "TOOL_RESULT",
+          "mutating_call_performed": true,
+          "observation": {
+            "completed": true,
+            "content_types": [
+              "text"
+            ],
+            "exception_types": [],
+            "is_error": false,
+            "response_text_included": false,
+            "response_text_redacted": true,
+            "structured_content_present": true,
+            "text_block_count": 1
+          }
+        }
+      },
+      "round": 6,
+      "s0": {
+        "entries": [],
+        "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "s1": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s2": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s3": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      }
+    },
+    {
+      "all_checks_met": true,
+      "checks": {
+        "decisions_registered": true,
+        "event_sequence_registered": true,
+        "fault_process_registered": true,
+        "mutating_call_count_registered": true,
+        "mutating_call_results_registered": true,
+        "mutating_call_shapes_registered": true,
+        "resume_process_registered": true,
+        "s0_differs_s1": true,
+        "s0_registered": true,
+        "s1_equals_s2_before_resume": true,
+        "s1_registered": true,
+        "s2_equals_s3_after_resume": true
+      },
+      "decisions": [],
+      "events": [
+        {
+          "phase": "fault",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "fault",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "fault",
+          "type": "FAULT_AFTER_EFFECT_BEFORE_TASK_RETURN"
+        },
+        {
+          "phase": "resume",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "resume",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_RETURNED"
+        }
+      ],
+      "fault_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 1,
+          "next": [
+            "workflow"
+          ]
+        },
+        "error_types": [
+          "InjectedPostEffectFailure"
+        ],
+        "exit_code": 17,
+        "status": "failed",
+        "stderr_empty": true,
+        "stdout_record_count": 1
+      },
+      "mutating_call_observations": [
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        },
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        }
+      ],
+      "resume_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 2,
+          "next": []
+        },
+        "exit_code": 0,
+        "status": "completed",
+        "stderr_empty": true,
+        "stdout_record_count": 1,
+        "workflow_result": {
+          "decision": "TOOL_RESULT",
+          "mutating_call_performed": true,
+          "observation": {
+            "completed": true,
+            "content_types": [
+              "text"
+            ],
+            "exception_types": [],
+            "is_error": false,
+            "response_text_included": false,
+            "response_text_redacted": true,
+            "structured_content_present": true,
+            "text_block_count": 1
+          }
+        }
+      },
+      "round": 7,
+      "s0": {
+        "entries": [],
+        "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "s1": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s2": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s3": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      }
+    },
+    {
+      "all_checks_met": true,
+      "checks": {
+        "decisions_registered": true,
+        "event_sequence_registered": true,
+        "fault_process_registered": true,
+        "mutating_call_count_registered": true,
+        "mutating_call_results_registered": true,
+        "mutating_call_shapes_registered": true,
+        "resume_process_registered": true,
+        "s0_differs_s1": true,
+        "s0_registered": true,
+        "s1_equals_s2_before_resume": true,
+        "s1_registered": true,
+        "s2_equals_s3_after_resume": true
+      },
+      "decisions": [],
+      "events": [
+        {
+          "phase": "fault",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "fault",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "fault",
+          "type": "FAULT_AFTER_EFFECT_BEFORE_TASK_RETURN"
+        },
+        {
+          "phase": "resume",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "resume",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_RETURNED"
+        }
+      ],
+      "fault_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 1,
+          "next": [
+            "workflow"
+          ]
+        },
+        "error_types": [
+          "InjectedPostEffectFailure"
+        ],
+        "exit_code": 17,
+        "status": "failed",
+        "stderr_empty": true,
+        "stdout_record_count": 1
+      },
+      "mutating_call_observations": [
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        },
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        }
+      ],
+      "resume_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 2,
+          "next": []
+        },
+        "exit_code": 0,
+        "status": "completed",
+        "stderr_empty": true,
+        "stdout_record_count": 1,
+        "workflow_result": {
+          "decision": "TOOL_RESULT",
+          "mutating_call_performed": true,
+          "observation": {
+            "completed": true,
+            "content_types": [
+              "text"
+            ],
+            "exception_types": [],
+            "is_error": false,
+            "response_text_included": false,
+            "response_text_redacted": true,
+            "structured_content_present": true,
+            "text_block_count": 1
+          }
+        }
+      },
+      "round": 8,
+      "s0": {
+        "entries": [],
+        "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "s1": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s2": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s3": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      }
+    },
+    {
+      "all_checks_met": true,
+      "checks": {
+        "decisions_registered": true,
+        "event_sequence_registered": true,
+        "fault_process_registered": true,
+        "mutating_call_count_registered": true,
+        "mutating_call_results_registered": true,
+        "mutating_call_shapes_registered": true,
+        "resume_process_registered": true,
+        "s0_differs_s1": true,
+        "s0_registered": true,
+        "s1_equals_s2_before_resume": true,
+        "s1_registered": true,
+        "s2_equals_s3_after_resume": true
+      },
+      "decisions": [],
+      "events": [
+        {
+          "phase": "fault",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "fault",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "fault",
+          "type": "FAULT_AFTER_EFFECT_BEFORE_TASK_RETURN"
+        },
+        {
+          "phase": "resume",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "resume",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_RETURNED"
+        }
+      ],
+      "fault_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 1,
+          "next": [
+            "workflow"
+          ]
+        },
+        "error_types": [
+          "InjectedPostEffectFailure"
+        ],
+        "exit_code": 17,
+        "status": "failed",
+        "stderr_empty": true,
+        "stdout_record_count": 1
+      },
+      "mutating_call_observations": [
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        },
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        }
+      ],
+      "resume_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 2,
+          "next": []
+        },
+        "exit_code": 0,
+        "status": "completed",
+        "stderr_empty": true,
+        "stdout_record_count": 1,
+        "workflow_result": {
+          "decision": "TOOL_RESULT",
+          "mutating_call_performed": true,
+          "observation": {
+            "completed": true,
+            "content_types": [
+              "text"
+            ],
+            "exception_types": [],
+            "is_error": false,
+            "response_text_included": false,
+            "response_text_redacted": true,
+            "structured_content_present": true,
+            "text_block_count": 1
+          }
+        }
+      },
+      "round": 9,
+      "s0": {
+        "entries": [],
+        "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "s1": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s2": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s3": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      }
+    },
+    {
+      "all_checks_met": true,
+      "checks": {
+        "decisions_registered": true,
+        "event_sequence_registered": true,
+        "fault_process_registered": true,
+        "mutating_call_count_registered": true,
+        "mutating_call_results_registered": true,
+        "mutating_call_shapes_registered": true,
+        "resume_process_registered": true,
+        "s0_differs_s1": true,
+        "s0_registered": true,
+        "s1_equals_s2_before_resume": true,
+        "s1_registered": true,
+        "s2_equals_s3_after_resume": true
+      },
+      "decisions": [],
+      "events": [
+        {
+          "phase": "fault",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "fault",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "fault",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "fault",
+          "type": "FAULT_AFTER_EFFECT_BEFORE_TASK_RETURN"
+        },
+        {
+          "phase": "resume",
+          "type": "WORKER_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_STARTED"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_SENT"
+        },
+        {
+          "phase": "resume",
+          "type": "TOOL_OBSERVED"
+        },
+        {
+          "phase": "resume",
+          "type": "MCP_CONTEXT_CLOSED"
+        },
+        {
+          "phase": "resume",
+          "type": "TASK_RETURNED"
+        }
+      ],
+      "fault_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 1,
+          "next": [
+            "workflow"
+          ]
+        },
+        "error_types": [
+          "InjectedPostEffectFailure"
+        ],
+        "exit_code": 17,
+        "status": "failed",
+        "stderr_empty": true,
+        "stdout_record_count": 1
+      },
+      "mutating_call_observations": [
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        },
+        {
+          "completed": true,
+          "content_types": [
+            "text"
+          ],
+          "exception_types": [],
+          "is_error": false,
+          "response_text_included": false,
+          "response_text_redacted": true,
+          "structured_content_present": true,
+          "text_block_count": 1
+        }
+      ],
+      "resume_process": {
+        "checkpoint": {
+          "available": true,
+          "history_count": 2,
+          "next": []
+        },
+        "exit_code": 0,
+        "status": "completed",
+        "stderr_empty": true,
+        "stdout_record_count": 1,
+        "workflow_result": {
+          "decision": "TOOL_RESULT",
+          "mutating_call_performed": true,
+          "observation": {
+            "completed": true,
+            "content_types": [
+              "text"
+            ],
+            "exception_types": [],
+            "is_error": false,
+            "response_text_included": false,
+            "response_text_redacted": true,
+            "structured_content_present": true,
+            "text_block_count": 1
+          }
+        }
+      },
+      "round": 10,
+      "s0": {
+        "entries": [],
+        "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "s1": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s2": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      },
+      "s3": {
+        "entries": [
+          {
+            "bytes": 11,
+            "kind": "file",
+            "path": "document.txt",
+            "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+          }
+        ],
+        "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+      }
+    }
+  ],
+  "scenario_id": "write_blind",
+  "tool_name": "write_file"
+}

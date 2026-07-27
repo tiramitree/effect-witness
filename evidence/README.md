@@ -59,13 +59,13 @@ verifies, and privacy-scans fresh Windows and Ubuntu artifacts without
 uploading them. The schema and reproduction boundary are documented in
 [`docs/evidence-schema-v3-filesystem.md`](../docs/evidence-schema-v3-filesystem.md).
 
-`reference-v0.3.0-langgraph-replay-windows` is the bundled schema-v4
+`reference-v0.3.1-langgraph-replay-windows` is the current bundled schema-v4
 observation of the registered LangGraph replay lane.
 
 - declared source revision:
-  `51b564736f52347a99b3144a337f3df1c62867e3`
+  `b99fa745cc98dd543dcd637d3523eabba864552e`
 - artifact manifest-file SHA-256:
-  `5fa88b953ac02e5952ffcc40d2b40a72e1cce57ba343b889501f0d17d8083a25`
+  `0ab2e816ea484054f6d878f8132486c46a49cf4b828bb3ba4c3b173260aec7f7`
 - inventory: 8 files, 190,761 bytes
 - registered execution: 4 scenarios x 10 rounds
 - completed worker records: 80
@@ -78,7 +78,7 @@ Run without the optional replay execution dependencies:
 
 ```text
 effect-witness verify-replay \
-  --artifact-dir evidence/reference-v0.3.0-langgraph-replay-windows
+  --artifact-dir evidence/reference-v0.3.1-langgraph-replay-windows
 ```
 
 The artifact contains normalized phase/event enums, process and public
@@ -99,3 +99,8 @@ artifact; the offline verifier checks integrity and internal consistency, not
 publisher authenticity. The schema and reproduction boundary are documented
 in
 [`docs/evidence-schema-v4-langgraph-replay.md`](../docs/evidence-schema-v4-langgraph-replay.md).
+
+The earlier `reference-v0.3.0-langgraph-replay-windows` observation remains
+available and verifiable. It is bound to source revision
+`51b564736f52347a99b3144a337f3df1c62867e3` and manifest-file SHA-256
+`5fa88b953ac02e5952ffcc40d2b40a72e1cce57ba343b889501f0d17d8083a25`.

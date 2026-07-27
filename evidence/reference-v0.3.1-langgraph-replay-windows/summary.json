@@ -1,0 +1,82 @@
+{
+  "all_registered_checks_met": true,
+  "blocked_claims": [
+    "exactly-once execution",
+    "arbitrary LangGraph workflow correctness",
+    "arbitrary MCP server correctness",
+    "official MCP certification or conformance",
+    "SQLite or checkpointer crash consistency",
+    "production recovery or availability",
+    "production filesystem behavior",
+    "concurrency behavior",
+    "distributed consistency",
+    "reconciliation correctness beyond the registered byte-tree postcondition",
+    "model-driven agent behavior",
+    "long-context or long-term-memory behavior",
+    "multi-agent behavior",
+    "performance or scale",
+    "security or vulnerability status",
+    "source authenticity without an external trusted Git or release digest",
+    "external adoption or review"
+  ],
+  "declared_source_revision": "b99fa745cc98dd543dcd637d3523eabba864552e",
+  "dependencies": {
+    "effect-witness": "0.3.1",
+    "langgraph": "1.2.9",
+    "langgraph-checkpoint": "4.1.1",
+    "langgraph-checkpoint-sqlite": "3.1.0",
+    "mcp-python": "1.28.1",
+    "sqlite-vec": "0.1.9"
+  },
+  "durability": "sync",
+  "evidence_boundary": {
+    "absolute_paths_included": false,
+    "checkpoint_database_included": false,
+    "checkpoint_shm_included": false,
+    "checkpoint_wal_included": false,
+    "environment_included": false,
+    "event_journal_database_included": false,
+    "fixture_content_included": false,
+    "hostnames_included": false,
+    "pids_included": false,
+    "ports_included": false,
+    "raw_checkpoint_rows_included": false,
+    "raw_exception_messages_included": false,
+    "raw_server_logs_included": false,
+    "raw_tool_arguments_included": false,
+    "raw_tool_responses_included": false,
+    "raw_worker_stderr_included": false,
+    "raw_worker_stdout_included": false,
+    "timestamps_included": false
+  },
+  "evidence_scope": "exact LangGraph Functional API and SQLite checkpoint versions resuming registered official-filesystem MCP effects across separate Python processes",
+  "lane": "langgraph_mcp_filesystem_replay",
+  "model_api_calls": 0,
+  "mutating_call_observation_count": 60,
+  "paid_service_calls": 0,
+  "protocol": {
+    "protocol_version": "2025-11-25",
+    "server_capabilities": {
+      "tools": {
+        "listChanged": true
+      }
+    },
+    "server_identity": {
+      "name": "secure-filesystem-server",
+      "version": "0.2.0"
+    }
+  },
+  "registered_rounds": 10,
+  "runtime": {
+    "implementation": "CPython",
+    "machine_architecture": "x86_64",
+    "node": "v24.18.0",
+    "platform_system": "Windows",
+    "python": "3.12.10"
+  },
+  "scenario_count": 4,
+  "schema_version": 4,
+  "source_revision_verification": "caller_declared",
+  "strict_msgpack": true,
+  "worker_process_count": 80
+}
