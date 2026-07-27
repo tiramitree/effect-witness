@@ -102,7 +102,7 @@ revision as caller-declared; an external trusted Git or release digest is
 required for authenticity.
 
 The bundled schema-v4 Windows reference is one local observation bound to
-source revision `d591710356454aa280237874ee8d8f3bec6e705a`. CI is configured
+source revision `51b564736f52347a99b3144a337f3df1c62867e3`. CI is configured
 to generate fresh Windows and Linux observations ephemerally without uploading
 them; public CI status, rather than this sentence, determines whether a
 particular run passed.

@@ -63,10 +63,10 @@ uploading them. The schema and reproduction boundary are documented in
 observation of the registered LangGraph replay lane.
 
 - declared source revision:
-  `d591710356454aa280237874ee8d8f3bec6e705a`
+  `51b564736f52347a99b3144a337f3df1c62867e3`
 - artifact manifest-file SHA-256:
-  `85de70218b2c29696c03b9061c0ede74c81de959b0f50c4ee7a6c4c5eaf1f5d1`
-- inventory: 8 files, 190,762 bytes
+  `5fa88b953ac02e5952ffcc40d2b40a72e1cce57ba343b889501f0d17d8083a25`
+- inventory: 8 files, 190,761 bytes
 - registered execution: 4 scenarios x 10 rounds
 - completed worker records: 80
 - normalized mutating-call observations: 60

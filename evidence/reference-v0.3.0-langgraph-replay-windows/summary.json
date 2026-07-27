@@ -19,7 +19,7 @@
     "source authenticity without an external trusted Git or release digest",
     "external adoption or review"
   ],
-  "declared_source_revision": "d591710356454aa280237874ee8d8f3bec6e705a",
+  "declared_source_revision": "51b564736f52347a99b3144a337f3df1c62867e3",
   "dependencies": {
     "effect-witness": "0.3.0",
     "langgraph": "1.2.9",
