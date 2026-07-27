@@ -115,7 +115,11 @@ def _write_json(path: Path, value: object) -> None:
     )
 
 
-def _registered_artifact(root: Path) -> None:
+def _registered_artifact(
+    root: Path,
+    *,
+    effect_witness_version: str = "0.2.0",
+) -> None:
     results = root / "results"
     results.mkdir(parents=True)
     cases = []
@@ -165,7 +169,7 @@ def _registered_artifact(root: Path) -> None:
         "all_registered_checks_met": True,
         "blocked_claims": list(BLOCKED_CLAIMS),
         "dependencies": {
-            "effect-witness": "0.2.0",
+            "effect-witness": effect_witness_version,
             "mcp-python": "1.28.1",
         },
         "evidence_boundary": EVIDENCE_BOUNDARY,
@@ -269,6 +273,26 @@ def test_schema_v3_verifies_registered_artifact(tmp_path) -> None:
             "offline integrity and internal consistency; not authenticity"
         ),
     }
+
+
+def test_schema_v3_accepts_registered_patch_producer(tmp_path) -> None:
+    artifact = tmp_path / "artifact"
+    _registered_artifact(artifact, effect_witness_version="0.2.1")
+
+    report = verify_filesystem_artifact(artifact)
+
+    assert report["verified"] is True
+    assert report["errors"] == []
+
+
+def test_schema_v3_rejects_unregistered_producer_version(tmp_path) -> None:
+    artifact = tmp_path / "artifact"
+    _registered_artifact(artifact, effect_witness_version="0.2.2")
+
+    report = verify_filesystem_artifact(artifact)
+
+    assert report["verified"] is False
+    assert report["errors"] == ["summary dependencies differ from registration"]
 
 
 def test_schema_v3_rejects_self_consistent_unregistered_claim(tmp_path) -> None:

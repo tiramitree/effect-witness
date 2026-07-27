@@ -17,6 +17,7 @@ from .artifact import (
 )
 from .filesystem_registration import (
     BLOCKED_CLAIMS,
+    EFFECT_WITNESS_PRODUCER_VERSIONS,
     EVIDENCE_BOUNDARY,
     FILESYSTEM_PACKAGE,
     JAVASCRIPT_SDK,
@@ -287,10 +288,12 @@ def _verify_summary(
     if not json_exact_equal(summary.get("protocol"), expected_protocol):
         errors.append("summary protocol differs from observed registration")
     dependencies = summary.get("dependencies")
-    if dependencies != {
-        "effect-witness": "0.2.0",
-        "mcp-python": PYTHON_MCP_VERSION,
-    }:
+    if (
+        not isinstance(dependencies, dict)
+        or set(dependencies) != {"effect-witness", "mcp-python"}
+        or dependencies.get("effect-witness") not in EFFECT_WITNESS_PRODUCER_VERSIONS
+        or dependencies.get("mcp-python") != PYTHON_MCP_VERSION
+    ):
         errors.append("summary dependencies differ from registration")
     runtime = summary.get("runtime")
     if not isinstance(runtime, dict) or set(runtime) != {

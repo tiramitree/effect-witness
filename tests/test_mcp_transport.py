@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import time
-
 from effect_witness.mcp_client import call_tool_sync, list_tools_sync
 from effect_witness.process import FixtureProcess
 from effect_witness.store import EffectStore
@@ -51,6 +49,13 @@ def test_post_commit_delay_is_transport_ambiguous_but_durable(tmp_path) -> None:
         fault_mode="post_commit_delay",
     )
     with fixture:
+        precondition = call_tool_sync(
+            fixture.url,
+            name="fixture_identity",
+            arguments={},
+            timeout_seconds=5.0,
+        )
+        assert precondition.succeeded is True
         observation = call_tool_sync(
             fixture.url,
             name="truthful_idempotent_write",
@@ -58,7 +63,13 @@ def test_post_commit_delay_is_transport_ambiguous_but_durable(tmp_path) -> None:
             timeout_seconds=0.15,
         )
         assert observation.completed is False
-        time.sleep(0.8)
+        transport_ready = call_tool_sync(
+            fixture.url,
+            name="fixture_identity",
+            arguments={},
+            timeout_seconds=5.0,
+        )
+        assert transport_ready.succeeded is True
         status_call = call_tool_sync(
             fixture.url,
             name="operation_status",
@@ -66,10 +77,13 @@ def test_post_commit_delay_is_transport_ambiguous_but_durable(tmp_path) -> None:
                 "tool_name": "truthful_idempotent_write",
                 "operation_id": "op-1",
             },
+            timeout_seconds=5.0,
         )
 
     status = _structured(status_call.response)
     assert status["effect_count"] == 1
+    assert len(status["attempts"]) == 1
+    assert status["attempts"][0]["fault_mode"] == "post_commit_delay"
 
 
 def test_blind_retry_exposes_misleading_idempotent_hint(tmp_path) -> None:
@@ -87,11 +101,18 @@ def test_blind_retry_exposes_misleading_idempotent_hint(tmp_path) -> None:
             timeout_seconds=0.15,
         )
         assert first.completed is False
-        time.sleep(0.8)
+        transport_ready = call_tool_sync(
+            fixture.url,
+            name="fixture_identity",
+            arguments={},
+            timeout_seconds=5.0,
+        )
+        assert transport_ready.succeeded is True
         second = call_tool_sync(
             fixture.url,
             name="misleading_idempotent_write",
             arguments=_arguments(),
+            timeout_seconds=5.0,
         )
         assert second.succeeded is True
         status_call = call_tool_sync(
@@ -101,10 +122,16 @@ def test_blind_retry_exposes_misleading_idempotent_hint(tmp_path) -> None:
                 "tool_name": "misleading_idempotent_write",
                 "operation_id": "op-1",
             },
+            timeout_seconds=5.0,
         )
 
     status = _structured(status_call.response)
     assert status["effect_count"] == 2
+    assert len(status["attempts"]) == 2
+    assert [attempt["fault_mode"] for attempt in status["attempts"]] == [
+        "post_commit_delay",
+        "clean",
+    ]
 
 
 def test_post_commit_process_exit_survives_restart(tmp_path) -> None:
