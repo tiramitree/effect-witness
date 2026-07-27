@@ -85,8 +85,8 @@ def test_precommit_clean_retry_has_response_budget_beyond_busy_window(
     case = suite_module._precommit_reconcile_retry(tmp_path)
 
     assert write_timeouts == [
-        suite_module._NORMAL_MCP_TIMEOUT_SECONDS,
-        suite_module._NORMAL_MCP_TIMEOUT_SECONDS,
+        suite_module.NORMAL_MCP_TIMEOUT_SECONDS,
+        suite_module.NORMAL_MCP_TIMEOUT_SECONDS,
     ]
     assert case["client_outcome"] == ClientOutcome.SUCCEEDED
     assert all(value is True for value in case["evidence_checks"].values())

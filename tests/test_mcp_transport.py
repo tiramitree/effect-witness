@@ -1,6 +1,13 @@
 from __future__ import annotations
 
-from effect_witness.mcp_client import call_tool_sync, list_tools_sync
+import inspect
+
+import effect_witness.mcp_client as mcp_client
+from effect_witness.mcp_client import (
+    NORMAL_MCP_TIMEOUT_SECONDS,
+    call_tool_sync,
+    list_tools_sync,
+)
 from effect_witness.process import FixtureProcess
 from effect_witness.store import EffectStore
 
@@ -16,6 +23,20 @@ def _structured(response: dict[str, object] | None) -> dict[str, object]:
         value = response.get("structured_content")
     assert isinstance(value, dict)
     return value
+
+
+def test_normal_timeout_is_shared_by_async_and_sync_clients() -> None:
+    assert NORMAL_MCP_TIMEOUT_SECONDS > 5.0
+    for client in (
+        mcp_client.list_tools,
+        mcp_client.call_tool,
+        mcp_client.list_tools_sync,
+        mcp_client.call_tool_sync,
+    ):
+        assert (
+            inspect.signature(client).parameters["timeout_seconds"].default
+            == NORMAL_MCP_TIMEOUT_SECONDS
+        )
 
 
 def test_annotations_are_visible_over_streamable_http(tmp_path) -> None:
@@ -53,7 +74,7 @@ def test_post_commit_delay_is_transport_ambiguous_but_durable(tmp_path) -> None:
             fixture.url,
             name="fixture_identity",
             arguments={},
-            timeout_seconds=5.0,
+            timeout_seconds=NORMAL_MCP_TIMEOUT_SECONDS,
         )
         assert precondition.succeeded is True
         observation = call_tool_sync(
@@ -67,7 +88,7 @@ def test_post_commit_delay_is_transport_ambiguous_but_durable(tmp_path) -> None:
             fixture.url,
             name="fixture_identity",
             arguments={},
-            timeout_seconds=5.0,
+            timeout_seconds=NORMAL_MCP_TIMEOUT_SECONDS,
         )
         assert transport_ready.succeeded is True
         status_call = call_tool_sync(
@@ -77,7 +98,7 @@ def test_post_commit_delay_is_transport_ambiguous_but_durable(tmp_path) -> None:
                 "tool_name": "truthful_idempotent_write",
                 "operation_id": "op-1",
             },
-            timeout_seconds=5.0,
+            timeout_seconds=NORMAL_MCP_TIMEOUT_SECONDS,
         )
 
     status = _structured(status_call.response)
@@ -105,14 +126,14 @@ def test_blind_retry_exposes_misleading_idempotent_hint(tmp_path) -> None:
             fixture.url,
             name="fixture_identity",
             arguments={},
-            timeout_seconds=5.0,
+            timeout_seconds=NORMAL_MCP_TIMEOUT_SECONDS,
         )
         assert transport_ready.succeeded is True
         second = call_tool_sync(
             fixture.url,
             name="misleading_idempotent_write",
             arguments=_arguments(),
-            timeout_seconds=5.0,
+            timeout_seconds=NORMAL_MCP_TIMEOUT_SECONDS,
         )
         assert second.succeeded is True
         status_call = call_tool_sync(
@@ -122,7 +143,7 @@ def test_blind_retry_exposes_misleading_idempotent_hint(tmp_path) -> None:
                 "tool_name": "misleading_idempotent_write",
                 "operation_id": "op-1",
             },
-            timeout_seconds=5.0,
+            timeout_seconds=NORMAL_MCP_TIMEOUT_SECONDS,
         )
 
     status = _structured(status_call.response)

@@ -275,9 +275,16 @@ def test_schema_v3_verifies_registered_artifact(tmp_path) -> None:
     }
 
 
-def test_schema_v3_accepts_registered_patch_producer(tmp_path) -> None:
+@pytest.mark.parametrize(
+    "producer_version",
+    ("0.2.1", "0.3.0", "0.3.1", "0.3.2"),
+)
+def test_schema_v3_accepts_registered_patch_producer(
+    tmp_path,
+    producer_version: str,
+) -> None:
     artifact = tmp_path / "artifact"
-    _registered_artifact(artifact, effect_witness_version="0.2.1")
+    _registered_artifact(artifact, effect_witness_version=producer_version)
 
     report = verify_filesystem_artifact(artifact)
 

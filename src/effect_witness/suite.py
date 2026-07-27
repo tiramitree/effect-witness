@@ -20,13 +20,17 @@ from pathlib import Path
 from typing import Any
 
 from .journal import ClientJournal
-from .mcp_client import CallObservation, call_tool_sync, list_tools_sync
+from .mcp_client import (
+    NORMAL_MCP_TIMEOUT_SECONDS,
+    CallObservation,
+    call_tool_sync,
+    list_tools_sync,
+)
 from .models import ClientOutcome, ContractResult, canonical_json
 from .process import FixtureProcess
 from .store import EffectStore
 
 _SOURCE_REVISION = re.compile(r"^[0-9a-f]{40}$")
-_NORMAL_MCP_TIMEOUT_SECONDS = 10.0
 
 
 @dataclass(frozen=True)
@@ -66,7 +70,7 @@ def _tool_map(url: str) -> dict[str, dict[str, Any]]:
         tool["name"]: tool
         for tool in list_tools_sync(
             url,
-            timeout_seconds=_NORMAL_MCP_TIMEOUT_SECONDS,
+            timeout_seconds=NORMAL_MCP_TIMEOUT_SECONDS,
         )
     }
 
@@ -178,7 +182,7 @@ def _observe(
     url: str,
     tool_name: str,
     arguments: dict[str, Any],
-    timeout_seconds: float = _NORMAL_MCP_TIMEOUT_SECONDS,
+    timeout_seconds: float = NORMAL_MCP_TIMEOUT_SECONDS,
 ) -> CallObservation:
     journal.record_send(
         scenario_id=scenario_id,
@@ -529,7 +533,7 @@ def _precommit_reconcile_retry(root: Path) -> dict[str, Any]:
             fixture.url,
             name="operation_status",
             arguments={"tool_name": tool_name, "operation_id": "op-1"},
-            timeout_seconds=_NORMAL_MCP_TIMEOUT_SECONDS,
+            timeout_seconds=NORMAL_MCP_TIMEOUT_SECONDS,
         )
         journal.record_reconciliation(
             scenario_id=scenario_id,
@@ -640,7 +644,7 @@ def _postcommit_reconcile(root: Path, *, status_available: bool) -> dict[str, An
                 fixture.url,
                 name="operation_status",
                 arguments={"tool_name": tool_name, "operation_id": "op-1"},
-                timeout_seconds=_NORMAL_MCP_TIMEOUT_SECONDS,
+                timeout_seconds=NORMAL_MCP_TIMEOUT_SECONDS,
             )
             journal.record_reconciliation(
                 scenario_id=scenario_id,
@@ -754,7 +758,7 @@ def _concurrent_duplicate(
                     fixture.url,
                     name=tool_name,
                     arguments=arguments,
-                    timeout_seconds=_NORMAL_MCP_TIMEOUT_SECONDS,
+                    timeout_seconds=NORMAL_MCP_TIMEOUT_SECONDS,
                 )
             finally:
                 with concurrency_lock:

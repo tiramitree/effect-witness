@@ -38,6 +38,7 @@ LANGGRAPH_PACKAGES: Final[dict[str, dict[str, str]]] = {
 EFFECT_WITNESS_PRODUCER_VERSIONS: Final[tuple[str, ...]] = (
     "0.3.0",
     "0.3.1",
+    "0.3.2",
 )
 
 SCENARIOS: Final[dict[str, dict[str, Any]]] = {

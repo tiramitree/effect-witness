@@ -5,11 +5,15 @@ from __future__ import annotations
 import asyncio
 from dataclasses import asdict, dataclass
 from datetime import timedelta
-from typing import Any
+from typing import Any, Final
 
 import httpx
 from mcp import ClientSession
 from mcp.client.streamable_http import streamable_http_client
+
+# Normal observations must outlast the fixture store's five-second busy window.
+# Registered transport faults always pass their shorter timeout explicitly.
+NORMAL_MCP_TIMEOUT_SECONDS: Final = 10.0
 
 
 @dataclass(frozen=True)
@@ -66,7 +70,7 @@ async def _session(
 async def list_tools(
     url: str,
     *,
-    timeout_seconds: float = 2.0,
+    timeout_seconds: float = NORMAL_MCP_TIMEOUT_SECONDS,
 ) -> list[dict[str, Any]]:
     """Return normalized MCP tool descriptors."""
 
@@ -94,7 +98,7 @@ async def call_tool(
     *,
     name: str,
     arguments: dict[str, Any],
-    timeout_seconds: float = 2.0,
+    timeout_seconds: float = NORMAL_MCP_TIMEOUT_SECONDS,
 ) -> CallObservation:
     """Call one MCP tool and normalize success or transport failure."""
 
@@ -136,7 +140,7 @@ async def call_tool(
 def list_tools_sync(
     url: str,
     *,
-    timeout_seconds: float = 2.0,
+    timeout_seconds: float = NORMAL_MCP_TIMEOUT_SECONDS,
 ) -> list[dict[str, Any]]:
     return asyncio.run(list_tools(url, timeout_seconds=timeout_seconds))
 
@@ -146,7 +150,7 @@ def call_tool_sync(
     *,
     name: str,
     arguments: dict[str, Any],
-    timeout_seconds: float = 2.0,
+    timeout_seconds: float = NORMAL_MCP_TIMEOUT_SECONDS,
 ) -> CallObservation:
     return asyncio.run(
         call_tool(
