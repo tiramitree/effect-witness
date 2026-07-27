@@ -631,8 +631,7 @@ def _verify_junit(
         encoding="utf-8",
         xml_declaration=True,
     )
-    windows_expected_bytes = expected_bytes.replace(b"?>\n", b"?>\r\n", 1)
-    if content not in {expected_bytes, windows_expected_bytes}:
+    if content != expected_bytes:
         errors.append("JUnit bytes differ from canonical registration")
     try:
         parser = ET.XMLParser(

@@ -133,11 +133,11 @@ contains only canonical JSON such as:
 {"failed_checks":[],"round":1,"scenario_id":"write_blind"}
 ```
 
-The verifier accepts only the registered canonical JUnit bytes, allowing the
-single XML-declaration newline difference produced by Windows versus POSIX.
-The manifest generator writes sorted relative paths, LF lines, and lowercase
-SHA-256 values. The verifier checks safe unique paths, complete coverage, and
-hash closure; the manifest is not a signature.
+The producer writes and the verifier accepts only the registered canonical
+JUnit bytes with an LF XML-declaration newline. The manifest generator writes
+sorted relative paths, LF lines, and lowercase SHA-256 values. The verifier
+checks safe unique paths, complete coverage, and hash closure; the manifest is
+not a signature.
 
 ## Offline verifier
 

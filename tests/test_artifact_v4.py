@@ -300,10 +300,12 @@ def _registered_artifact(
                     "scenario_id": scenario_id,
                 }
             )
-    ET.ElementTree(suite).write(
-        root / "junit.xml",
-        encoding="utf-8",
-        xml_declaration=True,
+    (root / "junit.xml").write_bytes(
+        ET.tostring(
+            suite,
+            encoding="utf-8",
+            xml_declaration=True,
+        )
     )
     _rewrite_manifest(root)
 
@@ -481,6 +483,19 @@ def test_schema_v4_rejects_junit_drift(tmp_path: Path) -> None:
 
     assert report["verified"] is False
     assert "JUnit suite differs from registration" in report["errors"]
+
+
+def test_schema_v4_rejects_junit_crlf_drift(tmp_path: Path) -> None:
+    artifact = tmp_path / "artifact"
+    _registered_artifact(artifact)
+    junit = artifact / "junit.xml"
+    junit.write_bytes(junit.read_bytes().replace(b"?>\n", b"?>\r\n", 1))
+    _rewrite_manifest(artifact)
+
+    report = verify_langgraph_artifact(artifact)
+
+    assert report["verified"] is False
+    assert "JUnit bytes differ from canonical registration" in report["errors"]
 
 
 def test_schema_v4_rejects_junit_comment(tmp_path: Path) -> None:

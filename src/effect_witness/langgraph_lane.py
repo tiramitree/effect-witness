@@ -472,7 +472,13 @@ def _write_junit(path: Path, cases: dict[str, dict[str, Any]]) -> None:
                     "scenario_id": scenario_id,
                 }
             )
-    ET.ElementTree(suite).write(path, encoding="utf-8", xml_declaration=True)
+    path.write_bytes(
+        ET.tostring(
+            suite,
+            encoding="utf-8",
+            xml_declaration=True,
+        )
+    )
 
 
 def _write_manifest(output: Path) -> int:
