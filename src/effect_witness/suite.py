@@ -26,6 +26,7 @@ from .process import FixtureProcess
 from .store import EffectStore
 
 _SOURCE_REVISION = re.compile(r"^[0-9a-f]{40}$")
+_NORMAL_MCP_TIMEOUT_SECONDS = 10.0
 
 
 @dataclass(frozen=True)
@@ -61,7 +62,13 @@ def _structured(observation: CallObservation) -> dict[str, Any]:
 
 
 def _tool_map(url: str) -> dict[str, dict[str, Any]]:
-    return {tool["name"]: tool for tool in list_tools_sync(url)}
+    return {
+        tool["name"]: tool
+        for tool in list_tools_sync(
+            url,
+            timeout_seconds=_NORMAL_MCP_TIMEOUT_SECONDS,
+        )
+    }
 
 
 def _protocol() -> dict[str, str]:
@@ -171,7 +178,7 @@ def _observe(
     url: str,
     tool_name: str,
     arguments: dict[str, Any],
-    timeout_seconds: float = 2.0,
+    timeout_seconds: float = _NORMAL_MCP_TIMEOUT_SECONDS,
 ) -> CallObservation:
     journal.record_send(
         scenario_id=scenario_id,
@@ -522,6 +529,7 @@ def _precommit_reconcile_retry(root: Path) -> dict[str, Any]:
             fixture.url,
             name="operation_status",
             arguments={"tool_name": tool_name, "operation_id": "op-1"},
+            timeout_seconds=_NORMAL_MCP_TIMEOUT_SECONDS,
         )
         journal.record_reconciliation(
             scenario_id=scenario_id,
@@ -632,6 +640,7 @@ def _postcommit_reconcile(root: Path, *, status_available: bool) -> dict[str, An
                 fixture.url,
                 name="operation_status",
                 arguments={"tool_name": tool_name, "operation_id": "op-1"},
+                timeout_seconds=_NORMAL_MCP_TIMEOUT_SECONDS,
             )
             journal.record_reconciliation(
                 scenario_id=scenario_id,
@@ -745,7 +754,7 @@ def _concurrent_duplicate(
                     fixture.url,
                     name=tool_name,
                     arguments=arguments,
-                    timeout_seconds=8.0,
+                    timeout_seconds=_NORMAL_MCP_TIMEOUT_SECONDS,
                 )
             finally:
                 with concurrency_lock:
@@ -1036,6 +1045,16 @@ def run_suite(
             cases.append(case)
     finally:
         shutil.rmtree(work, ignore_errors=False)
+
+    failed_scenarios = sorted(
+        case["scenario_id"] for case in cases if case["expectation_met"] is not True
+    )
+    if not cases or failed_scenarios:
+        failure_scope = ",".join(failed_scenarios) if failed_scenarios else "none-ran"
+        raise RuntimeError(
+            "registered scenario matrix did not pass "
+            f"({failure_scope}); artifact was not sealed"
+        )
 
     results_dir = output / "results"
     results_dir.mkdir()

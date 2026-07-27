@@ -207,7 +207,7 @@ def _rewrite_manifest(root: Path) -> None:
 def _registered_artifact(
     root: Path,
     *,
-    effect_witness_version: str = "0.3.0",
+    effect_witness_version: str = "0.3.1",
 ) -> None:
     results = root / "results"
     results.mkdir(parents=True)
@@ -332,12 +332,22 @@ def test_schema_v4_verifies_registered_artifact(tmp_path: Path) -> None:
 
 def test_schema_v4_rejects_unregistered_producer_version(tmp_path: Path) -> None:
     artifact = tmp_path / "artifact"
-    _registered_artifact(artifact, effect_witness_version="0.3.1")
+    _registered_artifact(artifact, effect_witness_version="0.3.2")
 
     report = verify_langgraph_artifact(artifact)
 
     assert report["verified"] is False
     assert "summary dependency versions differ from registration" in report["errors"]
+
+
+def test_schema_v4_accepts_legacy_registered_producer_version(tmp_path: Path) -> None:
+    artifact = tmp_path / "artifact"
+    _registered_artifact(artifact, effect_witness_version="0.3.0")
+
+    report = verify_langgraph_artifact(artifact)
+
+    assert report["verified"] is True
+    assert report["errors"] == []
 
 
 def test_schema_v4_rejects_extra_manifest_covered_file(tmp_path: Path) -> None:

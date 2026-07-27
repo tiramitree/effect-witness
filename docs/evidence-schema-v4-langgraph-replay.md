@@ -7,7 +7,8 @@ schema-v2 fixture or schema-v3 repeated-call observations.
 
 The lane fixes:
 
-- EffectWitness 0.3.0;
+- EffectWitness 0.3.1 for newly produced evidence; the offline verifier also
+  accepts the registered 0.3.0 producer;
 - LangGraph 1.2.9;
 - langgraph-checkpoint 4.1.1;
 - langgraph-checkpoint-sqlite 3.1.0;

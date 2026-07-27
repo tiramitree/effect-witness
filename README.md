@@ -165,6 +165,9 @@ python -m venv .venv
 
 The output directory must be absent. A committed run should replace
 `UNCOMMITTED` with the 40-character source commit.
+The schema-v2 producer removes its private work directory and writes no result,
+summary, JUnit, or manifest files if any registered scenario misses its
+expectation; the requested output directory can remain empty.
 
 The exact real-filesystem lane additionally requires Node 24.18.0 and npm
 11.16.0. Dependency preparation uses only the tracked lockfile with `npm ci`,

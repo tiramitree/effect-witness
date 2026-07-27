@@ -49,6 +49,9 @@ Each result contains:
 | Single ambiguous call or confirmed pre-commit absence | 3 | `NOT_APPLICABLE` |
 
 An expected `MISMATCH` is a passing negative control, not a JUnit failure.
+The producer removes its private work directory and refuses to write the
+results, summary, JUnit, or manifest if any registered expectation is not met.
+The requested output directory can remain empty after that failure.
 
 ## Verification scope
 

@@ -67,6 +67,7 @@ EFFECT_WITNESS_PRODUCER_VERSIONS: Final[tuple[str, ...]] = (
     "0.2.0",
     "0.2.1",
     "0.3.0",
+    "0.3.1",
 )
 PROTOCOL_VERSION: Final = "2025-11-25"
 SERVER_IDENTITY: Final[dict[str, str]] = {
