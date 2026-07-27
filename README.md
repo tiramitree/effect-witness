@@ -1,11 +1,18 @@
 # EffectWitness
 
-EffectWitness is a pre-alpha, local-first protocol experiment with two
-independent evidence lanes for one narrow question:
+EffectWitness is a pre-alpha, local-first evidence workbench with three
+isolated lanes for declared tool effects, bounded real-implementation
+observations, and cross-process workflow replay.
+
+The first two lanes ask one narrow question:
 
 > When an agent tool declares an effect-related hint, do a client's observations
 > and the bundled fixture's durable synthetic effect facts match that declaration
 > under repeated or threaded calls, response loss, process exit, and restart?
+
+The third asks what a fixed LangGraph task, checkpoint, MCP call, and visible
+byte tree show when a registered post-effect exception is followed by a second
+worker process.
 
 It deliberately separates three fact domains:
 
@@ -13,7 +20,7 @@ It deliberately separates three fact domains:
 2. what the client observed and decided;
 3. what the controlled fixture durably recorded.
 
-Both current lanes target MCP tool annotations. The
+Schema v2 and schema v3 target MCP tool annotations. The
 [official MCP explanation](https://blog.modelcontextprotocol.io/posts/2026-03-16-tool-annotations/)
 describes these annotations as untrusted hints, so EffectWitness never treats a
 mismatch as automatic protocol nonconformance. Its result vocabulary is
@@ -34,6 +41,12 @@ The separate schema-v3 lane executes one exact official filesystem-server npm
 distribution over MCP stdio. It observes only a registered five-scenario,
 twice-called slice through fail-closed relative byte trees. It does not extend
 the result to the rest of the package or to production filesystem behavior.
+
+The separate schema-v4 lane observes four exact LangGraph Functional API
+failure/resume scenarios for ten rounds each. Fault and resume run in separate
+Python processes against the same SQLite checkpoint and registered MCP
+filesystem effect. It compares blind replay with one exact byte-tree
+reconciliation policy; it is not a general durability or recovery benchmark.
 
 It does **not** establish exactly-once execution, official MCP certification,
 distributed consistency, security, production reliability, model capability,
@@ -101,6 +114,27 @@ A Windows schema-v3 [reference artifact](evidence/README.md) is committed and
 bound to its exact source revision. CI independently generates, verifies, and
 privacy-scans fresh Windows and Ubuntu artifacts without uploading them.
 
+The schema-v4 replay lane includes:
+
+- LangGraph 1.2.9, checkpoint 4.1.1, SQLite checkpointer 3.1.0, and
+  sqlite-vec 0.1.9 under `durability="sync"` and strict msgpack;
+- four scenarios repeated for ten rounds, with a fault worker and resume worker
+  in separate processes for every round;
+- 60 normalized mutating-call observations across 80 completed worker records;
+- blind `write_file` and `edit_file` replay controls, committed-state
+  reconciliation, and a tampered-state `UNRESOLVED` control;
+- phase-bound event enums, public checkpoint-state summaries, and S0/S1/S2/S3
+  fail-closed relative byte trees;
+- an exact eight-file schema-v4 artifact and an independent offline verifier
+  that imports no LangGraph, MCP execution, Node, or SQLite code;
+- no model or paid-service call.
+
+The registered failure is an exception after the first MCP mutation succeeds
+and its MCP context closes, but before the LangGraph task returns. It is not a
+hard crash, process kill, power-loss experiment, or SQLite crash-consistency
+test. No schema-v4 reference artifact is described as bundled until a
+commit-bound candidate passes both public CI platforms.
+
 ## Quick start
 
 Python 3.11 or newer is required.
@@ -127,7 +161,7 @@ python -m venv .venv
 .venv/bin/effect-witness verify --artifact-dir artifacts/run-1
 ```
 
-The output directory must be absent or empty. A committed run should replace
+The output directory must be absent. A committed run should replace
 `UNCOMMITTED` with the 40-character source commit.
 
 The exact real-filesystem lane additionally requires Node 24.18.0 and npm
@@ -157,6 +191,33 @@ At launch, the harness rechecks the tracked lock bytes and the registered seven
 server-distribution files. It does not rehash every installed transitive
 `node_modules` file, so the evidence does not prove runtime integrity of the
 entire installed dependency tree.
+
+The replay lane uses the same prepared filesystem dependency and additionally
+requires the exact Python version-constraint snapshot. The runner rechecks its
+bytes and every applicable installed version. The snapshot is not a
+cross-platform hash lock:
+
+```powershell
+.venv\Scripts\python -m pip install `
+  --constraint integrations\langgraph\constraints.txt `
+  -e ".[dev,langgraph-replay]"
+.venv\Scripts\python scripts\prepare_filesystem_server.py `
+  --output-dir .replay-filesystem-deps
+.venv\Scripts\effect-witness run-replay `
+  --constraints-file integrations\langgraph\constraints.txt `
+  --output-dir artifacts\langgraph-replay `
+  --dependency-dir .replay-filesystem-deps `
+  --source-revision UNCOMMITTED
+.venv\Scripts\effect-witness verify-replay `
+  --artifact-dir artifacts\langgraph-replay
+```
+
+POSIX uses the corresponding `.venv/bin/` executables and `/` separators.
+Replay supports only audited x86-64 Windows/Linux environments with CPython
+3.11-3.13. Dependency, output, and optional work paths must be mutually
+disjoint; output and work targets must start absent and must never point at
+user data. `--source-revision` is recorded as
+`declared_source_revision`; the runner does not authenticate it.
 
 Run the generic privacy scan in a clean checkout before installing dependencies
 or creating build output, then run the remaining development gates:
@@ -200,9 +261,17 @@ byte-tree shapes and hashes, registered S0/S1/S2 relationships, response
 redaction shapes, platform-bounded observations, JUnit, and summary
 relationships. It imports no execution runner.
 
+`effect-witness verify-replay` independently checks schema-v4 exact file and
+directory inventory, manifest closure, frozen dependency/provenance facts,
+type-sensitive process and checkpoint summaries, phase-bound event sequences,
+normalized call shapes, registered S0/S1/S2/S3 relationships, canonical JUnit,
+and cross-file counts for all 40 rounds. It does not execute or import the
+replay stack, inspect a checkpoint database, or prove artifact authenticity.
+
 See [architecture](docs/architecture.md), the
 [schema-v2 reference](docs/evidence-schema-v2.md), and the
-[schema-v3 filesystem reference](docs/evidence-schema-v3-filesystem.md).
+[schema-v3 filesystem reference](docs/evidence-schema-v3-filesystem.md), and
+the [schema-v4 replay contract](docs/evidence-schema-v4-langgraph-replay.md).
 
 ## Privacy gate
 
@@ -248,9 +317,10 @@ The bounded comparison and inspected revisions are documented in
 ## Development and security
 
 CI is configured for Python 3.11-3.13 on current GitHub-hosted Ubuntu and
-Windows runners. A separate Windows/Ubuntu job prepares dependencies from the
-exact tracked Node/npm lock, runs the schema-v3 lane, verifies it offline, and
-scans the ephemeral artifact without uploading it. The synthetic fixture
+Windows runners. Separate Windows/Ubuntu jobs prepare dependencies from the
+exact tracked Node/npm lock, run schema v3 or schema v4, verify offline, and
+scan each ephemeral artifact without uploading it. A configured job is not
+reported as passing until the public run is green. The synthetic fixture
 contains deliberate process exits and must remain loopback-only. Read
 [SECURITY.md](SECURITY.md) before changing either transport boundary and
 [CONTRIBUTING.md](CONTRIBUTING.md) before submitting changes.

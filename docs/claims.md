@@ -64,11 +64,53 @@ CI boundary above. The committed schema-v3 reference is one Windows observation
 bound to its exact source revision. CI generates fresh Windows and Linux
 observations ephemerally without publishing their artifacts.
 
+## Supported by the schema-v4 LangGraph replay lane
+
+- The lane fixes LangGraph 1.2.9, checkpoint 4.1.1, SQLite checkpointer 3.1.0,
+  sqlite-vec 0.1.9, MCP Python 1.28.1, Node 24.18.0, and the schema-v3
+  filesystem registration under synchronous durability and strict msgpack.
+- Before worker launch, the runner checks the exact 58-package constraint
+  snapshot bytes and every applicable installed Python distribution version.
+  The snapshot is a version constraint, not a cross-platform hash lock.
+- Four scenarios run for ten rounds each. Every round uses separate fault and
+  resume Python processes, yielding 80 worker records and 60 normalized
+  mutating-call observations when the complete matrix passes.
+- The registered exception follows the first successful MCP mutation and MCP
+  context closure but precedes task return. The fault worker exits with code 17;
+  this is not a hard-crash or power-loss boundary.
+- After the fault, the public LangGraph state API must report one checkpoint
+  history item and `next=["workflow"]`. After resume it must report two history
+  items and an empty next-task list.
+- Blind write performs a second successful mutating call without a second
+  visible tree change. Blind edit performs a second call that returns an MCP
+  error without a second visible tree change.
+- The exact reconciliation control confirms the registered committed
+  postcondition without another mutation. The tampered control returns
+  `UNRESOLVED` without changing the intervened state.
+- Each round exports phase-bound event enums, normalized process/call facts, and
+  S0/S1/S2/S3 relative byte trees. The eight-file artifact excludes private
+  checkpoint/journal state and raw runtime material.
+- The independent verifier recomputes the frozen 40-round relationships from
+  one bounded snapshot without importing or executing LangGraph, MCP execution,
+  Node, or SQLite.
+
+These statements are limited to the exact versions, x86-64 Windows/Linux,
+CPython 3.11-3.13, four inputs, one post-effect exception location, one
+byte-tree postcondition, local filesystem sandboxes, and the documented
+fresh-dependency preparation procedure. The artifact labels its source
+revision as caller-declared; an external trusted Git or release digest is
+required for authenticity.
+
 ## Explicitly not established
 
 - Runtime integrity of the complete transitive `node_modules` tree.
 
 - exactly-once execution;
+- arbitrary LangGraph workflow correctness;
+- hard-crash, power-loss, SQLite, or checkpointer crash consistency;
+- production recovery or availability;
+- reconciliation correctness beyond the exact registered byte-tree
+  postcondition;
 - official MCP certification or conformance status;
 - security;
 - production reliability or availability;
@@ -79,6 +121,8 @@ observations ephemerally without publishing their artifacts.
   concurrent mutation behavior;
 - a verified rebuild from the npm registry metadata `gitHead`;
 - model or agent capability;
+- long-context, long-term-memory, or multi-agent behavior;
+- performance or scale;
 - framework superiority;
 - external users, adoption, review, reproduction, deployment, or recruiting
   outcomes.

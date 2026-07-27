@@ -9,13 +9,14 @@ first, only, or generally superior implementation.
 |---|---|---|
 | [MCP tool annotations](https://blog.modelcontextprotocol.io/posts/2026-03-16-tool-annotations/) | Official explanation of effect-related tool hints and their untrusted nature | Treats annotations as declarations to compare, never enforcement or certification |
 | [Official filesystem server](https://www.npmjs.com/package/@modelcontextprotocol/server-filesystem) | Reference MCP filesystem implementation | Schema v3 executes only exact version 2026.7.10 on five registered repeated inputs; it makes no package-wide verdict |
+| [LangGraph Functional API](https://docs.langchain.com/oss/python/langgraph/functional-api) | Checkpointed tasks and workflow resumption; the documentation warns that unfinished tasks may be re-executed and side effects should be idempotent | Schema v4 observes one exact post-effect/pre-return exception and one bounded reconciliation policy; it is not a LangGraph correctness result or competing runtime |
 | [MCP conformance](https://github.com/modelcontextprotocol/conformance) | Official protocol conformance scenarios | Does not replace or claim a result from the official framework |
-| [MCP Tasks](https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/tasks) | Task-augmented request lifecycle | Current v0 does not claim task-level idempotency |
+| [MCP Tasks](https://modelcontextprotocol.io/specification/2025-11-25/basic/utilities/tasks) | Task-augmented request lifecycle | Schema v4 uses LangGraph tasks, not MCP Tasks, and makes no MCP task-level idempotency claim |
 | [Atomix](https://github.com/mpi-dsg/atomix) and its [paper](https://arxiv.org/abs/2602.14849) | Transactions, recovery, compensation, idempotency, replay, and crash windows for agentic workflows | EffectWitness is an observation workbench, not a transaction runtime |
 | [Replaysafe](https://github.com/JobGuards/Replaysafe) | Side-effect control plane, reconciliation, compensation, and adapters | No runtime guard or framework adapter is claimed |
 | [OnceOnly](https://www.onceonly.tech/) | Hosted idempotency and execution policy | No hosted service is provided |
 | [AgentCheck](https://github.com/aritra741/AgentCheck) and its [paper](https://arxiv.org/abs/2607.11098) | MCP response-fault testing | Current focus is declaration/client/durable-effect separation in a controlled fixture |
-| [A2A TCK](https://github.com/a2aproject/a2a-tck) and [A2A specification](https://github.com/a2aproject/A2A/blob/main/docs/specification.md) | A2A transport compatibility and optional Send Message idempotency | A2A is a possible future adapter, not part of v0 evidence |
+| [A2A TCK](https://github.com/a2aproject/a2a-tck) and [A2A specification](https://github.com/a2aproject/A2A/blob/main/docs/specification.md) | A2A transport compatibility and optional Send Message idempotency | A2A is a possible future adapter, not part of current evidence |
 
 ## Dated repository snapshots used during design
 
@@ -42,6 +43,6 @@ auditable views:
 2. the outcome a client could observe and the policy it chose;
 3. the durable effect cardinality a controlled witness records.
 
-The v0 repository tests whether that separation yields reproducible,
+The current repository tests whether that separation yields reproducible,
 machine-verifiable evidence in a deliberately small MCP fixture. Broader
 novelty, usefulness, or adoption remains unproven.

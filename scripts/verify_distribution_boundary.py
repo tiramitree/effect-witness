@@ -14,6 +14,7 @@ from effect_witness.filesystem_registration import (
     PACKAGE_JSON_SHA256,
     PACKAGE_LOCK_SHA256,
 )
+from effect_witness.langgraph_registration import PYTHON_CONSTRAINTS_SHA256
 from effect_witness.models import canonical_json
 
 _FORBIDDEN_PARTS = {
@@ -124,16 +125,17 @@ def _verify_sdist_integration_metadata(
     members: list[tarfile.TarInfo],
 ) -> None:
     expected = {
-        "package.json": PACKAGE_JSON_SHA256,
-        "package-lock.json": PACKAGE_LOCK_SHA256,
-        "lock-provenance.json": LOCK_PROVENANCE_SHA256,
+        ("filesystem", "package.json"): PACKAGE_JSON_SHA256,
+        ("filesystem", "package-lock.json"): PACKAGE_LOCK_SHA256,
+        ("filesystem", "lock-provenance.json"): LOCK_PROVENANCE_SHA256,
+        ("langgraph", "constraints.txt"): PYTHON_CONSTRAINTS_SHA256,
     }
-    for filename, expected_sha256 in expected.items():
+    for (integration, filename), expected_sha256 in expected.items():
         matches = [
             member
             for member in members
             if PurePosixPath(member.name).parts[-3:]
-            == ("integrations", "filesystem", filename)
+            == ("integrations", integration, filename)
         ]
         if len(matches) != 1 or not matches[0].isfile():
             raise ValueError(

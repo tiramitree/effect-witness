@@ -1,0 +1,65 @@
+name: Reproduction report
+description: Report a bounded local run or offline verification result.
+title: "[Reproduction] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form only for a run you performed. A report is evidence about
+        the exact commit, versions, platform, and registered lane—not adoption,
+        production readiness, official conformance, or general correctness.
+        Do not include personal data, credentials, private paths, hostnames,
+        device identifiers, raw logs, or production data.
+  - type: dropdown
+    id: lane
+    attributes:
+      label: Evidence lane
+      options:
+        - schema-v2 synthetic fixture
+        - schema-v3 filesystem observation
+        - schema-v4 LangGraph replay
+    validations:
+      required: true
+  - type: input
+    id: revision
+    attributes:
+      label: Source commit or release digest
+      description: Public Git commit, tag, or release digest only.
+      placeholder: 40-character commit or published digest
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Public runtime
+      description: OS family, architecture, Python, and Node versions only.
+      placeholder: Windows x86-64; CPython 3.12; Node 24.18.0
+    validations:
+      required: true
+  - type: textarea
+    id: commands
+    attributes:
+      label: Reproduction commands
+      description: Remove local absolute paths and use placeholders.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: verifier
+    attributes:
+      label: Offline verifier report
+      description: Paste only the normalized verifier JSON; do not attach raw work data.
+      render: json
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundary confirmation
+      options:
+        - label: I performed this run or verification myself.
+          required: true
+        - label: I removed personal data, secrets, private paths, raw logs, and production data.
+          required: true
+        - label: I understand this report is limited to the exact registered lane and versions.
+          required: true

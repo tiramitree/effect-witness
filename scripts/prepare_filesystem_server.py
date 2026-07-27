@@ -17,7 +17,7 @@ from effect_witness.filesystem_dependencies import (
 from effect_witness.filesystem_paths import (
     create_staging_directory,
     publish_staging_directory,
-    remove_owned_directory,
+    remove_owned_directories,
 )
 from effect_witness.filesystem_registration import NPM_VERSION
 from effect_witness.models import canonical_json
@@ -145,11 +145,12 @@ def prepare(
                 node_directory=node_directory,
             )
         finally:
-            for generated in generated_paths:
-                remove_owned_directory(
-                    generated,
-                    label="generated npm working directory",
-                )
+            remove_owned_directories(
+                [
+                    (generated, "generated npm working directory")
+                    for generated in generated_paths
+                ]
+            )
         verify_dependency_directory(
             staging,
             node_command=node_command,
@@ -171,11 +172,15 @@ def prepare(
             "npm_version": npm_version,
             "server_package_version": "2026.7.10",
         }
-    except Exception as original:
+    except BaseException as original:
         try:
-            remove_owned_directory(
-                output if published else staging,
-                label="dependency output directory",
+            remove_owned_directories(
+                [
+                    (
+                        output if published else staging,
+                        "dependency output directory",
+                    )
+                ]
             )
         except Exception as cleanup:
             raise RuntimeError(

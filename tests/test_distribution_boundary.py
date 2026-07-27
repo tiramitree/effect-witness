@@ -39,6 +39,9 @@ def _write_sdist(
         members[f"effect_witness-0.2.0/integrations/filesystem/{filename}"] = (
             integration / filename
         ).read_bytes()
+    members["effect_witness-0.2.0/integrations/langgraph/constraints.txt"] = (
+        repository / "integrations" / "langgraph" / "constraints.txt"
+    ).read_bytes()
     with tarfile.open(path, mode="w:gz") as archive:
         for name, contents in members.items():
             info = tarfile.TarInfo(name)

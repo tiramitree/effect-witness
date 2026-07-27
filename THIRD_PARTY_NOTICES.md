@@ -78,3 +78,34 @@ distributions:
 The exact direct versions are pinned in `pyproject.toml`. Python transitive
 dependency resolution is not represented by a cross-platform hash lock; that
 remains a reproducibility and notice-completeness limitation.
+
+## Optional LangGraph replay integration
+
+The schema-v4 replay lane is installed only through the
+`langgraph-replay` extra. EffectWitness wheels and source distributions do not
+bundle these packages, their native libraries, or their source code. The source
+distribution carries a 58-package version constraint snapshot, not a
+cross-platform hash lock.
+
+| Package | Registered role/version | Upstream license field |
+|---|---|---|
+| [LangGraph](https://github.com/langchain-ai/langgraph) | Workflow runtime 1.2.9 | MIT |
+| [LangGraph Checkpoint](https://github.com/langchain-ai/langgraph) | Checkpoint interface 4.1.1 | MIT |
+| [LangGraph SQLite Checkpoint](https://github.com/langchain-ai/langgraph) | SQLite saver 3.1.0 | MIT |
+| [sqlite-vec](https://pypi.org/project/sqlite-vec/) | Required native transitive dependency 0.1.9 | `MIT License, Apache License, Version 2.0` |
+| [orjson](https://github.com/ijl/orjson) | Transitive serialization dependency 3.11.9 | `MPL-2.0 AND (Apache-2.0 OR MIT)` |
+| [Requests](https://github.com/psf/requests) | Transitive HTTP dependency 2.34.2 | Apache-2.0 |
+
+The exact `sqlite-vec` 0.1.9 wheel metadata uses the quoted non-SPDX license
+string and its inspected Windows wheel contains no license file. It publishes
+native wheels for a bounded platform set and no source distribution; the
+registered Windows amd64 and manylinux x86_64 wheels are therefore an
+installation boundary, not a portability claim.
+
+The inspected Requests 2.34.2 wheel contains a `NOTICE` file with SHA-256
+`f5110972dedad2b4e9d314518daf3b7d72d6e02e499acd802181de6f74571dcc`.
+Because EffectWitness does not redistribute Requests, that notice is not copied
+into the EffectWitness wheel. Any future bundled environment, container, or
+offline dependency archive must preserve the applicable upstream license and
+notice files and must stop if the missing `sqlite-vec` license text remains
+unresolved.

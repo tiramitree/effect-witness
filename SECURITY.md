@@ -15,10 +15,23 @@ environment, null stderr sink, exact dependency-file checks, and relative
 byte-tree boundary. The lane does not establish sandbox security or make the
 external server safe for untrusted inputs.
 
+The replay lane creates checkpoint and event-journal SQLite files only inside
+a newly owned disposable work directory and launches registered fault and
+resume workers in separate process groups. Never point `--work-dir`, the
+filesystem dependency, output, or any sandbox path at user data, a repository,
+shared storage, or production state. These paths must not overlap. The lane is
+not a crash-safety or recovery product.
+
 Dependency preparation performs an npm registry download into a fresh ignored
 directory using the tracked lock and `--ignore-scripts`. Inspect dependency and
 license changes before altering the lock. Never add credentials to npm
 configuration for this workflow.
+
+The replay Python constraints are an exact version snapshot, not a
+cross-platform wheel hash lock. Do not add package-index credentials to this
+workflow. Changes to native or transitive dependencies require a new
+platform/license review before the registered versions or architectures are
+expanded.
 
 If you find a security-relevant problem, open a GitHub issue containing the
 smallest safe reproduction. Do not include credentials, personal information,

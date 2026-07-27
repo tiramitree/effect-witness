@@ -1,5 +1,6 @@
 /.venv/
 /.real-filesystem-deps/
+/.replay-filesystem-deps/
 /.pytest_cache/
 /.ruff_cache/
 /pytest-cache-files-*/

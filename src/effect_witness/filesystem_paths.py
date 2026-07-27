@@ -6,13 +6,31 @@ import os
 import shutil
 import stat
 import tempfile
+import time
 from pathlib import Path
 
 from .artifact import _is_link_or_reparse
 
+_REMOVE_ATTEMPTS = 50
+_WINDOWS_REMOVE_RETRY_DELAY_SECONDS = 0.1
+_WINDOWS_TRANSIENT_REMOVE_ERRORS = frozenset({5, 32, 33})
+
 
 def _absolute(path: str | Path) -> Path:
     return Path(os.path.abspath(os.fspath(path)))
+
+
+def _comparison_path(path: str | Path) -> Path:
+    """Return a normalized path used only for containment comparisons."""
+
+    raw = os.path.realpath(os.path.abspath(os.fspath(path)))
+    if os.name == "nt":
+        if raw.startswith("\\\\?\\UNC\\"):
+            raw = "\\\\" + raw[8:]
+        elif raw.startswith("\\\\?\\"):
+            raw = raw[4:]
+        raw = os.path.normcase(raw)
+    return Path(raw)
 
 
 def _metadata(path: Path) -> os.stat_result | None:
@@ -34,6 +52,14 @@ def _assert_ordinary_directory(path: Path, *, label: str) -> None:
         or _is_link_or_reparse(path)
     ):
         raise RuntimeError(f"{label} is not an ordinary directory")
+
+
+def _is_retryable_remove_error(error: OSError) -> bool:
+    return (
+        os.name == "nt"
+        and isinstance(error, PermissionError)
+        and getattr(error, "winerror", None) in _WINDOWS_TRANSIENT_REMOVE_ERRORS
+    )
 
 
 def _ensure_safe_parent_chain(target: Path, *, label: str) -> None:
@@ -80,6 +106,27 @@ def create_owned_directory(path: str | Path, *, label: str) -> Path:
     return target
 
 
+def ensure_disjoint_paths(
+    first: str | Path,
+    second: str | Path,
+    *,
+    label: str,
+) -> tuple[Path, Path]:
+    """Return absolute paths only when neither target contains the other."""
+
+    first_path = _absolute(first)
+    second_path = _absolute(second)
+    first_comparison = _comparison_path(first_path)
+    second_comparison = _comparison_path(second_path)
+    if (
+        first_comparison == second_comparison
+        or first_comparison in second_comparison.parents
+        or second_comparison in first_comparison.parents
+    ):
+        raise ValueError(f"{label} must not overlap")
+    return first_path, second_path
+
+
 def create_staging_directory(
     final_path: str | Path,
     *,
@@ -123,7 +170,7 @@ def remove_owned_directory(path: Path, *, label: str) -> None:
             raw = "\\\\?\\" + raw
         deletion_path = Path(raw)
 
-    for _attempt in range(3):
+    for attempt in range(_REMOVE_ATTEMPTS):
         if _metadata(path) is None:
             return
         _assert_ordinary_directory(path, label=label)
@@ -132,11 +179,37 @@ def remove_owned_directory(path: Path, *, label: str) -> None:
         except FileNotFoundError:
             continue
         except OSError as exc:
+            if _is_retryable_remove_error(exc) and attempt + 1 < _REMOVE_ATTEMPTS:
+                time.sleep(_WINDOWS_REMOVE_RETRY_DELAY_SECONDS)
+                continue
             raise RuntimeError(
                 f"cannot remove {label} ({type(exc).__name__})"
             ) from None
     if _metadata(path) is not None:
         raise RuntimeError(f"{label} still exists after bounded cleanup")
+
+
+def remove_owned_directories(
+    targets: list[tuple[Path | None, str]],
+) -> None:
+    """Attempt every exact cleanup and fail only when a target remains."""
+
+    failed: list[tuple[Path, str]] = []
+    for path, label in targets:
+        if path is None:
+            continue
+        try:
+            remove_owned_directory(path, label=label)
+        except Exception:
+            failed.append((path, label))
+    unresolved = False
+    for path, _label in failed:
+        try:
+            unresolved = _metadata(path) is not None or unresolved
+        except RuntimeError:
+            unresolved = True
+    if unresolved:
+        raise RuntimeError("one or more owned directories remain after cleanup")
 
 
 def publish_staging_directory(

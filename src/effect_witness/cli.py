@@ -8,8 +8,10 @@ from pathlib import Path
 
 from .artifact import verify_artifact
 from .artifact_v3 import verify_filesystem_artifact
+from .artifact_v4 import verify_langgraph_artifact
 from .filesystem_lane import run_filesystem_lane
 from .fixture_server import main as fixture_main
+from .langgraph_lane import run_langgraph_lane
 from .models import FaultMode, canonical_json
 from .suite import run_suite
 
@@ -76,6 +78,26 @@ def _parser() -> argparse.ArgumentParser:
         help="verify schema-v3 official-filesystem evidence offline",
     )
     real_verify.add_argument("--artifact-dir", required=True, type=Path)
+    replay_run = subparsers.add_parser(
+        "run-replay",
+        help="run the schema-v4 LangGraph replay lane and seal evidence",
+    )
+    replay_run.add_argument("--constraints-file", required=True, type=Path)
+    replay_run.add_argument("--output-dir", required=True, type=Path)
+    replay_run.add_argument("--dependency-dir", required=True, type=Path)
+    replay_run.add_argument("--node-command", default="node")
+    replay_run.add_argument("--work-dir", type=Path)
+    replay_run.add_argument(
+        "--source-revision",
+        default="UNCOMMITTED",
+        type=_source_revision,
+        help="caller-declared source commit recorded in evidence, or UNCOMMITTED",
+    )
+    replay_verify = subparsers.add_parser(
+        "verify-replay",
+        help="verify schema-v4 LangGraph replay evidence offline",
+    )
+    replay_verify.add_argument("--artifact-dir", required=True, type=Path)
     return parser
 
 
@@ -107,6 +129,22 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if summary["all_registered_checks_met"] and report["verified"] else 1
     if args.command == "verify-filesystem":
         report = verify_filesystem_artifact(args.artifact_dir)
+        print(canonical_json(report))
+        return 0 if report["verified"] else 1
+    if args.command == "run-replay":
+        summary = run_langgraph_lane(
+            args.output_dir,
+            constraints_file=args.constraints_file,
+            dependency_dir=args.dependency_dir,
+            node_command=args.node_command,
+            work_dir=args.work_dir,
+            source_revision=args.source_revision,
+        )
+        report = verify_langgraph_artifact(args.output_dir)
+        print(canonical_json({"summary": summary, "verification": report}))
+        return 0 if summary["all_registered_checks_met"] and report["verified"] else 1
+    if args.command == "verify-replay":
+        report = verify_langgraph_artifact(args.artifact_dir)
         print(canonical_json(report))
         return 0 if report["verified"] else 1
     if args.command == "serve-fixture":

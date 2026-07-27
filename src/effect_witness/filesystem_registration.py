@@ -63,7 +63,11 @@ LOCK_PROVENANCE_SHA256: Final = (
 NODE_VERSION: Final = "v24.18.0"
 NPM_VERSION: Final = "11.16.0"
 PYTHON_MCP_VERSION: Final = "1.28.1"
-EFFECT_WITNESS_PRODUCER_VERSIONS: Final[tuple[str, ...]] = ("0.2.0", "0.2.1")
+EFFECT_WITNESS_PRODUCER_VERSIONS: Final[tuple[str, ...]] = (
+    "0.2.0",
+    "0.2.1",
+    "0.3.0",
+)
 PROTOCOL_VERSION: Final = "2025-11-25"
 SERVER_IDENTITY: Final[dict[str, str]] = {
     "name": "secure-filesystem-server",

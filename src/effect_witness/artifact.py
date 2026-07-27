@@ -110,6 +110,15 @@ def _same_snapshot_version(
     )
 
 
+def _diagnostic_path(
+    relative: str,
+    registered_paths: set[str] | frozenset[str] | None,
+) -> str:
+    if registered_paths is None or relative in registered_paths:
+        return relative
+    return "<redacted-artifact-path>"
+
+
 def _snapshot_file_bytes(
     path: Path,
     *,
@@ -207,9 +216,13 @@ def _read_json(
 def _artifact_snapshot(
     root: Path,
     errors: list[str],
+    *,
+    diagnostic_paths: set[str] | frozenset[str] | None = None,
+    expected_directories: set[str] | frozenset[str] | None = None,
 ) -> tuple[set[str], dict[str, bytes]]:
     files: set[str] = set()
     snapshot: dict[str, bytes] = {}
+    observed_directories: set[str] = set()
     total_bytes = 0
     total_limit_reported = False
     directory_states: dict[Path, os.stat_result] = {}
@@ -226,11 +239,12 @@ def _artifact_snapshot(
         current_relative = (
             "." if current_path == root else current_path.relative_to(root).as_posix()
         )
+        current_diagnostic = _diagnostic_path(current_relative, diagnostic_paths)
         try:
             current_metadata = current_path.stat(follow_symlinks=False)
         except OSError as exc:
             errors.append(
-                f"cannot inspect artifact directory {current_relative} "
+                f"cannot inspect artifact directory {current_diagnostic} "
                 f"({type(exc).__name__})"
             )
             directory_names.clear()
@@ -248,21 +262,23 @@ def _artifact_snapshot(
             )
         ):
             errors.append(
-                f"artifact directory changed during snapshot: {current_relative}"
+                f"artifact directory changed during snapshot: {current_diagnostic}"
             )
             directory_names.clear()
             continue
 
+        observed_directories.add(current_relative)
         directory_names.sort()
         file_names.sort()
         for directory_name in list(directory_names):
             directory = current_path / directory_name
             relative = directory.relative_to(root).as_posix()
+            diagnostic = _diagnostic_path(relative, diagnostic_paths)
             try:
                 metadata = directory.stat(follow_symlinks=False)
             except OSError as exc:
                 errors.append(
-                    f"cannot inspect artifact directory {relative} "
+                    f"cannot inspect artifact directory {diagnostic} "
                     f"({type(exc).__name__})"
                 )
                 directory_names.remove(directory_name)
@@ -271,7 +287,8 @@ def _artifact_snapshot(
                 metadata.st_mode
             ):
                 errors.append(
-                    f"links, junctions, and non-directories are not allowed: {relative}"
+                    "links, junctions, and non-directories are not allowed: "
+                    f"{diagnostic}"
                 )
                 directory_names.remove(directory_name)
                 continue
@@ -280,20 +297,23 @@ def _artifact_snapshot(
         for file_name in file_names:
             path = current_path / file_name
             relative = path.relative_to(root).as_posix()
+            diagnostic = _diagnostic_path(relative, diagnostic_paths)
             try:
                 metadata = path.stat(follow_symlinks=False)
             except OSError as exc:
-                errors.append(f"cannot inspect {relative} ({type(exc).__name__})")
+                errors.append(f"cannot inspect {diagnostic} ({type(exc).__name__})")
                 continue
             if _metadata_is_link_or_reparse(metadata):
-                errors.append(f"links and junctions are not allowed: {relative}")
+                errors.append(f"links and junctions are not allowed: {diagnostic}")
                 continue
             if not stat.S_ISREG(metadata.st_mode):
-                errors.append(f"non-regular artifact entry is not allowed: {relative}")
+                errors.append(
+                    f"non-regular artifact entry is not allowed: {diagnostic}"
+                )
                 continue
             files.add(relative)
             if metadata.st_size > _MAX_FILE_BYTES:
-                errors.append(f"artifact file exceeds size limit: {relative}")
+                errors.append(f"artifact file exceeds size limit: {diagnostic}")
                 continue
             total_bytes += metadata.st_size
             if total_bytes > _MAX_TOTAL_BYTES:
@@ -303,7 +323,7 @@ def _artifact_snapshot(
                 continue
             content = _snapshot_file_bytes(
                 path,
-                relative=relative,
+                relative=diagnostic,
                 pre_open=metadata,
                 errors=errors,
             )
@@ -315,12 +335,13 @@ def _artifact_snapshot(
         key=lambda item: str(item[0]),
     ):
         relative = "." if directory == root else directory.relative_to(root).as_posix()
+        diagnostic = _diagnostic_path(relative, diagnostic_paths)
         try:
             after = directory.stat(follow_symlinks=False)
         except OSError as exc:
             errors.append(
                 f"artifact directory changed during snapshot: "
-                f"{relative} ({type(exc).__name__})"
+                f"{diagnostic} ({type(exc).__name__})"
             )
             continue
         if (
@@ -328,13 +349,20 @@ def _artifact_snapshot(
             or not stat.S_ISDIR(after.st_mode)
             or not _same_snapshot_version(before, after)
         ):
-            errors.append(f"artifact directory changed during snapshot: {relative}")
+            errors.append(f"artifact directory changed during snapshot: {diagnostic}")
+    if (
+        expected_directories is not None
+        and observed_directories != expected_directories
+    ):
+        errors.append("artifact directory inventory differs from registration")
     return files, snapshot
 
 
 def _load_manifest(
     snapshot: dict[str, bytes],
     errors: list[str],
+    *,
+    diagnostic_paths: set[str] | frozenset[str] | None = None,
 ) -> dict[str, str]:
     content = snapshot.get("manifest.sha256")
     if content is None:
@@ -364,7 +392,10 @@ def _load_manifest(
             errors.append(f"manifest line {line_number} has an unsafe path")
             continue
         if relative in records:
-            errors.append(f"manifest contains duplicate path: {relative}")
+            errors.append(
+                "manifest contains duplicate path: "
+                f"{_diagnostic_path(relative, diagnostic_paths)}"
+            )
             continue
         records[relative] = match.group("sha256")
     if not records:
@@ -377,21 +408,30 @@ def _verify_hashes(
     manifest: dict[str, str],
     actual_files: set[str],
     errors: list[str],
+    *,
+    diagnostic_paths: set[str] | frozenset[str] | None = None,
 ) -> None:
     listed_files = set(manifest)
     expected_files = actual_files - {"manifest.sha256"}
     for relative in sorted(listed_files - expected_files):
-        errors.append(f"manifest lists a missing file: {relative}")
+        errors.append(
+            "manifest lists a missing file: "
+            f"{_diagnostic_path(relative, diagnostic_paths)}"
+        )
     for relative in sorted(expected_files - listed_files):
-        errors.append(f"file is not covered by the manifest: {relative}")
+        errors.append(
+            "file is not covered by the manifest: "
+            f"{_diagnostic_path(relative, diagnostic_paths)}"
+        )
     for relative in sorted(listed_files & expected_files):
+        diagnostic = _diagnostic_path(relative, diagnostic_paths)
         content = snapshot.get(relative)
         if content is None:
-            errors.append(f"cannot hash unavailable snapshot file: {relative}")
+            errors.append(f"cannot hash unavailable snapshot file: {diagnostic}")
             continue
         actual = hashlib.sha256(content).hexdigest()
         if actual != manifest[relative]:
-            errors.append(f"SHA-256 mismatch: {relative}")
+            errors.append(f"SHA-256 mismatch: {diagnostic}")
 
 
 def _verify_results(

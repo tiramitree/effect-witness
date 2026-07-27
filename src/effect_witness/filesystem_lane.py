@@ -23,7 +23,9 @@ from .filesystem_dependencies import verify_dependency_directory
 from .filesystem_paths import (
     create_owned_directory,
     create_staging_directory,
+    ensure_disjoint_paths,
     publish_staging_directory,
+    remove_owned_directories,
     remove_owned_directory,
 )
 from .filesystem_registration import (
@@ -518,12 +520,29 @@ def run_filesystem_lane(
         node_command=node_command,
     )
     dependency_root = dependency.dependency_root
-    output, staging = create_staging_directory(
+    output_target, _ = ensure_disjoint_paths(
         output_dir,
+        dependency_root,
+        label="artifact output and dependency directories",
+    )
+    requested_work: Path | None = None
+    if work_dir is not None:
+        output_target, requested_work = ensure_disjoint_paths(
+            output_target,
+            work_dir,
+            label="artifact output and work directories",
+        )
+        _, requested_work = ensure_disjoint_paths(
+            dependency_root,
+            requested_work,
+            label="dependency and work directories",
+        )
+    output, staging = create_staging_directory(
+        output_target,
         label="artifact output directory",
     )
     published = False
-    requested_work = Path(work_dir) if work_dir is not None else staging / "_work"
+    requested_work = requested_work if requested_work is not None else staging / "_work"
     work: Path | None = None
     try:
         work = create_owned_directory(
@@ -607,14 +626,19 @@ def run_filesystem_lane(
         )
         published = True
         return summary
-    except Exception:
-        if work is not None:
-            remove_owned_directory(
-                work,
-                label="filesystem lane work directory",
+    except BaseException:
+        try:
+            remove_owned_directories(
+                [
+                    (work, "filesystem lane work directory"),
+                    (
+                        output if published else staging,
+                        "artifact output directory",
+                    ),
+                ]
             )
-        remove_owned_directory(
-            output if published else staging,
-            label="artifact output directory",
-        )
+        except Exception as cleanup_error:
+            raise RuntimeError(
+                "filesystem lane cleanup failed after execution failure"
+            ) from cleanup_error
         raise

@@ -3,6 +3,8 @@
 Schema v3 is reserved for the bounded real-implementation lane. It is not an
 extension of schema v2 and is verified by `effect-witness verify-filesystem`.
 The schema-v2 verifier and bundled v0.1 reference remain supported unchanged.
+Schema v4 is a separate replay artifact and verifier; its S0/S1/S2/S3 states
+do not reinterpret schema-v3 S0/S1/S2 evidence.
 
 ## Registered execution
 

@@ -77,3 +77,36 @@ jobs:
           effect-witness verify-filesystem
           --artifact-dir artifacts/real-filesystem
       - run: python scripts/privacy_scan.py artifacts/real-filesystem
+
+  langgraph-replay:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: "24.18.0"
+      - run: >-
+          python -m pip install
+          --constraint integrations/langgraph/constraints.txt
+          -e ".[dev,langgraph-replay]"
+      - run: >-
+          python scripts/prepare_filesystem_server.py
+          --output-dir .replay-filesystem-deps
+      - run: >-
+          effect-witness run-replay
+          --constraints-file integrations/langgraph/constraints.txt
+          --output-dir artifacts/langgraph-replay
+          --dependency-dir .replay-filesystem-deps
+          --source-revision ${{ github.sha }}
+      - run: >-
+          effect-witness verify-replay
+          --artifact-dir artifacts/langgraph-replay
+      - run: python scripts/privacy_scan.py artifacts/langgraph-replay

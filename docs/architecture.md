@@ -1,9 +1,11 @@
 # Architecture and trust boundaries
 
-EffectWitness has two isolated evidence lanes. Schema v2 compares what an MCP
+EffectWitness has three isolated evidence lanes. Schema v2 compares what an MCP
 client observed with what the bundled fixture durably recorded. Schema v3
-observes an exact external implementation through byte-tree snapshots. Neither
-lane is a general black-box verdict on arbitrary third-party tools.
+observes an exact external implementation through byte-tree snapshots. Schema
+v4 observes one exact workflow replay boundary across separate Python
+processes. None is a general black-box verdict on arbitrary third-party tools
+or frameworks.
 
 ```text
 scenario runner
@@ -49,6 +51,40 @@ distribution. It does not rehash the full transitive `node_modules` tree, so
 the lock records dependency resolution while the stronger runtime byte claim
 is limited to those seven server files.
 
+The schema-v4 lane adds a separate workflow boundary:
+
+```text
+exact Python constraints + exact filesystem registration
+  |
+  +-- schema-v4 orchestrator
+        |
+        +-- fault worker process
+        |     +-- LangGraph entrypoint/task + SQLite checkpointer
+        |     +-- MCP stdio mutation
+        |     +-- registered post-effect/pre-return exception
+        |
+        +-- S1 capture / optional registered S2 intervention
+        |
+        +-- resume worker process with the same thread/checkpoint
+              +-- blind replay or byte-tree reconciliation
+              +-- S3 capture
+  |
+  +-- remove the exact owned checkpoint/journal work root
+  +-- seal one normalized eight-file artifact
+```
+
+Workers launch with Python isolated mode, an owned case-root working directory,
+no user site, no inherited proxy/token/credential variables, and separate
+process groups. The runner rejects overlapping output, dependency, and custom
+work paths before creating a directory. Interruption and failure paths attempt
+every exact owned-root cleanup independently.
+
+The runner binds the constraint snapshot bytes and all applicable installed
+Python versions. The snapshot is not a wheel hash lock. The filesystem launch
+gate retains schema v3's exact seven-file server check and tracked JavaScript
+lock boundary; it still does not hash every transitive installed JavaScript
+file.
+
 Raw tool text, descriptor descriptions, server logs, environment, and raw
 mutation responses are not retained. Read content is represented only by byte
 length and SHA-256. Mutation calls retain only a registered response shape.
@@ -63,7 +99,7 @@ directory. A complete dependency tree or manifested artifact is atomically
 renamed to its final path; failures remove only the exact staging/work roots
 created by that invocation and do not publish a partial final directory.
 
-## Three separate fact domains
+## Schema-v2 fact domains
 
 1. Declaration: the MCP tool descriptor returned over the transport, including
    annotations and input schema.
@@ -154,3 +190,16 @@ The v3 provenance binds an npm registry-metadata report, the tracked lock, and
 the exact installed server-file set. It does not bind every transitive installed
 file. The reported `gitHead` is not represented as a verified rebuild from
 source.
+
+Schema v4 has another distinct entry point and verifier. Its artifact contains
+only normalized phase/event enums, process exit and public checkpoint-state
+summaries, mutating-call shapes, decisions, and S0/S1/S2/S3 relative byte
+trees. Private checkpoint and journal databases are deleted before artifact
+files are written.
+
+The v4 verifier imports the frozen registration but neither runner nor worker.
+It reads one bounded snapshot, requires the exact two-directory/eight-file
+topology, and independently recomputes all 40 round relationships. It never
+opens a checkpoint database or executes LangGraph, MCP, Node, or SQLite. The
+recorded source revision is explicitly caller-declared; the manifest and
+verifier do not authenticate a publisher.

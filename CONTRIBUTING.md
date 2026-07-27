@@ -32,6 +32,26 @@ the exact dependency registration, installed-file allowlist, tests,
 third-party notices, and claim boundary together. Dependency preparation must
 remain lockfile-only and lifecycle-script-free.
 
+For schema-v4 replay changes, also run:
+
+```text
+python -m pip install --constraint integrations/langgraph/constraints.txt -e ".[dev,langgraph-replay]"
+python scripts/prepare_filesystem_server.py --output-dir <fresh-dependency-dir>
+effect-witness run-replay \
+  --constraints-file integrations/langgraph/constraints.txt \
+  --output-dir <fresh-artifact-dir> \
+  --dependency-dir <fresh-dependency-dir> \
+  --source-revision UNCOMMITTED
+effect-witness verify-replay --artifact-dir <fresh-artifact-dir>
+python scripts/privacy_scan.py <fresh-artifact-dir>
+```
+
+Do not commit checkpoint/journal databases, WAL/SHM files, work roots, raw
+logs, runtimes, `node_modules`, or temporary replay artifacts. A constraint
+change must update its registered hash/count, direct-package registration,
+third-party notices, distribution boundary, verifier mutations, and
+claim/schema documentation together.
+
 No contributor license agreement is currently used. Contributions submitted
 to this Apache-2.0 repository are handled under the terms in `LICENSE`.
 
