@@ -1,0 +1,61 @@
+{
+  "javascript_sdk": {
+    "license_field": "MIT",
+    "name": "@modelcontextprotocol/sdk",
+    "npm_sri": "sha512-zo37mZA9hJWpULgkRpowewez1y6ML5GsXJPY8FI0tBBCd77HEvza4jDqRKOXgHNn867PVGCyTdzqpz0izu5ZjQ==",
+    "version": "1.29.0"
+  },
+  "lockfile_sha256": "dfc7fdc6962bae7ca42d7be7896c8ea3b3de847b3fc3930b8aa074bf0b887e6c",
+  "npm_package": {
+    "name": "@modelcontextprotocol/server-filesystem",
+    "npm_file_count": 7,
+    "npm_license_field": "SEE LICENSE IN LICENSE",
+    "npm_metadata_git_head": "9a96ea6e5913736f92b88345bf51caeaaa8e719f",
+    "npm_sha1": "b19597401bfbf055662eb9bc9bd92f13ecaf5661",
+    "npm_sri": "sha512-Mmjg4anFBD5OzbPnGJOA0jPPN8645ERhQk38HQLpSenx1ox9bfdPkmAzUnNjeQtqQGFLtKe13J20RtLBmUKMZA==",
+    "npm_tarball_bytes": 17835,
+    "npm_tarball_license_file_present": false,
+    "npm_tarball_sha256": "c17c1da371c8089cff2206cce3001194d8276bae2b5ac1e2b425b6612068e3ba",
+    "npm_tarball_url": "https://registry.npmjs.org/@modelcontextprotocol/server-filesystem/-/server-filesystem-2026.7.10.tgz",
+    "npm_unpacked_bytes": 69088,
+    "version": "2026.7.10"
+  },
+  "npm_package_files_in_artifact": false,
+  "python_mcp_sdk_version": "1.28.1",
+  "server_distribution_files": {
+    "README.md": {
+      "bytes": 15068,
+      "sha256": "df276d57efc04b85fa1e8163fe1aa3d5b11d5b2a7de5ec51ba083e5cb04019cd"
+    },
+    "dist/index.js": {
+      "bytes": 28217,
+      "sha256": "ac12c0307497ebd1c8e0b0fe4b057165cded007cd7c7afc9aeaa68fefe68eb15"
+    },
+    "dist/lib.js": {
+      "bytes": 14315,
+      "sha256": "e2f5648317613530f60b582b8b0ed10c1beddc10c2d0926213300d827f27208e"
+    },
+    "dist/path-utils.js": {
+      "bytes": 4655,
+      "sha256": "2129214ece0aa7ee51a0e7d615bfdd9266c7284d8d5ecf02aff07d0a2c3dacd1"
+    },
+    "dist/path-validation.js": {
+      "bytes": 2904,
+      "sha256": "c2d5481e236814c3a4f32c74580f03fb19b25ff7d0b743cf9d51555c9399d9b6"
+    },
+    "dist/roots-utils.js": {
+      "bytes": 2760,
+      "sha256": "4074f48adb2a22d9d07792cbe0d8b8f59c63e499ef7b9722066fbb8d3d4d74b0"
+    },
+    "package.json": {
+      "bytes": 1169,
+      "sha256": "6b2c11d4d348cace9c652636d602713c377ba59d868e013de69f3a9046d61244"
+    }
+  },
+  "upstream_root_license": {
+    "bounded_summary": "the exact upstream root license describes an MIT-to-Apache-2.0 transition, retains MIT for contributions without relicensing consent, and assigns CC-BY-4.0 to non-specification documentation",
+    "bytes": 12227,
+    "sha256": "0382b0057770ca05e9c350a50aa3b1c1fea84da0bc81d723bf00b9aa841be58a",
+    "url": "https://github.com/modelcontextprotocol/servers/blob/9a96ea6e5913736f92b88345bf51caeaaa8e719f/LICENSE"
+  }
+}

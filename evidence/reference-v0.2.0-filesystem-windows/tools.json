@@ -1,0 +1,64 @@
+[
+  {
+    "annotations": {
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": false,
+      "readOnlyHint": false
+    },
+    "description_claims": {
+      "multiple_nested_directories_in_one_operation": true
+    },
+    "description_included": false,
+    "description_sha256": "7e243b9bddbea4a901f0807ae14535972587b896eecde076b03dd4fbd3a9b5bd",
+    "descriptor_without_description_included": false,
+    "descriptor_without_description_sha256": "c94b499eddf4edaede0012b988677f08ae0d656e89f55c5fdc0d23fc8213653f",
+    "name": "create_directory"
+  },
+  {
+    "annotations": {
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": false,
+      "readOnlyHint": false
+    },
+    "description_claims": {
+      "multiple_nested_directories_in_one_operation": false
+    },
+    "description_included": false,
+    "description_sha256": "1349a91ad62c6a43363a6af7995e3f29f44bf5e9c5310dadd8c278aec75e3969",
+    "descriptor_without_description_included": false,
+    "descriptor_without_description_sha256": "c8b18d5ca7bc42fb1af3d7f2cf7672a7795b606c8ebbc8de650c5daf7a10b266",
+    "name": "edit_file"
+  },
+  {
+    "annotations": {
+      "openWorldHint": false,
+      "readOnlyHint": true
+    },
+    "description_claims": {
+      "multiple_nested_directories_in_one_operation": false
+    },
+    "description_included": false,
+    "description_sha256": "43033fa70cb5bafe3ded0443fe51f1edd90b4e9d45efac6118e4395d2524011f",
+    "descriptor_without_description_included": false,
+    "descriptor_without_description_sha256": "198a479dd6085e2010bd7f02fa4b2ac613203d89df7cdf8a0a3f14cb3ea53a7a",
+    "name": "read_text_file"
+  },
+  {
+    "annotations": {
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": false,
+      "readOnlyHint": false
+    },
+    "description_claims": {
+      "multiple_nested_directories_in_one_operation": false
+    },
+    "description_included": false,
+    "description_sha256": "182c8895da7eacc6f301ba5895d779aca5c0a29cf622fa14f34f728657f79688",
+    "descriptor_without_description_included": false,
+    "descriptor_without_description_sha256": "c94a7bfdcd4fc68f2c9003afb775c44b4b7b7af5a007fa56a816ba1e8fc3401b",
+    "name": "write_file"
+  }
+]

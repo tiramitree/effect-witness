@@ -1,0 +1,58 @@
+{
+  "all_registered_checks_met": true,
+  "blocked_claims": [
+    "official MCP certification or conformance",
+    "arbitrary MCP server correctness",
+    "package-wide correctness",
+    "production filesystem behavior",
+    "permissions, timestamps, or symlink behavior",
+    "concurrent mutation behavior",
+    "security or vulnerability status",
+    "external adoption or review"
+  ],
+  "dependencies": {
+    "effect-witness": "0.2.0",
+    "mcp-python": "1.28.1"
+  },
+  "evidence_boundary": {
+    "absolute_paths_included": false,
+    "environment_included": false,
+    "generated_fixture_content_included": false,
+    "hostnames_included": false,
+    "ports_included": false,
+    "raw_mutating_tool_responses_included": false,
+    "raw_server_logs_included": false,
+    "raw_tool_result_text_included": false
+  },
+  "evidence_scope": "exact official filesystem server over stdio with controlled relative byte-tree observations",
+  "lane": "real_mcp_filesystem_stdio",
+  "model_api_calls": 0,
+  "observation_outcome_counts": {
+    "CONSISTENT_WITH_IDEMPOTENT_HINT_ON_REGISTERED_INPUT": 2,
+    "CONSISTENT_WITH_READ_ONLY_HINT_ON_REGISTERED_INPUT": 1,
+    "ERROR_WITH_NO_VISIBLE_BYTE_TREE_EFFECT": 1,
+    "REPEAT_RETURNED_ERROR_AFTER_FIRST_VISIBLE_EFFECT": 1
+  },
+  "paid_service_calls": 0,
+  "protocol": {
+    "protocol_version": "2025-11-25",
+    "server_capabilities": {
+      "tools": {
+        "listChanged": true
+      }
+    },
+    "server_identity": {
+      "name": "secure-filesystem-server",
+      "version": "0.2.0"
+    }
+  },
+  "runtime": {
+    "implementation": "CPython",
+    "node": "v24.18.0",
+    "platform_system": "Windows",
+    "python": "3.12.10"
+  },
+  "scenario_count": 5,
+  "schema_version": 3,
+  "source_revision": "8b8bc6131d864b8eaa966a72455ba86817f88a22"
+}

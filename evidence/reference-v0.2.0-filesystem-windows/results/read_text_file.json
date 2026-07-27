@@ -1,0 +1,81 @@
+{
+  "checks": {
+    "first_call_registered": true,
+    "s0_equals_s1": true,
+    "s0_hash_is_valid": true,
+    "s0_registered": true,
+    "s1_equals_s2": true,
+    "s1_hash_is_valid": true,
+    "s2_hash_is_valid": true,
+    "second_call_registered": true
+  },
+  "expectation_met": true,
+  "first_call": {
+    "completed": true,
+    "content_types": [
+      "text"
+    ],
+    "exception_types": [],
+    "is_error": false,
+    "response_text_included": false,
+    "structured_content_present": true,
+    "text_block_count": 1,
+    "text_bytes": 11,
+    "text_sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+  },
+  "observation_outcome": "CONSISTENT_WITH_READ_ONLY_HINT_ON_REGISTERED_INPUT",
+  "s0": {
+    "entries": [
+      {
+        "bytes": 11,
+        "kind": "file",
+        "path": "fixture.txt",
+        "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+      }
+    ],
+    "tree_sha256": "dca8a473b3982232b49fd62c082bfca4b1d5a26cd35b27e6e7cbbb60ea23b2f8"
+  },
+  "s0_equals_s1": true,
+  "s1": {
+    "entries": [
+      {
+        "bytes": 11,
+        "kind": "file",
+        "path": "fixture.txt",
+        "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+      }
+    ],
+    "tree_sha256": "dca8a473b3982232b49fd62c082bfca4b1d5a26cd35b27e6e7cbbb60ea23b2f8"
+  },
+  "s1_equals_s2": true,
+  "s2": {
+    "entries": [
+      {
+        "bytes": 11,
+        "kind": "file",
+        "path": "fixture.txt",
+        "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+      }
+    ],
+    "tree_sha256": "dca8a473b3982232b49fd62c082bfca4b1d5a26cd35b27e6e7cbbb60ea23b2f8"
+  },
+  "scenario_id": "read_text_file",
+  "second_call": {
+    "completed": true,
+    "content_types": [
+      "text"
+    ],
+    "exception_types": [],
+    "is_error": false,
+    "response_text_included": false,
+    "structured_content_present": true,
+    "text_block_count": 1,
+    "text_bytes": 11,
+    "text_sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+  },
+  "stimulus": {
+    "relative_path": "fixture.txt"
+  },
+  "stimulus_sha256": "52891277643e2e3653f04ff23f1f1cff4753505367e061418ef6fc9173aff616",
+  "tool_name": "read_text_file"
+}

@@ -1,0 +1,75 @@
+{
+  "checks": {
+    "first_call_registered": true,
+    "s0_differs_s1": true,
+    "s0_hash_is_valid": true,
+    "s0_registered": true,
+    "s1_equals_s2": true,
+    "s1_hash_is_valid": true,
+    "s1_registered": true,
+    "s2_hash_is_valid": true,
+    "second_call_registered": true
+  },
+  "expectation_met": true,
+  "first_call": {
+    "completed": true,
+    "content_types": [
+      "text"
+    ],
+    "exception_types": [],
+    "is_error": false,
+    "response_text_included": false,
+    "response_text_redacted": true,
+    "structured_content_present": true,
+    "text_block_count": 1
+  },
+  "observation_outcome": "CONSISTENT_WITH_IDEMPOTENT_HINT_ON_REGISTERED_INPUT",
+  "s0": {
+    "entries": [],
+    "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "s0_equals_s1": false,
+  "s1": {
+    "entries": [
+      {
+        "bytes": 11,
+        "kind": "file",
+        "path": "document.txt",
+        "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+      }
+    ],
+    "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+  },
+  "s1_equals_s2": true,
+  "s2": {
+    "entries": [
+      {
+        "bytes": 11,
+        "kind": "file",
+        "path": "document.txt",
+        "sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee"
+      }
+    ],
+    "tree_sha256": "e2f69365130555d6024ec648cb651ba5cf5cdc084cf8348001e5742506ddde8a"
+  },
+  "scenario_id": "write_file",
+  "second_call": {
+    "completed": true,
+    "content_types": [
+      "text"
+    ],
+    "exception_types": [],
+    "is_error": false,
+    "response_text_included": false,
+    "response_text_redacted": true,
+    "structured_content_present": true,
+    "text_block_count": 1
+  },
+  "stimulus": {
+    "content_bytes": 11,
+    "content_sha256": "e49c81e2d2f84e259d40e2fb8192f3bcd198b355184845d76d8f58807d0d78ee",
+    "relative_path": "document.txt"
+  },
+  "stimulus_sha256": "274902c4ba76c5bdafb01504a5d8fcf1e12f91e2cc57a117b75fc89045632b9b",
+  "tool_name": "write_file"
+}

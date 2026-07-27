@@ -97,8 +97,9 @@ or creation of the two registered nested directories. This is an
 OS/input/version-bounded observation, not a bug, security, or nonconformance
 claim.
 
-No schema-v3 artifact is committed. CI generates and verifies it ephemerally
-on current GitHub-hosted Windows and Ubuntu runners.
+A Windows schema-v3 [reference artifact](evidence/README.md) is committed and
+bound to its exact source revision. CI independently generates, verifies, and
+privacy-scans fresh Windows and Ubuntu artifacts without uploading them.
 
 ## Quick start
 

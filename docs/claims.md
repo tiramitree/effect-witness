@@ -60,8 +60,9 @@ dependency versions, synthetic data, loopback transport, and registered scenario
 
 These statements apply only to the exact versions, registered inputs,
 single-process stdio session, ordinary relative byte trees, and Windows/Linux
-CI boundary above. The schema-v3 artifact is generated ephemerally rather than
-committed as reference evidence.
+CI boundary above. The committed schema-v3 reference is one Windows observation
+bound to its exact source revision. CI generates fresh Windows and Linux
+observations ephemerally without publishing their artifacts.
 
 ## Explicitly not established
 

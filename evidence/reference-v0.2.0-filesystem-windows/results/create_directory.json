@@ -1,0 +1,69 @@
+{
+  "checks": {
+    "first_call_registered": true,
+    "s0_differs_s1": true,
+    "s0_hash_is_valid": true,
+    "s0_registered": true,
+    "s1_equals_s2": true,
+    "s1_hash_is_valid": true,
+    "s1_registered": true,
+    "s2_hash_is_valid": true,
+    "second_call_registered": true
+  },
+  "expectation_met": true,
+  "first_call": {
+    "completed": true,
+    "content_types": [
+      "text"
+    ],
+    "exception_types": [],
+    "is_error": false,
+    "response_text_included": false,
+    "response_text_redacted": true,
+    "structured_content_present": true,
+    "text_block_count": 1
+  },
+  "observation_outcome": "CONSISTENT_WITH_IDEMPOTENT_HINT_ON_REGISTERED_INPUT",
+  "s0": {
+    "entries": [],
+    "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "s0_equals_s1": false,
+  "s1": {
+    "entries": [
+      {
+        "kind": "directory",
+        "path": "new-dir"
+      }
+    ],
+    "tree_sha256": "f72e17d2f701eca2b4e3fbbadbd430980210e1475a554d221a846e54541f1e8c"
+  },
+  "s1_equals_s2": true,
+  "s2": {
+    "entries": [
+      {
+        "kind": "directory",
+        "path": "new-dir"
+      }
+    ],
+    "tree_sha256": "f72e17d2f701eca2b4e3fbbadbd430980210e1475a554d221a846e54541f1e8c"
+  },
+  "scenario_id": "create_directory",
+  "second_call": {
+    "completed": true,
+    "content_types": [
+      "text"
+    ],
+    "exception_types": [],
+    "is_error": false,
+    "response_text_included": false,
+    "response_text_redacted": true,
+    "structured_content_present": true,
+    "text_block_count": 1
+  },
+  "stimulus": {
+    "relative_path": "new-dir"
+  },
+  "stimulus_sha256": "157735a58568032216b68165b392e43103ae0d02fffaccfbe0b6a7f25e4970c4",
+  "tool_name": "create_directory"
+}

@@ -25,9 +25,36 @@ is not a publisher signature, and this artifact does not establish production
 reliability, security, official protocol conformance, external adoption, or
 performance.
 
-No schema-v3 real-filesystem artifact is bundled. That lane depends on an
-external exact npm closure and records an operating-system-bound observation;
-CI generates, verifies, and privacy-scans a fresh artifact on Windows and
-Ubuntu without uploading it. Its format and reproduction commands are
-documented in
+`reference-v0.2.0-filesystem-windows` is the bundled schema-v3 observation of
+the official filesystem server over stdio.
+
+- source revision:
+  `8b8bc6131d864b8eaa966a72455ba86817f88a22`
+- artifact manifest-file SHA-256:
+  `ad883b9823f61f3b79e0abd40b1533c5634f246ce86427063845e01c03562101`
+- inventory: 10 files, 18,605 bytes
+- registered scenarios: 5, with two calls per scenario
+- registered outcomes: 2 repeated-idempotent, 1 read-only, 1 error with no
+  visible byte-tree effect, and 1 repeat error after one visible effect
+- runtime: Windows, CPython 3.12.10, Node 24.18.0
+- model API calls: 0
+- paid-service calls: 0
+
+Run:
+
+```text
+effect-witness verify-filesystem \
+  --artifact-dir evidence/reference-v0.2.0-filesystem-windows
+```
+
+The artifact records only normalized hashes, bounded facts, relative byte-tree
+observations, JUnit, and a manifest. It excludes generated fixture content,
+absolute paths, environment, hostnames, ports, raw tool text, raw mutating
+responses, server logs, npm packages, and `node_modules`.
+
+This is one source- and OS-bound local observation, not independent
+reproduction, package-wide correctness, official conformance, security,
+production behavior, external review, or adoption. CI separately generates,
+verifies, and privacy-scans fresh Windows and Ubuntu artifacts without
+uploading them. The schema and reproduction boundary are documented in
 [`docs/evidence-schema-v3-filesystem.md`](../docs/evidence-schema-v3-filesystem.md).

@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "description_claim_registered": true,
+    "platform_observation_registered": true,
+    "platform_registered": true,
+    "s0_hash_is_valid": true,
+    "s1_hash_is_valid": true,
+    "s2_hash_is_valid": true
+  },
+  "expectation_met": true,
+  "first_call": {
+    "completed": true,
+    "content_types": [
+      "text"
+    ],
+    "exception_types": [],
+    "is_error": true,
+    "response_text_included": false,
+    "response_text_redacted": true,
+    "structured_content_present": false,
+    "text_block_count": 1
+  },
+  "observation_outcome": "ERROR_WITH_NO_VISIBLE_BYTE_TREE_EFFECT",
+  "s0": {
+    "entries": [],
+    "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "s0_equals_s1": true,
+  "s1": {
+    "entries": [],
+    "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "s1_equals_s2": true,
+  "s2": {
+    "entries": [],
+    "tree_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "scenario_id": "create_directory_nested_claim",
+  "second_call": {
+    "completed": true,
+    "content_types": [
+      "text"
+    ],
+    "exception_types": [],
+    "is_error": true,
+    "response_text_included": false,
+    "response_text_redacted": true,
+    "structured_content_present": false,
+    "text_block_count": 1
+  },
+  "stimulus": {
+    "relative_path": "parent/child"
+  },
+  "stimulus_sha256": "9f8054c00a8566af0abb6537221f46e6a05bf30534f89e05698de7005d9c8962",
+  "tool_name": "create_directory"
+}
