@@ -7,6 +7,8 @@ import re
 from pathlib import Path
 
 from .artifact import verify_artifact
+from .artifact_v3 import verify_filesystem_artifact
+from .filesystem_lane import run_filesystem_lane
 from .fixture_server import main as fixture_main
 from .models import FaultMode, canonical_json
 from .suite import run_suite
@@ -55,6 +57,25 @@ def _parser() -> argparse.ArgumentParser:
         help="verify artifact integrity and internal consistency offline",
     )
     verify.add_argument("--artifact-dir", required=True, type=Path)
+    real_run = subparsers.add_parser(
+        "run-filesystem",
+        help="run the exact official-filesystem stdio lane and seal schema-v3 evidence",
+    )
+    real_run.add_argument("--output-dir", required=True, type=Path)
+    real_run.add_argument("--dependency-dir", required=True, type=Path)
+    real_run.add_argument("--node-command", default="node")
+    real_run.add_argument("--work-dir", type=Path)
+    real_run.add_argument(
+        "--source-revision",
+        default="UNCOMMITTED",
+        type=_source_revision,
+        help="source commit recorded in evidence, or UNCOMMITTED",
+    )
+    real_verify = subparsers.add_parser(
+        "verify-filesystem",
+        help="verify schema-v3 official-filesystem evidence offline",
+    )
+    real_verify.add_argument("--artifact-dir", required=True, type=Path)
     return parser
 
 
@@ -71,6 +92,21 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if summary["all_expectations_met"] and report["verified"] else 1
     if args.command == "verify":
         report = verify_artifact(args.artifact_dir)
+        print(canonical_json(report))
+        return 0 if report["verified"] else 1
+    if args.command == "run-filesystem":
+        summary = run_filesystem_lane(
+            args.output_dir,
+            dependency_dir=args.dependency_dir,
+            node_command=args.node_command,
+            work_dir=args.work_dir,
+            source_revision=args.source_revision,
+        )
+        report = verify_filesystem_artifact(args.output_dir)
+        print(canonical_json({"summary": summary, "verification": report}))
+        return 0 if summary["all_registered_checks_met"] and report["verified"] else 1
+    if args.command == "verify-filesystem":
+        report = verify_filesystem_artifact(args.artifact_dir)
         print(canonical_json(report))
         return 0 if report["verified"] else 1
     if args.command == "serve-fixture":

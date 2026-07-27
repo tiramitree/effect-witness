@@ -16,6 +16,16 @@ def test_scanner_source_is_self_scannable(tmp_path) -> None:
     assert scan(tmp_path) == []
 
 
+def test_scanner_does_not_treat_versions_or_hashes_as_contacts(tmp_path) -> None:
+    (tmp_path / "metadata.txt").write_text(
+        "package@2026.7.10\n"
+        "7e243b9bddbea4a901f0807ae14535972587b896eecde076b03dd4fbd3a9b5bd\n",
+        encoding="utf-8",
+    )
+
+    assert scan(tmp_path) == []
+
+
 def test_privacy_scan_reports_only_redacted_location(tmp_path) -> None:
     value = _EMAIL_FIXTURE
     sensitive_filename = "private-notes.txt"

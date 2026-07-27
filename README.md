@@ -1,7 +1,7 @@
 # EffectWitness
 
-EffectWitness is a pre-alpha, local-first protocol experiment for one narrow
-question:
+EffectWitness is a pre-alpha, local-first protocol experiment with two
+independent evidence lanes for one narrow question:
 
 > When an agent tool declares an effect-related hint, do a client's observations
 > and the bundled fixture's durable synthetic effect facts match that declaration
@@ -13,7 +13,7 @@ It deliberately separates three fact domains:
 2. what the client observed and decided;
 3. what the controlled fixture durably recorded.
 
-The current adapter targets MCP tool annotations. The
+Both current lanes target MCP tool annotations. The
 [official MCP explanation](https://blog.modelcontextprotocol.io/posts/2026-03-16-tool-annotations/)
 describes these annotations as untrusted hints, so EffectWitness never treats a
 mismatch as automatic protocol nonconformance. Its result vocabulary is
@@ -25,17 +25,24 @@ This repository is an early candidate under active pre-alpha development. It
 has no verified external users, adoption, independent reproduction, third-party
 review, production deployment, or recruiting outcome.
 
-The current implementation is a controlled dual-view fixture, not a general
-black-box observer for arbitrary third-party tools. It uses synthetic effects,
-loopback MCP Streamable HTTP, separate client and server SQLite databases, and
+The schema-v2 lane is a controlled dual-view fixture, not a general black-box
+observer for arbitrary third-party tools. It uses synthetic effects, loopback
+MCP Streamable HTTP, separate client and server SQLite databases, and
 deterministic test faults.
+
+The separate schema-v3 lane executes one exact official filesystem-server npm
+distribution over MCP stdio. It observes only a registered five-scenario,
+twice-called slice through fail-closed relative byte trees. It does not extend
+the result to the rest of the package or to production filesystem behavior.
 
 It does **not** establish exactly-once execution, official MCP certification,
 distributed consistency, security, production reliability, model capability,
 framework superiority, or external usefulness. See the full
 [claim boundary](docs/claims.md).
 
-## Implemented reproducible slice
+## Implemented reproducible slices
+
+The schema-v2 synthetic fixture includes:
 
 - a separate MCP fixture process with per-launch nonce readiness;
 - loopback-only transport with environment proxies disabled;
@@ -64,6 +71,34 @@ failure.
 
 The bundled [reference artifact](evidence/README.md) records this matrix and
 binds it to the exact source revision used to build the 0.1.0 wheel.
+
+The schema-v3 real-implementation lane includes:
+
+- Python MCP SDK 1.28.1 over stdio to
+  `@modelcontextprotocol/server-filesystem` version `2026.7.10`;
+- Node 24.18.0, npm 11.16.0, and a tracked lockfile resolving the JavaScript
+  MCP SDK to 1.29.0;
+- exact installed-file size and SHA-256 registration for the seven files in
+  that server distribution;
+- `read_text_file`, simple and nested `create_directory`, `write_file`, and
+  `edit_file`, each called twice;
+- fail-closed S0/S1/S2 relative byte-tree observations;
+- registered annotation, descriptor, stimulus, dependency, protocol, and
+  server-identity hashes or facts;
+- schema-v3 canonical JSON, JUnit, manifest, and a strict offline verifier
+  separate from the schema-v2 verifier;
+- no npm package, `node_modules`, server log, raw mutation response, absolute
+  runtime path, fixture content, environment, hostname, or port in the
+  artifact.
+
+The Windows observation for the registered nested-create input is an MCP error
+with no visible byte-tree change. The Linux gate accepts only that observation
+or creation of the two registered nested directories. This is an
+OS/input/version-bounded observation, not a bug, security, or nonconformance
+claim.
+
+No schema-v3 artifact is committed. CI generates and verifies it ephemerally
+on current GitHub-hosted Windows and Ubuntu runners.
 
 ## Quick start
 
@@ -94,19 +129,49 @@ python -m venv .venv
 The output directory must be absent or empty. A committed run should replace
 `UNCOMMITTED` with the 40-character source commit.
 
-Run the development gates:
+The exact real-filesystem lane additionally requires Node 24.18.0 and npm
+11.16.0. Dependency preparation uses only the tracked lockfile with `npm ci`,
+disables lifecycle scripts, audit, funding, and update checks, and isolates npm
+configuration and cache from user configuration:
+
+```powershell
+.venv\Scripts\python scripts\prepare_filesystem_server.py `
+  --output-dir .real-filesystem-deps
+.venv\Scripts\effect-witness run-filesystem `
+  --output-dir artifacts\real-filesystem `
+  --dependency-dir .real-filesystem-deps `
+  --source-revision UNCOMMITTED
+.venv\Scripts\effect-witness verify-filesystem `
+  --artifact-dir artifacts\real-filesystem
+```
+
+POSIX uses the same arguments with `.venv/bin/python`,
+`.venv/bin/effect-witness`, and `/` separators. Dependency preparation requires
+registry access; running and verifying the prepared lane do not invoke npm.
+The prepared dependency directory is external runtime material and must not be
+committed or copied into a Python distribution. Both real-lane output
+directories must be absent. Each is built in a same-parent staging directory,
+checked, and atomically renamed; a failed run is not published as an artifact.
+At launch, the harness rechecks the tracked lock bytes and the registered seven
+server-distribution files. It does not rehash every installed transitive
+`node_modules` file, so the evidence does not prove runtime integrity of the
+entire installed dependency tree.
+
+Run the generic privacy scan in a clean checkout before installing dependencies
+or creating build output, then run the remaining development gates:
 
 ```text
+python scripts/privacy_scan.py .
 python -m pytest
 python -m ruff check --no-cache src tests scripts
 python -m ruff format --check --no-cache src tests scripts
-python scripts/privacy_scan.py .
 python -m build
+python scripts/verify_distribution_boundary.py dist
 ```
 
 ## What verification means
 
-`effect-witness verify` checks:
+`effect-witness verify` checks schema-v2 artifacts:
 
 - regular-file inventory, safe relative paths, file-size limits, and complete
   manifest coverage;
@@ -128,8 +193,15 @@ being captured, rather than hashing and interpreting separate reads.
 The manifest is not a signature. Replacing every file and the manifest still
 requires an external trusted Git commit or release digest to detect.
 
-See [architecture](docs/architecture.md) and the
-[schema-v2 reference](docs/evidence-schema-v2.md).
+`effect-witness verify-filesystem` independently checks schema-v3 inventory,
+manifest closure, exact dependency and descriptor registrations, safe relative
+byte-tree shapes and hashes, registered S0/S1/S2 relationships, response
+redaction shapes, platform-bounded observations, JUnit, and summary
+relationships. It imports no execution runner.
+
+See [architecture](docs/architecture.md), the
+[schema-v2 reference](docs/evidence-schema-v2.md), and the
+[schema-v3 filesystem reference](docs/evidence-schema-v3-filesystem.md).
 
 ## Privacy gate
 
@@ -174,10 +246,13 @@ The bounded comparison and inspected revisions are documented in
 
 ## Development and security
 
-CI is configured for Python 3.11–3.13 on current GitHub-hosted Ubuntu and
-Windows runners. The fixture contains deliberate process exits and must remain
-loopback-only. Read [SECURITY.md](SECURITY.md) before changing its transport
-boundary and [CONTRIBUTING.md](CONTRIBUTING.md) before submitting changes.
+CI is configured for Python 3.11-3.13 on current GitHub-hosted Ubuntu and
+Windows runners. A separate Windows/Ubuntu job prepares dependencies from the
+exact tracked Node/npm lock, runs the schema-v3 lane, verifies it offline, and
+scans the ephemeral artifact without uploading it. The synthetic fixture
+contains deliberate process exits and must remain loopback-only. Read
+[SECURITY.md](SECURITY.md) before changing either transport boundary and
+[CONTRIBUTING.md](CONTRIBUTING.md) before submitting changes.
 
 ## License
 

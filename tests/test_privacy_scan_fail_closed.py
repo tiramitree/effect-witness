@@ -107,6 +107,21 @@ def test_verified_root_git_directory_is_the_only_skipped_directory(tmp_path) -> 
     assert _locations(scan(tmp_path)) == [("email_address", 1, "<redacted-path>")]
 
 
+def test_verified_root_git_worktree_pointer_is_skipped(tmp_path) -> None:
+    (tmp_path / ".git").write_text(
+        "gitdir: metadata-only\n",
+        encoding="utf-8",
+    )
+    nested = tmp_path / "nested"
+    nested.mkdir()
+    (nested / ".git").write_text(
+        _EMAIL_FIXTURE + "\n",
+        encoding="utf-8",
+    )
+
+    assert _locations(scan(tmp_path)) == [("email_address", 1, "<redacted-path>")]
+
+
 @pytest.mark.skipif(
     not getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0),
     reason="platform has no Windows reparse attribute",

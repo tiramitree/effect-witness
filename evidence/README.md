@@ -24,3 +24,10 @@ Verification checks offline integrity and internal consistency. The manifest
 is not a publisher signature, and this artifact does not establish production
 reliability, security, official protocol conformance, external adoption, or
 performance.
+
+No schema-v3 real-filesystem artifact is bundled. That lane depends on an
+external exact npm closure and records an operating-system-bound observation;
+CI generates, verifies, and privacy-scans a fresh artifact on Windows and
+Ubuntu without uploading it. Its format and reproduction commands are
+documented in
+[`docs/evidence-schema-v3-filesystem.md`](../docs/evidence-schema-v3-filesystem.md).

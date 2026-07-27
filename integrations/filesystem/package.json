@@ -1,0 +1,9 @@
+{
+  "name": "effect-witness-filesystem-integration",
+  "version": "0.0.0-private",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/server-filesystem": "2026.7.10"
+  }
+}

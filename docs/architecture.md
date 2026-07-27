@@ -1,8 +1,9 @@
 # Architecture and trust boundaries
 
-EffectWitness v0 is a controlled dual-view experiment. It compares what an
-MCP client observed with what the bundled fixture durably recorded. It is not
-yet a black-box adapter for arbitrary third-party tools.
+EffectWitness has two isolated evidence lanes. Schema v2 compares what an MCP
+client observed with what the bundled fixture durably recorded. Schema v3
+observes an exact external implementation through byte-tree snapshots. Neither
+lane is a general black-box verdict on arbitrary third-party tools.
 
 ```text
 scenario runner
@@ -17,6 +18,50 @@ scenario runner
               |
               +-- server-side effect facts (SQLite, WAL/FULL)
 ```
+
+The schema-v3 lane has a different boundary:
+
+```text
+tracked package.json + exact package-lock.json
+  |
+  +-- isolated npm ci --ignore-scripts
+        |
+        +-- exact seven-file server distribution check
+              |
+              +-- Python MCP 1.28.1 client over stdio
+                    |
+                    +-- exact filesystem server 2026.7.10
+                          |
+                          +-- per-scenario temporary sandbox
+                                |
+                                +-- relative byte trees S0 / S1 / S2
+```
+
+Its client resolves the registered Node executable before launch. The server
+receives only the platform variables needed to start, with no inherited user
+path, proxy, token, or credential variables. Stderr is sent directly to the
+null device. Absolute sandbox, dependency, entrypoint, and executable paths
+exist only in process memory; they are not evidence fields or hashed evidence
+inputs.
+
+The launch gate rechecks the tracked lock bytes and exact seven-file server
+distribution. It does not rehash the full transitive `node_modules` tree, so
+the lock records dependency resolution while the stronger runtime byte claim
+is limited to those seven server files.
+
+Raw tool text, descriptor descriptions, server logs, environment, and raw
+mutation responses are not retained. Read content is represented only by byte
+length and SHA-256. Mutation calls retain only a registered response shape.
+Filesystem state is captured as sorted relative directory entries and file
+length/SHA-256 records. Snapshotting rejects unsafe relative paths,
+non-regular files, symlinks or reparse points, oversized files, and identity or
+version changes during capture.
+
+Dependency and artifact final paths must be absent and below an ordinary
+non-reparse parent chain. Each operation owns a fresh same-parent staging
+directory. A complete dependency tree or manifested artifact is atomically
+renamed to its final path; failures remove only the exact staging/work roots
+created by that invocation and do not publish a partial final directory.
 
 ## Three separate fact domains
 
@@ -95,3 +140,17 @@ boundary. These results do not establish distributed consistency.
 The manifest is not signed. If an attacker replaces both every file and the
 manifest, an external trusted digest or source revision is still required to
 detect that replacement.
+
+Schema v3 uses a distinct entry point and verifier. The verifier imports the
+frozen registration and pure scenario semantics, but not the execution runner.
+It takes one bounded artifact snapshot, requires the exact ten-file inventory
+(nine entries plus the manifest), and recomputes manifest closure, result
+shapes, byte-tree hashes, S0/S1/S2 relationships, tool and dependency
+registrations, JUnit, and summary counts.
+Schema-v2 verification remains unchanged and does not accept schema-v3
+artifacts.
+
+The v3 provenance binds an npm registry-metadata report, the tracked lock, and
+the exact installed server-file set. It does not bind every transitive installed
+file. The reported `gitHead` is not represented as a verified rebuild from
+source.

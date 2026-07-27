@@ -1,4 +1,5 @@
 /.venv/
+/.real-filesystem-deps/
 /.pytest_cache/
 /.ruff_cache/
 /pytest-cache-files-*/

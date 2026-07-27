@@ -4,12 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "effect-witness"
-version = "0.1.0"
-description = "Dual-view evidence for declared agent-tool effect contracts under ambiguous failures."
+version = "0.2.0"
+description = "Auditable evidence for declared agent-tool effects and bounded real implementations."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
-license-files = ["LICENSE"]
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
 dependencies = [
   "httpx==0.28.1",
   "mcp==1.28.1",

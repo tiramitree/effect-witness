@@ -33,7 +33,8 @@ _PATTERNS = {
     "email_address": re.compile(
         r"(?i)\b[a-z0-9.!#$%&'*+/=?^_`{|}~-]+"
         r"@[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?"
-        r"(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+\b"
+        r"(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*"
+        r"\.(?:[a-z]{2,63}|xn--[a-z0-9-]{2,59})\b"
     ),
     "github_token": re.compile(
         r"\b(?:(?:gh[oprsu]_[A-Za-z0-9]{20,})|"
@@ -46,7 +47,9 @@ _PATTERNS = {
         rf"(?<![\d.])(?!127(?:\.{_IPV4_OCTET}){{3}}(?![\d.]))"
         rf"(?:{_IPV4_OCTET}\.){{3}}{_IPV4_OCTET}(?![\d.])"
     ),
-    "phone_like": re.compile(r"(?<!\d)(?:\+?86[- ]?)?1[3-9]\d{9}(?!\d)"),
+    "phone_like": re.compile(
+        r"(?<![a-zA-Z0-9])(?:\+?86[- ]?)?1[3-9]\d{9}(?![a-zA-Z0-9])"
+    ),
 }
 
 
@@ -150,8 +153,12 @@ def _candidate_files(root: Path) -> list[tuple[Path, os.stat_result]]:
             path = Path(entry.path)
             metadata = _lstat_checked(path)
             if is_root and entry.name == ".git":
-                if not stat.S_ISDIR(metadata.st_mode):
-                    raise PrivacyScanError("root metadata entry is not a directory")
+                if not (
+                    stat.S_ISDIR(metadata.st_mode) or stat.S_ISREG(metadata.st_mode)
+                ):
+                    raise PrivacyScanError(
+                        "root metadata entry has an unsupported type"
+                    )
                 continue
             if stat.S_ISDIR(metadata.st_mode):
                 visit(path, metadata, is_root=False)
