@@ -132,8 +132,10 @@ The schema-v4 replay lane includes:
 The registered failure is an exception after the first MCP mutation succeeds
 and its MCP context closes, but before the LangGraph task returns. It is not a
 hard crash, process kill, power-loss experiment, or SQLite crash-consistency
-test. No schema-v4 reference artifact is described as bundled until a
-commit-bound candidate passes both public CI platforms.
+test. A commit-bound Windows
+[reference artifact](evidence/README.md) is bundled for offline verification.
+Public CI is configured to regenerate the lane independently on Windows and
+Ubuntu; the repository does not treat configuration alone as a passing result.
 
 ## Quick start
 

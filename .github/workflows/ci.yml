@@ -30,6 +30,9 @@ jobs:
       - run: python -m ruff check --no-cache src tests scripts
       - run: python -m ruff format --check --no-cache src tests scripts
       - run: effect-witness verify --artifact-dir evidence/reference-v0.1.0
+      - run: >-
+          effect-witness verify-replay
+          --artifact-dir evidence/reference-v0.3.0-langgraph-replay-windows
       - run: python -m build
       - run: python scripts/verify_distribution_boundary.py dist
 

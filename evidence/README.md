@@ -58,3 +58,44 @@ production behavior, external review, or adoption. CI separately generates,
 verifies, and privacy-scans fresh Windows and Ubuntu artifacts without
 uploading them. The schema and reproduction boundary are documented in
 [`docs/evidence-schema-v3-filesystem.md`](../docs/evidence-schema-v3-filesystem.md).
+
+`reference-v0.3.0-langgraph-replay-windows` is the bundled schema-v4
+observation of the registered LangGraph replay lane.
+
+- declared source revision:
+  `d591710356454aa280237874ee8d8f3bec6e705a`
+- artifact manifest-file SHA-256:
+  `85de70218b2c29696c03b9061c0ede74c81de959b0f50c4ee7a6c4c5eaf1f5d1`
+- inventory: 8 files, 190,762 bytes
+- registered execution: 4 scenarios x 10 rounds
+- completed worker records: 80
+- normalized mutating-call observations: 60
+- runtime: Windows x86-64, CPython 3.12.10, Node 24.18.0
+- model API calls: 0
+- paid-service calls: 0
+
+Run without the optional replay execution dependencies:
+
+```text
+effect-witness verify-replay \
+  --artifact-dir evidence/reference-v0.3.0-langgraph-replay-windows
+```
+
+The artifact contains normalized phase/event enums, process and public
+checkpoint-state summaries, call shapes, decisions, S0/S1/S2/S3 relative
+byte-tree facts, JUnit, provenance, and a manifest. It excludes checkpoint and
+journal databases, WAL/SHM files, raw checkpoint rows, fixture bytes, absolute
+paths, environment, hostnames, ports, PIDs, timestamps, raw tool
+arguments/responses, exception messages, worker output, server logs, npm
+packages, runtimes, and `node_modules`.
+
+This is one source-, version-, input-, and OS-bound local observation. It does
+not establish exactly-once execution, arbitrary workflow or MCP correctness,
+official conformance, crash consistency, production recovery, distributed
+consistency, general reconciliation correctness, model/agent capability,
+performance, security, external review, reproduction, adoption, deployment,
+or recruiting outcomes. The source revision is caller-declared inside the
+artifact; the offline verifier checks integrity and internal consistency, not
+publisher authenticity. The schema and reproduction boundary are documented
+in
+[`docs/evidence-schema-v4-langgraph-replay.md`](../docs/evidence-schema-v4-langgraph-replay.md).
