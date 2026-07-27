@@ -5,7 +5,6 @@ from pathlib import Path
 
 import effect_witness.artifact as artifact_module
 from effect_witness.artifact import verify_artifact
-from effect_witness.suite import run_suite
 
 
 def test_oversized_file_is_rejected_before_open(monkeypatch, tmp_path) -> None:
@@ -38,9 +37,11 @@ def test_oversized_file_is_rejected_before_open(monkeypatch, tmp_path) -> None:
     assert "artifact verification aborted (AssertionError)" not in report["errors"]
 
 
-def test_semantic_verification_uses_snapshot_only(monkeypatch, tmp_path) -> None:
-    artifact = tmp_path / "artifact"
-    run_suite(artifact, work_dir=tmp_path / "work")
+def test_semantic_verification_uses_snapshot_only(
+    monkeypatch,
+    schema_v2_artifact: Path,
+) -> None:
+    artifact = schema_v2_artifact
 
     def unexpected_path_read(*_args, **_kwargs):
         raise AssertionError("verifier reread an artifact path")
@@ -55,9 +56,12 @@ def test_semantic_verification_uses_snapshot_only(monkeypatch, tmp_path) -> None
     assert report["errors"] == []
 
 
-def test_replacement_between_stat_and_open_fails_closed(monkeypatch, tmp_path) -> None:
-    artifact = tmp_path / "artifact"
-    run_suite(artifact, work_dir=tmp_path / "work")
+def test_replacement_between_stat_and_open_fails_closed(
+    monkeypatch,
+    tmp_path,
+    schema_v2_artifact: Path,
+) -> None:
+    artifact = schema_v2_artifact
     target = artifact / "summary.json"
     replacement = tmp_path / "replacement.json"
     replacement.write_bytes(target.read_bytes())
@@ -83,9 +87,11 @@ def test_replacement_between_stat_and_open_fails_closed(monkeypatch, tmp_path) -
     assert not any("Traceback" in error for error in report["errors"])
 
 
-def test_change_during_read_fails_closed(monkeypatch, tmp_path) -> None:
-    artifact = tmp_path / "artifact"
-    run_suite(artifact, work_dir=tmp_path / "work")
+def test_change_during_read_fails_closed(
+    monkeypatch,
+    schema_v2_artifact: Path,
+) -> None:
+    artifact = schema_v2_artifact
     target = artifact / "summary.json"
     target_before = target.stat(follow_symlinks=False)
     real_fstat = os.fstat

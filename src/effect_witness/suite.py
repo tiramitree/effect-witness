@@ -17,7 +17,7 @@ from collections import Counter
 from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Final
 
 from .journal import ClientJournal
 from .mcp_client import (
@@ -31,6 +31,12 @@ from .process import FixtureProcess
 from .store import EffectStore
 
 _SOURCE_REVISION = re.compile(r"^[0-9a-f]{40}$")
+# One mutating fixture call can encounter separate busy windows while recording
+# receipt and committing its effect. The eight-way control therefore uses a
+# dedicated budget with scheduling headroom; registered short faults still
+# pass their explicit sub-second budgets.
+CONCURRENT_MCP_TIMEOUT_SECONDS: Final = 30.0
+_DIAGNOSTIC_TOKEN = re.compile(r"^[A-Za-z0-9_.-]{1,96}$")
 
 
 @dataclass(frozen=True)
@@ -98,6 +104,61 @@ def _client_success(observations: list[CallObservation]) -> ClientOutcome:
     if observations and all(observation.succeeded for observation in observations):
         return ClientOutcome.SUCCEEDED
     return ClientOutcome.UNKNOWN
+
+
+def _safe_diagnostic_token(value: object) -> str:
+    text = value if isinstance(value, str) else ""
+    return text if _DIAGNOSTIC_TOKEN.fullmatch(text) else "redacted"
+
+
+def _failure_diagnostic(case: dict[str, Any]) -> dict[str, Any]:
+    checks = case.get("evidence_checks")
+    failed_checks = (
+        sorted(
+            _safe_diagnostic_token(name)
+            for name, value in checks.items()
+            if value is not True
+        )
+        if isinstance(checks, dict)
+        else ["evidence_checks_missing"]
+    )
+    observations = case.get("observations")
+    normalized_observations = observations if isinstance(observations, list) else []
+    exception_types = sorted(
+        {
+            _safe_diagnostic_token(exception_type)
+            for observation in normalized_observations
+            if isinstance(observation, dict)
+            for exception_type in observation.get("exception_types", ())
+        }
+    )
+    witness = case.get("witness")
+    normalized_witness = witness if isinstance(witness, dict) else {}
+    concurrency = case.get("concurrency_witness")
+    normalized_concurrency = concurrency if isinstance(concurrency, dict) else {}
+    return {
+        "completed_observations": sum(
+            observation.get("completed") is True
+            for observation in normalized_observations
+            if isinstance(observation, dict)
+        ),
+        "concurrency": {
+            key: value
+            for key in ("barrier_parties", "barrier_passed", "max_in_flight")
+            if isinstance((value := normalized_concurrency.get(key)), int)
+            and not isinstance(value, bool)
+        },
+        "exception_types": exception_types,
+        "failed_checks": failed_checks,
+        "observation_count": len(normalized_observations),
+        "scenario_id": _safe_diagnostic_token(case.get("scenario_id")),
+        "witness": {
+            key: value
+            for key in ("attempt_count", "effect_count")
+            if isinstance((value := normalized_witness.get(key)), int)
+            and not isinstance(value, bool)
+        },
+    }
 
 
 def _request_hashes(journal: ClientJournal) -> list[str]:
@@ -758,7 +819,7 @@ def _concurrent_duplicate(
                     fixture.url,
                     name=tool_name,
                     arguments=arguments,
-                    timeout_seconds=NORMAL_MCP_TIMEOUT_SECONDS,
+                    timeout_seconds=CONCURRENT_MCP_TIMEOUT_SECONDS,
                 )
             finally:
                 with concurrency_lock:
@@ -1054,10 +1115,16 @@ def run_suite(
         case["scenario_id"] for case in cases if case["expectation_met"] is not True
     )
     if not cases or failed_scenarios:
-        failure_scope = ",".join(failed_scenarios) if failed_scenarios else "none-ran"
+        diagnostics = [
+            _failure_diagnostic(case)
+            for case in cases
+            if case.get("expectation_met") is not True
+        ]
+        if not diagnostics:
+            diagnostics = [{"scenario_id": "none-ran"}]
         raise RuntimeError(
             "registered scenario matrix did not pass "
-            f"({failure_scope}); artifact was not sealed"
+            f"({canonical_json(diagnostics)}); artifact was not sealed"
         )
 
     results_dir = output / "results"

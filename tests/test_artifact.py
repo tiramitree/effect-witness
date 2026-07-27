@@ -7,7 +7,6 @@ from pathlib import Path
 
 import effect_witness.artifact as artifact_module
 from effect_witness.artifact import verify_artifact
-from effect_witness.suite import run_suite
 
 
 def _rewrite_manifest(root: Path) -> None:
@@ -26,9 +25,8 @@ def _rewrite_manifest(root: Path) -> None:
     )
 
 
-def test_verifies_fresh_suite_artifact(tmp_path) -> None:
-    artifact = tmp_path / "artifact"
-    run_suite(artifact, work_dir=tmp_path / "work")
+def test_verifies_fresh_suite_artifact(schema_v2_artifact: Path) -> None:
+    artifact = schema_v2_artifact
 
     report = verify_artifact(artifact)
 
@@ -44,9 +42,8 @@ def test_verifies_fresh_suite_artifact(tmp_path) -> None:
     }
 
 
-def test_detects_hash_tampering(tmp_path) -> None:
-    artifact = tmp_path / "artifact"
-    run_suite(artifact, work_dir=tmp_path / "work")
+def test_detects_hash_tampering(schema_v2_artifact: Path) -> None:
+    artifact = schema_v2_artifact
     summary = artifact / "summary.json"
     summary.write_text(summary.read_text(encoding="utf-8") + " ", encoding="utf-8")
 
@@ -56,9 +53,8 @@ def test_detects_hash_tampering(tmp_path) -> None:
     assert "SHA-256 mismatch: summary.json" in report["errors"]
 
 
-def test_detects_self_consistent_summary_lie(tmp_path) -> None:
-    artifact = tmp_path / "artifact"
-    run_suite(artifact, work_dir=tmp_path / "work")
+def test_detects_self_consistent_summary_lie(schema_v2_artifact: Path) -> None:
+    artifact = schema_v2_artifact
     summary_path = artifact / "summary.json"
     summary = json.loads(summary_path.read_text(encoding="utf-8"))
     summary["scenario_count"] = 999
@@ -90,9 +86,8 @@ def test_rejects_manifest_path_traversal(tmp_path) -> None:
     assert "manifest line 1 has an unsafe path" in report["errors"]
 
 
-def test_rejects_unmanifested_file(tmp_path) -> None:
-    artifact = tmp_path / "artifact"
-    run_suite(artifact, work_dir=tmp_path / "work")
+def test_rejects_unmanifested_file(schema_v2_artifact: Path) -> None:
+    artifact = schema_v2_artifact
     shutil.copyfile(artifact / "summary.json", artifact / "extra.json")
 
     report = verify_artifact(artifact)
@@ -100,6 +95,18 @@ def test_rejects_unmanifested_file(tmp_path) -> None:
     assert report["verified"] is False
     assert "file is not covered by the manifest: extra.json" in report["errors"]
     assert "unexpected artifact file: extra.json" in report["errors"]
+
+
+def test_fixture_copy_is_isolated_from_template(
+    schema_v2_artifact: Path,
+    schema_v2_artifact_template: Path,
+) -> None:
+    template_summary = schema_v2_artifact_template / "summary.json"
+    original = template_summary.read_bytes()
+
+    (schema_v2_artifact / "summary.json").write_bytes(b"changed-copy")
+
+    assert template_summary.read_bytes() == original
 
 
 def test_rejects_root_reparse_point(monkeypatch, tmp_path) -> None:

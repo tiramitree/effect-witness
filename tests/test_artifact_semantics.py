@@ -10,15 +10,11 @@ import pytest
 
 from effect_witness.artifact import verify_artifact
 from effect_witness.models import canonical_json, sha256_json
-from effect_witness.suite import run_suite
 
 
 @pytest.fixture(scope="module")
-def baseline_artifact(tmp_path_factory: pytest.TempPathFactory) -> Path:
-    root = tmp_path_factory.mktemp("artifact-semantics")
-    artifact = root / "artifact"
-    run_suite(artifact, work_dir=root / "work")
-    return artifact
+def baseline_artifact(schema_v2_artifact_template: Path) -> Path:
+    return schema_v2_artifact_template
 
 
 def _copy(baseline: Path, tmp_path: Path) -> Path:

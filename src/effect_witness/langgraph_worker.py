@@ -58,7 +58,7 @@ class InjectedPostEffectFailure(RuntimeError):
 
 def _versions() -> dict[str, str]:
     registered = {
-        "effect-witness": "0.3.2",
+        "effect-witness": "0.3.3",
         "mcp": "1.28.1",
         **{
             package: registration["version"]

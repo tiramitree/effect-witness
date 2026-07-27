@@ -12,7 +12,7 @@ import sqlite3
 from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Any
+from typing import Any, Final
 
 from .models import (
     AttemptBindingError,
@@ -70,6 +70,9 @@ CREATE INDEX IF NOT EXISTS idx_attempts_operation
 ON attempts(tool_name, operation_id, received_seq);
 """
 
+SQLITE_BUSY_TIMEOUT_SECONDS: Final = 5.0
+_SQLITE_BUSY_TIMEOUT_MILLISECONDS: Final = int(SQLITE_BUSY_TIMEOUT_SECONDS * 1000)
+
 
 class EffectStore:
     """Durable server-side witness for synthetic externally visible effects."""
@@ -77,22 +80,29 @@ class EffectStore:
     def __init__(self, path: str | Path) -> None:
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        with self._connection() as connection:
+        with self._connection(initialize=True) as connection:
             connection.executescript(_SCHEMA)
 
-    def _open(self) -> sqlite3.Connection:
+    def _open(self, *, initialize: bool = False) -> sqlite3.Connection:
         connection = sqlite3.connect(
             self.path,
             isolation_level=None,
-            timeout=5.0,
+            timeout=SQLITE_BUSY_TIMEOUT_SECONDS,
         )
         connection.row_factory = sqlite3.Row
         try:
-            journal_mode = connection.execute("PRAGMA journal_mode=WAL").fetchone()[0]
+            if initialize:
+                journal_mode = connection.execute("PRAGMA journal_mode=WAL").fetchone()[
+                    0
+                ]
+            else:
+                journal_mode = connection.execute("PRAGMA journal_mode").fetchone()[0]
             connection.execute("PRAGMA synchronous=FULL")
             synchronous = connection.execute("PRAGMA synchronous").fetchone()[0]
             connection.execute("PRAGMA foreign_keys=ON")
-            connection.execute("PRAGMA busy_timeout=5000")
+            connection.execute(
+                f"PRAGMA busy_timeout={_SQLITE_BUSY_TIMEOUT_MILLISECONDS}"
+            )
             if str(journal_mode).lower() != "wal" or int(synchronous) != 2:
                 raise RuntimeError("SQLite WAL/FULL durability mode unavailable")
         except Exception:
@@ -101,8 +111,12 @@ class EffectStore:
         return connection
 
     @contextmanager
-    def _connection(self) -> Iterator[sqlite3.Connection]:
-        connection = self._open()
+    def _connection(
+        self,
+        *,
+        initialize: bool = False,
+    ) -> Iterator[sqlite3.Connection]:
+        connection = self._open(initialize=initialize)
         try:
             yield connection
         finally:
