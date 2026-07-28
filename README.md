@@ -1,8 +1,9 @@
 # EffectWitness
 
-EffectWitness is a pre-alpha, local-first evidence workbench with three
+EffectWitness is a pre-alpha, local-first evidence workbench with four
 isolated lanes for declared tool effects, bounded real-implementation
-observations, and cross-process workflow replay.
+observations, cross-process workflow replay, and deterministic coding-agent
+reconciliation.
 
 The first two lanes ask one narrow question:
 
@@ -13,6 +14,13 @@ The first two lanes ask one narrow question:
 The third asks what a fixed LangGraph task, checkpoint, MCP call, and visible
 byte tree show when a registered post-effect exception is followed by a second
 worker process.
+
+The fourth asks what mini-swe-agent 2.4.6 `DefaultAgent`,
+`DeterministicModel`, and `LocalEnvironment` show when one registered synthetic
+Git patch succeeds but the first trajectory write then fails at the
+application level. It keeps the agent's declared action, command observation,
+out-of-workspace durable journal, Git byte tree, and independent validation
+results separate.
 
 It deliberately separates three fact domains:
 
@@ -48,8 +56,17 @@ Python processes against the same SQLite checkpoint and registered MCP
 filesystem effect. It compares blind replay with one exact byte-tree
 reconciliation policy; it is not a general durability or recovery benchmark.
 
+The separate schema-v5 lane observes four exact mini-swe-agent coding
+scenarios for three rounds each on CPython 3.12 x86-64 Windows or Linux. It
+uses a deterministic in-process model and one synthetic Git patch, with no
+model API or paid-service call. Its registered fault is a first trajectory
+write failure after the mutation command and durable journal record, not a
+mini-swe-agent native resume, process crash, power loss, or filesystem
+crash-consistency experiment.
+
 It does **not** establish exactly-once execution, official MCP certification,
-distributed consistency, security, production reliability, model capability,
+distributed consistency, security, sandboxing, production reliability,
+mini-swe-agent native resume, model capability or repair performance,
 framework superiority, or external usefulness. See the full
 [claim boundary](docs/claims.md).
 
@@ -136,6 +153,32 @@ test. A commit-bound Windows
 [reference artifact](evidence/README.md) is bundled for offline verification.
 Public CI is configured to regenerate the lane independently on Windows and
 Ubuntu; the repository does not treat configuration alone as a passing result.
+
+The schema-v5 coding-agent lane includes:
+
+- mini-swe-agent 2.4.6 using its `DefaultAgent`, `DeterministicModel`, and
+  `LocalEnvironment`;
+- one registered synthetic calculator repository and Git patch;
+- `clean`, blind restart, journal-plus-byte-tree reconciliation, and tampered
+  `UNRESOLVED` scenarios, each repeated for three rounds;
+- one application-level fault during the first trajectory save, after the
+  registered mutation command and journal record;
+- S0/S1/S2/S3 fail-closed relative byte trees, changed-path projections, and
+  harness-owned validation results;
+- a SQLite WAL/FULL journal outside the Git workspace that records whether the
+  exact command executed, was reconciled without execution, or remained
+  unresolved;
+- an exact mini-swe-agent wheel size/SHA-256 gate, selected installed-runtime
+  file hashes, and a 93-version Python 3.12 constraint snapshot;
+- schema-v5 canonical JSON, JUnit, manifest, and a separate offline verifier;
+- zero model API and paid-service calls.
+
+A Git diff or passing test is not a durable-effect fact. Reconciliation
+requires both the exact prior journal record and the exact registered workspace
+postcondition. The public artifact excludes raw trajectory, command text,
+workspace, journal database, wheel, paths, environment, hostnames, model
+messages, and process output. The lane is not a coding benchmark, agent
+capability result, sandbox, or production recovery claim.
 
 ## Quick start
 
@@ -224,6 +267,40 @@ disjoint; output and work targets must start absent and must never point at
 user data. `--source-revision` is recorded as
 `declared_source_revision`; the runner does not authenticate it.
 
+The coding-agent lane requires CPython 3.12 and its own exact constraint
+snapshot. Dependency preparation downloads only the registered
+`mini_swe_agent-2.4.6-py3-none-any.whl`, verifies its exact 115,037-byte size
+and SHA-256
+`a35463c553ac825c7773b03cfa69cd44958e3af20155dcc5711fdf9e4c67cd54`,
+and atomically publishes a one-file dependency directory:
+
+```powershell
+.venv\Scripts\python -m pip install --no-deps -e .
+.venv\Scripts\python scripts\prepare_coding_agent.py `
+  --output-dir .coding-agent-deps
+.venv\Scripts\python -m pip install `
+  --only-binary=:all: `
+  --constraint integrations\mini-swe-agent\constraints-py312.txt `
+  -e ".[dev]" `
+  litellm==1.91.1 `
+  .coding-agent-deps\mini_swe_agent-2.4.6-py3-none-any.whl
+.venv\Scripts\effect-witness run-coding-agent `
+  --constraints-file integrations\mini-swe-agent\constraints-py312.txt `
+  --dependency-dir .coding-agent-deps `
+  --output-dir artifacts\coding-agent `
+  --source-revision UNCOMMITTED
+.venv\Scripts\effect-witness verify-coding-agent `
+  --artifact-dir artifacts\coding-agent
+```
+
+POSIX uses the corresponding `.venv/bin/` executables and `/` separators. The
+93-version constraint snapshot has SHA-256
+`a2a4b3cf0af75c357e1e4578d0cc4b0ffa222dcb9358a0b60a4e3a47512196eb`;
+it is a version snapshot, not a cross-platform hash lock. Dependency, output,
+and optional work directories must be mutually disjoint and must start absent.
+Preparation requires access to the registered PyPI wheel URL; running and
+verifying a prepared lane do not require a model or paid service.
+
 Run the generic privacy scan in a clean checkout before installing dependencies
 or creating build output, then run the remaining development gates:
 
@@ -273,10 +350,20 @@ normalized call shapes, registered S0/S1/S2/S3 relationships, canonical JUnit,
 and cross-file counts for all 40 rounds. It does not execute or import the
 replay stack, inspect a checkpoint database, or prove artifact authenticity.
 
+`effect-witness verify-coding-agent` independently checks schema-v5 exact
+inventory, manifest closure, registered dependency/provenance facts,
+type-sensitive worker summaries, journal projections, command-execution
+decisions, S0/S1/S2/S3 byte trees, changed paths, harness-owned validation
+results, JUnit, and cross-file counts for all 12 rounds. It does not import or
+execute mini-swe-agent, run Git or tests, open the private journal, or prove
+artifact authenticity.
+
 See [architecture](docs/architecture.md), the
 [schema-v2 reference](docs/evidence-schema-v2.md), and the
 [schema-v3 filesystem reference](docs/evidence-schema-v3-filesystem.md), and
-the [schema-v4 replay contract](docs/evidence-schema-v4-langgraph-replay.md).
+the [schema-v4 replay contract](docs/evidence-schema-v4-langgraph-replay.md),
+and the
+[schema-v5 coding-agent contract](docs/evidence-schema-v5-mini-swe-agent.md).
 
 ## Privacy gate
 
@@ -329,6 +416,11 @@ reported as passing until the public run is green. The synthetic fixture
 contains deliberate process exits and must remain loopback-only. Read
 [SECURITY.md](SECURITY.md) before changing either transport boundary and
 [CONTRIBUTING.md](CONTRIBUTING.md) before submitting changes.
+
+Schema v5 is narrower: CPython 3.12 on x86-64 Windows/Linux only. Its
+`LocalEnvironment` executes a real shell command inside a newly owned synthetic
+workspace and is not a security sandbox. A documented command or configured CI
+job is not itself evidence that a schema-v5 run passed.
 
 ## License
 

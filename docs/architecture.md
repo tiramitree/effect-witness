@@ -1,11 +1,12 @@
 # Architecture and trust boundaries
 
-EffectWitness has three isolated evidence lanes. Schema v2 compares what an MCP
+EffectWitness has four isolated evidence lanes. Schema v2 compares what an MCP
 client observed with what the bundled fixture durably recorded. Schema v3
 observes an exact external implementation through byte-tree snapshots. Schema
 v4 observes one exact workflow replay boundary across separate Python
-processes. None is a general black-box verdict on arbitrary third-party tools
-or frameworks.
+processes. Schema v5 observes one deterministic mini-swe-agent coding mutation,
+an application-level trajectory-write fault, and two restart policies. None is
+a general black-box verdict on arbitrary third-party tools or frameworks.
 
 ```text
 scenario runner
@@ -73,6 +74,35 @@ exact Python constraints + exact filesystem registration
   +-- seal one normalized eight-file artifact
 ```
 
+The schema-v5 lane has another separate boundary:
+
+```text
+exact Python 3.12 constraints + exact mini-swe-agent wheel
+  |
+  +-- schema-v5 orchestrator
+        |
+        +-- newly owned synthetic Git workspace
+        |     +-- one registered patch and validation command
+        |
+        +-- out-of-workspace SQLite WAL/FULL decision journal
+        |
+        +-- initial isolated worker
+        |     +-- mini-swe-agent DefaultAgent
+        |     +-- DeterministicModel with two registered actions
+        |     +-- LocalEnvironment behind an exact-command adapter
+        |     +-- optional first trajectory-write failure
+        |
+        +-- S1 capture / optional registered S2 tamper
+        |
+        +-- optional restart worker
+              +-- blind command execution
+              +-- journal-plus-byte-tree reconciliation
+              +-- or UNRESOLVED without command execution
+  |
+  +-- remove workspace, trajectory, journal, and private work root
+  +-- atomically seal one normalized eight-file artifact
+```
+
 Workers launch with Python isolated mode, an owned case-root working directory,
 no user site, no inherited proxy/token/credential variables, and separate
 process groups. The runner rejects overlapping output, dependency, and custom
@@ -98,6 +128,33 @@ non-reparse parent chain. Each operation owns a fresh same-parent staging
 directory. A complete dependency tree or manifested artifact is atomically
 renamed to its final path; failures remove only the exact staging/work roots
 created by that invocation and do not publish a partial final directory.
+
+Schema v5 applies the same absent-target, non-overlap, ordinary-parent,
+same-parent staging, exact-owned-root cleanup, and atomic-publication rules to
+its wheel directory, artifact directory, and optional work directory. The
+worker runs in an isolated process group with a bounded environment, output
+size, and wall-clock limit. `LocalEnvironment` still executes a real shell
+inside the owned workspace; these controls are containment precautions, not a
+security sandbox.
+
+The schema-v5 fact domains remain independent:
+
+1. Agent declaration: the exact registered action present in the deterministic
+   model message projection.
+2. Agent observation: the return code reported through mini-swe-agent's
+   normalized message sequence.
+3. Durable decision fact: the out-of-workspace WAL/FULL journal row recording
+   `EXECUTED`, `RECONCILED`, or `UNRESOLVED`.
+4. Workspace observation: fail-closed S0/S1/S2/S3 relative byte trees and Git
+   changed-path projections.
+5. Validation observation: a harness-owned execution of the fixed synthetic
+   tests at each state.
+
+A changed Git tree or passing validation is never promoted by itself to a
+durable decision fact. The reconcile branch requires exactly one registered
+initial `EXECUTED` journal row and the exact registered post-patch byte tree.
+If the journal and workspace disagree after the registered tamper,
+reconciliation records `UNRESOLVED` and does not execute the command.
 
 ## Schema-v2 fact domains
 
@@ -203,3 +260,18 @@ topology, and independently recomputes all 40 round relationships. It never
 opens a checkpoint database or executes LangGraph, MCP, Node, or SQLite. The
 recorded source revision is explicitly caller-declared; the manifest and
 verifier do not authenticate a publisher.
+
+Schema v5 has its own entry point and verifier. Its artifact contains only
+normalized worker/process facts, action and tree hashes, journal projections,
+changed paths, validation outcomes, and S0/S1/S2/S3 relative byte trees. The
+raw mini-swe-agent trajectory, synthetic workspace, `.git` directory, journal
+database and WAL/SHM files, wheel, commands, model messages, shell output,
+paths, environment, hostnames, process identifiers, timestamps, and exception
+messages are removed or excluded before artifact publication.
+
+The schema-v5 verifier imports the frozen registration but neither its worker
+nor runner. It captures one bounded artifact snapshot, requires the exact
+two-directory/eight-file topology, checks manifest closure and registered
+provenance, and independently recomputes all 12 round relationships. It does
+not import mini-swe-agent, execute Git or tests, open the private journal, or
+authenticate the caller-declared source revision.

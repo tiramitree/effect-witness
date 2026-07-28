@@ -52,6 +52,43 @@ change must update its registered hash/count, direct-package registration,
 third-party notices, distribution boundary, verifier mutations, and
 claim/schema documentation together.
 
+For schema-v5 coding-agent changes, use CPython 3.12 and also run:
+
+```text
+python -m pip install --no-deps -e .
+python scripts/prepare_coding_agent.py \
+  --output-dir <fresh-dependency-dir>
+python -m pip install \
+  --only-binary=:all: \
+  --constraint integrations/mini-swe-agent/constraints-py312.txt \
+  -e ".[dev]" \
+  litellm==1.91.1 \
+  <fresh-dependency-dir>/mini_swe_agent-2.4.6-py3-none-any.whl
+effect-witness run-coding-agent \
+  --constraints-file integrations/mini-swe-agent/constraints-py312.txt \
+  --dependency-dir <fresh-dependency-dir> \
+  --output-dir <fresh-artifact-dir> \
+  --source-revision UNCOMMITTED
+effect-witness verify-coding-agent \
+  --artifact-dir <fresh-artifact-dir>
+python scripts/privacy_scan.py <fresh-artifact-dir>
+```
+
+The dependency, artifact, and optional work directories must be fresh,
+mutually disjoint, and outside user data or existing repositories. Do not
+commit the downloaded wheel, raw trajectory, synthetic work root, `.git`
+directory, journal database or WAL/SHM files, command output, or temporary
+schema-v5 artifact.
+
+Changes to the mini-swe-agent version, wheel, selected runtime-file set,
+deterministic model outputs, command allowlist, synthetic fixture, scenario
+matrix, supported platform, or 93-version constraint snapshot require matching
+registration, dependency-provenance, tests, distribution-boundary,
+third-party-notice, security, claim, and schema-document updates. Preserve the
+separation between declared action, observed return code, durable journal
+decision, workspace byte tree, and validation result. A Git diff or passing
+test must never be used alone to infer a persisted external effect.
+
 No contributor license agreement is currently used. Contributions submitted
 to this Apache-2.0 repository are handled under the terms in `LICENSE`.
 

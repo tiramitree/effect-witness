@@ -108,6 +108,50 @@ to generate fresh Windows and Linux observations ephemerally without uploading
 them; public CI status, rather than this sentence, determines whether a
 particular run passed.
 
+## Supported by the schema-v5 mini-swe-agent lane
+
+- The lane uses mini-swe-agent 2.4.6 `DefaultAgent`,
+  `DeterministicModel`, and `LocalEnvironment` with zero model API and
+  paid-service calls.
+- The dependency gate requires the exact 115,037-byte
+  `mini_swe_agent-2.4.6-py3-none-any.whl` with SHA-256
+  `a35463c553ac825c7773b03cfa69cd44958e3af20155dcc5711fdf9e4c67cd54`.
+  The upstream wheel metadata reports MIT, Python `>=3.10`, and an Alpha
+  development-status classifier.
+- The runner checks a 93-version CPython 3.12 constraint snapshot with SHA-256
+  `a2a4b3cf0af75c357e1e4578d0cc4b0ffa222dcb9358a0b60a4e3a47512196eb`
+  and the registered selected mini-swe-agent runtime-file bytes. The constraint
+  snapshot is not a cross-platform hash lock.
+- Four scenarios run for three rounds each on registered x86-64 Windows or
+  Linux with CPython 3.12. Every round starts from one exact synthetic Git
+  repository and targets one exact patch and test command.
+- The registered fault occurs during the first trajectory save after the
+  initial mutation command and out-of-workspace WAL/FULL journal write. It is
+  an application-level exception, not a hard crash, native mini-swe-agent
+  resume, power loss, or filesystem crash-consistency boundary.
+- The clean scenario executes the registered mutation once. Blind restart
+  executes the command again and observes the registered nonzero return code
+  with no second byte-tree change.
+- The reconcile scenario requires both the exact initial journal row and exact
+  registered post-patch byte tree, then records `RECONCILED` without another
+  command execution. The tampered scenario records `UNRESOLVED` without
+  executing the command.
+- Git changed paths and harness-owned validation results are exported
+  separately from the durable journal projection. Neither a workspace diff nor
+  a passing test is treated alone as proof of a persisted external effect.
+- The strict schema-v5 verifier checks exact inventory, manifest closure,
+  dependency/provenance facts, worker summaries, journal decisions,
+  S0/S1/S2/S3 byte trees, changed paths, validation outcomes, JUnit, and
+  summary relationships without importing or executing mini-swe-agent.
+
+These statements apply only to mini-swe-agent 2.4.6, its registered selected
+runtime files, the exact deterministic model outputs, one synthetic Git patch,
+one application-level trajectory-write fault, four scenarios, three rounds,
+CPython 3.12, and x86-64 Windows/Linux. They do not extend to arbitrary coding
+tasks, commands, repositories, agents, models, or operating-system behavior.
+No bundled schema-v5 reference artifact or independent reproduction is claimed
+until one is explicitly added and bound to a trusted public source revision.
+
 ## Explicitly not established
 
 - Runtime integrity of the complete transitive `node_modules` tree.
@@ -123,6 +167,12 @@ particular run passed.
 - production reliability or availability;
 - distributed consistency;
 - arbitrary third-party tool correctness;
+- mini-swe-agent native resume or crash recovery;
+- exactly-once execution for arbitrary coding commands;
+- arbitrary coding-agent correctness or model repair ability;
+- SWE-bench, ProgramBench, repository, or industry performance;
+- safe sandboxing or general process-tree cleanup;
+- Windows and Linux equivalence beyond the registered observations;
 - package-wide correctness for the filesystem server;
 - production filesystem behavior, permissions, timestamps, links, or
   concurrent mutation behavior;

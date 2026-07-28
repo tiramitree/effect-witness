@@ -42,6 +42,11 @@ def _write_sdist(
     members["effect_witness-0.2.0/integrations/langgraph/constraints.txt"] = (
         repository / "integrations" / "langgraph" / "constraints.txt"
     ).read_bytes()
+    mini_swe_integration = repository / "integrations" / "mini-swe-agent"
+    for filename in ("constraints-py312.txt", "wheel-provenance.json"):
+        members[f"effect_witness-0.2.0/integrations/mini-swe-agent/{filename}"] = (
+            mini_swe_integration / filename
+        ).read_bytes()
     with tarfile.open(path, mode="w:gz") as archive:
         for name, contents in members.items():
             info = tarfile.TarInfo(name)
@@ -147,6 +152,20 @@ def test_distribution_boundary_rejects_node_modules(tmp_path: Path) -> None:
     _write_sdist(tmp_path / "effect_witness-0.2.0.tar.gz")
 
     with pytest.raises(ValueError, match="forbidden npm/runtime payload"):
+        verify(tmp_path)
+
+
+def test_distribution_boundary_rejects_bundled_upstream_wheel(
+    tmp_path: Path,
+) -> None:
+    wheel = tmp_path / "effect_witness-0.2.0-py3-none-any.whl"
+    _write_wheel(
+        wheel,
+        extra=("vendor/mini_swe_agent-2.4.6-py3-none-any.whl", b"payload"),
+    )
+    _write_sdist(tmp_path / "effect_witness-0.2.0.tar.gz")
+
+    with pytest.raises(ValueError, match="forbidden runtime archive"):
         verify(tmp_path)
 
 

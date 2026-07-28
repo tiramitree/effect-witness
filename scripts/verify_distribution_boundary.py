@@ -9,6 +9,10 @@ import tarfile
 import zipfile
 from pathlib import Path, PurePosixPath
 
+from effect_witness.coding_dependencies import MINI_SWE_AGENT_PROVENANCE_SHA256
+from effect_witness.coding_registration import (
+    PYTHON_CONSTRAINTS_SHA256 as CODING_CONSTRAINTS_SHA256,
+)
 from effect_witness.filesystem_registration import (
     LOCK_PROVENANCE_SHA256,
     PACKAGE_JSON_SHA256,
@@ -33,6 +37,7 @@ _FORBIDDEN_SUFFIXES = {
     ".tar.gz",
     ".tar.xz",
     ".tgz",
+    ".whl",
     ".zip",
     "/node.exe",
     "/npm",
@@ -129,6 +134,14 @@ def _verify_sdist_integration_metadata(
         ("filesystem", "package-lock.json"): PACKAGE_LOCK_SHA256,
         ("filesystem", "lock-provenance.json"): LOCK_PROVENANCE_SHA256,
         ("langgraph", "constraints.txt"): PYTHON_CONSTRAINTS_SHA256,
+        (
+            "mini-swe-agent",
+            "constraints-py312.txt",
+        ): CODING_CONSTRAINTS_SHA256,
+        (
+            "mini-swe-agent",
+            "wheel-provenance.json",
+        ): MINI_SWE_AGENT_PROVENANCE_SHA256,
     }
     for (integration, filename), expected_sha256 in expected.items():
         matches = [

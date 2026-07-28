@@ -1,0 +1,11 @@
+{
+  "development_status": "Alpha",
+  "filename": "mini_swe_agent-2.4.6-py3-none-any.whl",
+  "license": "MIT",
+  "package": "mini-swe-agent",
+  "python_requires": ">=3.10",
+  "sha256": "a35463c553ac825c7773b03cfa69cd44958e3af20155dcc5711fdf9e4c67cd54",
+  "size_bytes": 115037,
+  "url": "https://files.pythonhosted.org/packages/a2/00/a2f454775f69f540ab529c5f5e35d672f6491f0e6edab7cb196a0d2a0e2e/mini_swe_agent-2.4.6-py3-none-any.whl",
+  "version": "2.4.6"
+}

@@ -3,4 +3,4 @@
 from .models import ContractResult, FaultMode, ToolStrategy
 
 __all__ = ["ContractResult", "FaultMode", "ToolStrategy"]
-__version__ = "0.3.3"
+__version__ = "0.4.0"

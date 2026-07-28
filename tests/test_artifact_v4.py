@@ -207,7 +207,7 @@ def _rewrite_manifest(root: Path) -> None:
 def _registered_artifact(
     root: Path,
     *,
-    effect_witness_version: str = "0.3.3",
+    effect_witness_version: str = "0.4.0",
 ) -> None:
     results = root / "results"
     results.mkdir(parents=True)
@@ -340,7 +340,10 @@ def test_schema_v4_rejects_unregistered_producer_version(tmp_path: Path) -> None
     assert "summary dependency versions differ from registration" in report["errors"]
 
 
-@pytest.mark.parametrize("producer_version", ("0.3.0", "0.3.1", "0.3.2"))
+@pytest.mark.parametrize(
+    "producer_version",
+    ("0.3.0", "0.3.1", "0.3.2", "0.3.3"),
+)
 def test_schema_v4_accepts_legacy_registered_producer_version(
     tmp_path: Path,
     producer_version: str,

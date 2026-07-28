@@ -39,6 +39,7 @@ from effect_witness.filesystem_registration import (
 from effect_witness.filesystem_semantics import EDITED, registered_stimulus
 from effect_witness.langgraph_registration import (
     DURABILITY,
+    EFFECT_WITNESS_PRODUCER_VERSIONS,
     INJECTED_EXIT_CODE,
     LANGGRAPH_PACKAGES,
     SCENARIOS,
@@ -58,7 +59,7 @@ class InjectedPostEffectFailure(RuntimeError):
 
 def _versions() -> dict[str, str]:
     registered = {
-        "effect-witness": "0.3.3",
+        "effect-witness": EFFECT_WITNESS_PRODUCER_VERSIONS[-1],
         "mcp": "1.28.1",
         **{
             package: registration["version"]

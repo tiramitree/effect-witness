@@ -109,3 +109,28 @@ into the EffectWitness wheel. Any future bundled environment, container, or
 offline dependency archive must preserve the applicable upstream license and
 notice files and must stop if the missing `sqlite-vec` license text remains
 unresolved.
+
+## Optional mini-swe-agent coding integration
+
+Schema v5 declares optional dependencies through the `coding-agent` extra. Its
+registered reproduction path installs the exact prepared wheel directly under
+the constraint snapshot. The preparer downloads, verifies, and keeps outside
+this repository the exact public PyPI wheel
+`mini_swe_agent-2.4.6-py3-none-any.whl` (115,037 bytes; SHA-256
+`a35463c553ac825c7773b03cfa69cd44958e3af20155dcc5711fdf9e4c67cd54`).
+The wheel, its source code, and its installed files are not bundled in an
+EffectWitness wheel, source distribution, or schema-v5 evidence artifact.
+
+The exact wheel's PyPI metadata reports mini-swe-agent 2.4.6 as MIT licensed,
+with Python requirement `>=3.10` and an Alpha development-status classifier.
+That upstream metadata is an attribution and dependency fact, not a claim that
+the lane supports every upstream-compatible interpreter or platform. Schema v5
+supports only CPython 3.12 on x86-64 Windows or Linux.
+
+The schema-v5 source distribution carries a 93-version CPython 3.12 constraint
+snapshot with SHA-256
+`a2a4b3cf0af75c357e1e4578d0cc4b0ffa222dcb9358a0b60a4e3a47512196eb`.
+It is a version registration, not a cross-platform wheel hash lock or a
+complete transitive-dependency notice inventory. A future bundle or
+redistribution of mini-swe-agent must preserve the applicable upstream MIT
+license and notices and receive a fresh dependency and license review.

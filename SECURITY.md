@@ -33,6 +33,37 @@ workflow. Changes to native or transitive dependencies require a new
 platform/license review before the registered versions or architectures are
 expanded.
 
+The schema-v5 coding-agent lane launches mini-swe-agent 2.4.6
+`LocalEnvironment`, which executes a real shell command inside a newly owned
+synthetic Git workspace. The exact-command adapter, restricted worker
+environment, process group, timeout, output bound, disjoint paths, and
+owned-root cleanup reduce accidental exposure; they are not a security
+sandbox. Never point `--work-dir`, the dependency directory, output directory,
+workspace, or Git command at user data, an existing repository, shared
+storage, credentials, or production state.
+
+The schema-v5 fault is an application-level first trajectory-write exception
+after the registered mutation and journal write. Do not describe it as a hard
+crash, power-loss test, native mini-swe-agent resume, or SQLite/filesystem
+crash-consistency result. A Git diff or passing validation is not a persisted
+external-effect fact. Reconciliation is limited to agreement between the exact
+out-of-workspace WAL/FULL journal row and exact registered workspace
+postcondition.
+
+The coding-agent dependency preparer downloads one exact public wheel without
+environment proxies and verifies its filename, 115,037-byte size, and SHA-256
+`a35463c553ac825c7773b03cfa69cd44958e3af20155dcc5711fdf9e4c67cd54`.
+Do not add package-index credentials, alternate indexes, or authentication to
+this workflow. The 93-version CPython 3.12 constraint snapshot is not a
+cross-platform hash lock; any dependency, wheel, runtime-file, platform, or
+license change requires renewed registration and review.
+
+Do not retain or publish schema-v5 raw trajectories, work roots, `.git`
+directories, journal databases or WAL/SHM files, upstream wheels, command text,
+model messages, raw shell or agent output, environment values, absolute paths,
+hostnames, process identifiers, timestamps, or exception messages. The public
+artifact carries normalized hashes and bounded facts only.
+
 If you find a security-relevant problem, open a GitHub issue containing the
 smallest safe reproduction. Do not include credentials, personal information,
 private hostnames, private paths, or production data. There is currently no

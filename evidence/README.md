@@ -104,3 +104,10 @@ The earlier `reference-v0.3.0-langgraph-replay-windows` observation remains
 available and verifiable. It is bound to source revision
 `51b564736f52347a99b3144a337f3df1c62867e3` and manifest-file SHA-256
 `5fa88b953ac02e5952ffcc40d2b40a72e1cce57ba343b889501f0d17d8083a25`.
+
+Schema v5 has no bundled reference artifact at this time. Its mini-swe-agent
+coding reconciliation contract describes the format a future local run would
+produce; it is not a statement that a reference artifact, public release, or
+independent reproduction exists. See
+[`docs/evidence-schema-v5-mini-swe-agent.md`](../docs/evidence-schema-v5-mini-swe-agent.md)
+for the registered scope and offline-verifier boundary.

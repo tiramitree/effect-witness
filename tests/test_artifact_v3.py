@@ -277,7 +277,7 @@ def test_schema_v3_verifies_registered_artifact(tmp_path) -> None:
 
 @pytest.mark.parametrize(
     "producer_version",
-    ("0.2.1", "0.3.0", "0.3.1", "0.3.2", "0.3.3"),
+    ("0.2.1", "0.3.0", "0.3.1", "0.3.2", "0.3.3", "0.4.0"),
 )
 def test_schema_v3_accepts_registered_patch_producer(
     tmp_path,
