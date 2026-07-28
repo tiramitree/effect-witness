@@ -105,9 +105,42 @@ available and verifiable. It is bound to source revision
 `51b564736f52347a99b3144a337f3df1c62867e3` and manifest-file SHA-256
 `5fa88b953ac02e5952ffcc40d2b40a72e1cce57ba343b889501f0d17d8083a25`.
 
-Schema v5 has no bundled reference artifact at this time. Its mini-swe-agent
-coding reconciliation contract describes the format a future local run would
-produce; it is not a statement that a reference artifact, public release, or
-independent reproduction exists. See
-[`docs/evidence-schema-v5-mini-swe-agent.md`](../docs/evidence-schema-v5-mini-swe-agent.md)
-for the registered scope and offline-verifier boundary.
+`reference-v0.4.0-mini-swe-agent-windows` is the bundled schema-v5 observation
+of the registered mini-swe-agent coding reconciliation lane.
+
+- declared source revision:
+  `3b6e5df5c887a855b2858b4d26d1ab9d81684de3`
+- artifact manifest-file SHA-256:
+  `ce2de79f1c4b19b16cb052adb1b5a47175d4988973f4bef52a8effed4167561c`
+- inventory: 8 files, 81,392 bytes
+- registered execution: 4 scenarios x 3 rounds
+- isolated worker records: 21
+- registered command executions: 15
+- runtime: Windows x86-64, CPython 3.12.10
+- dependencies: EffectWitness 0.4.0 and mini-swe-agent 2.4.6
+- model API calls: 0
+- paid-service calls: 0
+
+Run without mini-swe-agent or the optional coding dependencies:
+
+```text
+effect-witness verify-coding-agent \
+  --artifact-dir evidence/reference-v0.4.0-mini-swe-agent-windows
+```
+
+The artifact contains normalized worker, journal, byte-tree, changed-path, and
+validation facts plus JUnit, provenance, and a manifest. It excludes the raw
+trajectory, synthetic work root, `.git`, journal database and WAL/SHM files,
+wheel, commands, fixture content, model messages, raw process output, paths,
+environment, hostnames, PIDs, and timestamps.
+
+This is one author-generated, source-, version-, input-, and OS-bound local
+observation, not independent reproduction. It does not establish native
+mini-swe-agent resume, exactly-once execution, arbitrary coding-agent
+correctness, model repair ability, benchmark performance, sandboxing, crash
+consistency, production reliability, security, external review, adoption,
+deployment, or recruiting outcomes. The source revision is caller-declared
+inside the artifact; the offline verifier checks integrity and internal
+consistency, not publisher authenticity. The contract and reproduction
+boundary are documented in
+[`docs/evidence-schema-v5-mini-swe-agent.md`](../docs/evidence-schema-v5-mini-swe-agent.md).

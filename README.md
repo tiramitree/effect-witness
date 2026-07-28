@@ -180,6 +180,13 @@ workspace, journal database, wheel, paths, environment, hostnames, model
 messages, and process output. The lane is not a coding benchmark, agent
 capability result, sandbox, or production recovery claim.
 
+A commit-bound Windows
+[reference artifact](evidence/README.md) is bundled for offline verification.
+It is an author-generated local observation, not independent reproduction.
+Public CI is configured to regenerate the lane on Windows and Ubuntu without
+uploading its temporary work or artifact; the check status determines whether
+those fresh runs passed.
+
 ## Quick start
 
 Python 3.11 or newer is required.

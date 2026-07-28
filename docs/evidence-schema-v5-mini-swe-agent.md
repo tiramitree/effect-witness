@@ -8,6 +8,7 @@ replay evidence.
 
 The lane fixes:
 
+- EffectWitness 0.4.0;
 - mini-swe-agent 2.4.6;
 - its `DefaultAgent`, `DeterministicModel`, and `LocalEnvironment`;
 - the exact 115,037-byte

@@ -149,8 +149,11 @@ runtime files, the exact deterministic model outputs, one synthetic Git patch,
 one application-level trajectory-write fault, four scenarios, three rounds,
 CPython 3.12, and x86-64 Windows/Linux. They do not extend to arbitrary coding
 tasks, commands, repositories, agents, models, or operating-system behavior.
-No bundled schema-v5 reference artifact or independent reproduction is claimed
-until one is explicitly added and bound to a trusted public source revision.
+The bundled Windows reference artifact is bound to the declared source commit
+and passes the separate offline verifier. It is an author-generated local
+observation, not independent reproduction. Public CI is configured to produce,
+verify, and privacy-scan fresh Windows and Linux artifacts without uploading
+them; check status determines whether a particular run passed.
 
 ## Explicitly not established
 
