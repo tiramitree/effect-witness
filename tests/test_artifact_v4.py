@@ -736,3 +736,20 @@ def test_schema_v4_verifier_does_not_use_producer_evaluator(
 
     assert report["verified"] is True
     assert report["errors"] == []
+
+
+def test_historical_dependency_binding_remains_exact(tmp_path: Path) -> None:
+    artifact = tmp_path / "artifact"
+    _registered_artifact(artifact)
+    provenance_path = artifact / "provenance.json"
+    historical = _expected_provenance(historical=True)
+    _write_json(provenance_path, historical)
+    _rewrite_manifest(artifact)
+    assert verify_langgraph_artifact(artifact)["verified"] is True
+
+    historical["javascript_sdk"] = _expected_provenance()["javascript_sdk"]
+    _write_json(provenance_path, historical)
+    _rewrite_manifest(artifact)
+    report = verify_langgraph_artifact(artifact)
+    assert report["verified"] is False
+    assert "provenance.json differs from registration" in report["errors"]

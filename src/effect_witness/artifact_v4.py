@@ -17,6 +17,7 @@ from .artifact import (
 )
 from .filesystem_registration import (
     FILESYSTEM_PACKAGE,
+    HISTORICAL_FILESYSTEM_LOCK,
     JAVASCRIPT_SDK,
     NODE_VERSION,
     PACKAGE_LOCK_SHA256,
@@ -420,11 +421,16 @@ def _verify_case(
     return value
 
 
-def _expected_provenance() -> dict[str, Any]:
+def _expected_provenance(*, historical: bool = False) -> dict[str, Any]:
+    dependency = (
+        HISTORICAL_FILESYSTEM_LOCK
+        if historical
+        else {"javascript_sdk": JAVASCRIPT_SDK, "lockfile_sha256": PACKAGE_LOCK_SHA256}
+    )
     return {
-        "javascript_sdk": JAVASCRIPT_SDK,
+        "javascript_sdk": dependency["javascript_sdk"],
         "langgraph_packages": LANGGRAPH_PACKAGES,
-        "lockfile_sha256": PACKAGE_LOCK_SHA256,
+        "lockfile_sha256": dependency["lockfile_sha256"],
         "npm_package": FILESYSTEM_PACKAGE,
         "npm_package_files_in_artifact": False,
         "python_mcp_sdk_version": PYTHON_MCP_VERSION,
@@ -756,7 +762,10 @@ def _verify_langgraph_artifact_impl(artifact_dir: str | Path) -> dict[str, Any]:
         if case is not None:
             cases[scenario_id] = case
     provenance = _read_json(snapshot, "provenance.json", errors)
-    if not json_exact_equal(provenance, _expected_provenance()):
+    if not any(
+        json_exact_equal(provenance, _expected_provenance(historical=historical))
+        for historical in (False, True)
+    ):
         errors.append("provenance.json differs from registration")
     summary = _verify_summary(
         _read_json(snapshot, "summary.json", errors),

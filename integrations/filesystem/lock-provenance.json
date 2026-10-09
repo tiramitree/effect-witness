@@ -1,9 +1,11 @@
 {
-  "javascript_sdk_integrity": "sha512-zo37mZA9hJWpULgkRpowewez1y6ML5GsXJPY8FI0tBBCd77HEvza4jDqRKOXgHNn867PVGCyTdzqpz0izu5ZjQ==",
-  "javascript_sdk_version": "1.29.0",
-  "lockfile_sha256": "dfc7fdc6962bae7ca42d7be7896c8ea3b3de847b3fc3930b8aa074bf0b887e6c",
+  "javascript_sdk_integrity": "sha512-2DdE+SJDtzLEEWzY1ZjY7Q+VcPhcV1KisD3zI4u0XZyktsjHum1mwbMI+JaulUBi2OZk+KJAi2uPXzxichPkdw==",
+  "javascript_sdk_version": "1.32.1",
+  "lockfile_sha256": "ad44dd12c696fdef4a11b3665ae2c60b05f12fea03e77652b868d868822c1522",
   "lockfile_version": 3,
-  "non_resolution_metadata_removed": ["one deprecated contact message"],
+  "non_resolution_metadata_removed": [
+    "one deprecated contact message"
+  ],
   "server_integrity": "sha512-Mmjg4anFBD5OzbPnGJOA0jPPN8645ERhQk38HQLpSenx1ox9bfdPkmAzUnNjeQtqQGFLtKe13J20RtLBmUKMZA==",
   "server_version": "2026.7.10"
 }

@@ -16,7 +16,7 @@ The lane fixes:
 - Python MCP SDK 1.28.1;
 - Node 24.18.0;
 - `@modelcontextprotocol/server-filesystem` 2026.7.10;
-- JavaScript MCP SDK 1.29.0 through the tracked npm lock;
+- JavaScript MCP SDK 1.32.1 through the tracked npm lock;
 - `durability="sync"` and `LANGGRAPH_STRICT_MSGPACK=true`;
 - x86-64 Windows or Linux and CPython 3.11-3.13.
 
@@ -177,3 +177,8 @@ Schema v4 does not establish:
 - source authenticity without an external trusted Git or release digest;
 - external adoption, independent reproduction, review, deployment, or
   recruiting outcome.
+
+The committed historical reference artifacts retain their original SDK 1.29.0
+lock binding. Offline verification accepts that exact historical pair; runtime
+setup only accepts the current dependency lock. See the
+[dependency security refresh](filesystem-dependency-security-refresh.md) for this boundary.

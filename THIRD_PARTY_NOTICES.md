@@ -45,10 +45,10 @@ CC-BY-4.0 to non-specification documentation. Those mixed terms must not be
 simplified to one blanket MIT or Apache-2.0 label for the exact package.
 
 The tracked npm lock also resolves `@modelcontextprotocol/sdk` version
-`1.29.0`, whose
+`1.32.1`, whose
 package metadata reports MIT and SRI:
 
-`sha512-zo37mZA9hJWpULgkRpowewez1y6ML5GsXJPY8FI0tBBCd77HEvza4jDqRKOXgHNn867PVGCyTdzqpz0izu5ZjQ==`
+`sha512-2DdE+SJDtzLEEWzY1ZjY7Q+VcPhcV1KisD3zI4u0XZyktsjHum1mwbMI+JaulUBi2OZk+KJAi2uPXzxichPkdw==`
 
 The tracked lock and registered hashes provide a technical dependency boundary.
 They do not replace review of all applicable dependency notices or terms.

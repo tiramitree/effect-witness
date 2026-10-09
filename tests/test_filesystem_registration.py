@@ -42,7 +42,7 @@ def test_tracked_lock_binds_exact_server_and_javascript_sdk() -> None:
     report = verify_lock_bytes(package, lock)
 
     assert report == {
-        "javascript_sdk_version": "1.29.0",
+        "javascript_sdk_version": "1.32.1",
         "lockfile_sha256": PACKAGE_LOCK_SHA256,
         "lockfile_version": 3,
         "server_package_version": "2026.7.10",

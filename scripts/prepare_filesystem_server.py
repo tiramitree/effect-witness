@@ -166,7 +166,7 @@ def prepare(
             node_command=node_command,
         )
         return {
-            "javascript_sdk_version": "1.29.0",
+            "javascript_sdk_version": "1.32.1",
             "lockfile_sha256": dependency.lockfile_sha256,
             "node_version": dependency.node_version,
             "npm_version": npm_version,

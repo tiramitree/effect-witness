@@ -29,12 +29,29 @@ FILESYSTEM_PACKAGE: Final[dict[str, Any]] = {
 
 JAVASCRIPT_SDK: Final[dict[str, str]] = {
     "name": "@modelcontextprotocol/sdk",
-    "version": "1.29.0",
+    "version": "1.32.1",
     "license_field": "MIT",
     "npm_sri": (
-        "sha512-zo37mZA9hJWpULgkRpowewez1y6ML5GsXJPY8FI0tBBCd77HEvza4jDq"
-        "RKOXgHNn867PVGCyTdzqpz0izu5ZjQ=="
+        "sha512-2DdE+SJDtzLEEWzY1ZjY7Q+VcPhcV1KisD3zI4u0XZyktsjHum1mwb"
+        "MI+JaulUBi2OZk+KJAi2uPXzxichPkdw=="
     ),
+}
+
+# These exact bindings are accepted only by offline evidence verifiers.
+# Runtime dependency validation continues to require PACKAGE_LOCK_SHA256.
+HISTORICAL_FILESYSTEM_LOCK: Final[dict[str, Any]] = {
+    "lockfile_sha256": (
+        "dfc7fdc6962bae7ca42d7be7896c8ea3b3de847b3fc3930b8aa074bf0b887e6c"
+    ),
+    "javascript_sdk": {
+        "name": "@modelcontextprotocol/sdk",
+        "version": "1.29.0",
+        "license_field": "MIT",
+        "npm_sri": (
+            "sha512-zo37mZA9hJWpULgkRpowewez1y6ML5GsXJPY8FI0tBBCd77HEvza4jDq"
+            "RKOXgHNn867PVGCyTdzqpz0izu5ZjQ=="
+        ),
+    },
 }
 
 UPSTREAM_ROOT_LICENSE: Final[dict[str, Any]] = {
@@ -55,10 +72,10 @@ PACKAGE_JSON_SHA256: Final = (
     "7f16799cd666ac86cfddbfea46b0aea876d8b31a8c2e5bfd2824327da45c5e41"
 )
 PACKAGE_LOCK_SHA256: Final = (
-    "dfc7fdc6962bae7ca42d7be7896c8ea3b3de847b3fc3930b8aa074bf0b887e6c"
+    "ad44dd12c696fdef4a11b3665ae2c60b05f12fea03e77652b868d868822c1522"
 )
 LOCK_PROVENANCE_SHA256: Final = (
-    "59bc7c5b569abad478f94f157aa6ee1d0e84d99a905dfd796a9f1f1c8528f7d5"
+    "942e8fe737984e5824b94090d9b8b78e915313a62a07546d9579c894bfba6d12"
 )
 NODE_VERSION: Final = "v24.18.0"
 NPM_VERSION: Final = "11.16.0"

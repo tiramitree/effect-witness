@@ -20,6 +20,7 @@ from .filesystem_registration import (
     EFFECT_WITNESS_PRODUCER_VERSIONS,
     EVIDENCE_BOUNDARY,
     FILESYSTEM_PACKAGE,
+    HISTORICAL_FILESYSTEM_LOCK,
     JAVASCRIPT_SDK,
     NODE_VERSION,
     PACKAGE_LOCK_SHA256,
@@ -218,10 +219,15 @@ def _verify_tools(value: Any, errors: list[str]) -> None:
         errors.append("tools.json differs from the exact registration")
 
 
-def _expected_provenance() -> dict[str, Any]:
+def _expected_provenance(*, historical: bool = False) -> dict[str, Any]:
+    dependency = (
+        HISTORICAL_FILESYSTEM_LOCK
+        if historical
+        else {"javascript_sdk": JAVASCRIPT_SDK, "lockfile_sha256": PACKAGE_LOCK_SHA256}
+    )
     return {
-        "javascript_sdk": JAVASCRIPT_SDK,
-        "lockfile_sha256": PACKAGE_LOCK_SHA256,
+        "javascript_sdk": dependency["javascript_sdk"],
+        "lockfile_sha256": dependency["lockfile_sha256"],
         "npm_package": FILESYSTEM_PACKAGE,
         "python_mcp_sdk_version": PYTHON_MCP_VERSION,
         "server_distribution_files": {
@@ -435,7 +441,10 @@ def _verify_filesystem_artifact_impl(artifact_dir: str | Path) -> dict[str, Any]
             cases[scenario_id] = case
     _verify_tools(_read_json(snapshot, "tools.json", errors), errors)
     provenance = _read_json(snapshot, "provenance.json", errors)
-    if not json_exact_equal(provenance, _expected_provenance()):
+    if not any(
+        json_exact_equal(provenance, _expected_provenance(historical=historical))
+        for historical in (False, True)
+    ):
         errors.append("provenance.json differs from registration")
     summary_value = _verify_summary(summary, cases=cases, errors=errors)
     _verify_junit(snapshot.get("junit.xml"), cases, errors)

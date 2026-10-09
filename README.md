@@ -107,7 +107,7 @@ The schema-v3 real-implementation lane includes:
 - Python MCP SDK 1.28.1 over stdio to
   `@modelcontextprotocol/server-filesystem` version `2026.7.10`;
 - Node 24.18.0, npm 11.16.0, and a tracked lockfile resolving the JavaScript
-  MCP SDK to 1.29.0;
+  MCP SDK to 1.32.1;
 - exact installed-file size and SHA-256 registration for the seven files in
   that server distribution;
 - `read_text_file`, simple and nested `create_directory`, `write_file`, and
@@ -433,3 +433,8 @@ job is not itself evidence that a schema-v5 run passed.
 
 Original code in this repository is licensed under Apache-2.0. Dependency
 licenses remain their own; see [third-party notices](THIRD_PARTY_NOTICES.md).
+
+The committed historical reference artifacts retain their original SDK 1.29.0
+lock binding. Offline verification accepts that exact historical pair; runtime
+setup only accepts the current dependency lock. See the
+[dependency security refresh](docs/filesystem-dependency-security-refresh.md) for this boundary.

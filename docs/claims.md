@@ -34,7 +34,7 @@ dependency versions, synthetic data, loopback transport, and registered scenario
 - The lane uses Python MCP SDK 1.28.1 over stdio to
   `@modelcontextprotocol/server-filesystem` version `2026.7.10`, prepared by
   `npm ci` from the tracked lock under Node 24.18.0; that lock resolves the
-  JavaScript SDK to 1.29.0.
+  JavaScript SDK to 1.32.1.
 - Dependency preparation runs only `npm ci` with lifecycle scripts disabled and
   isolated empty npm user/global configuration. Before execution, the harness
   rechecks the tracked lock bytes and rejects any installed server distribution

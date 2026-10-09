@@ -13,7 +13,7 @@ The execution registration is:
 - MCP Python SDK 1.28.1 over stdio;
 - Node 24.18.0;
 - `@modelcontextprotocol/server-filesystem` version `2026.7.10`;
-- JavaScript MCP SDK 1.29.0 through the tracked npm lock;
+- JavaScript MCP SDK 1.32.1 through the tracked npm lock;
 - protocol version `2025-11-25`;
 - server identity `secure-filesystem-server` version `0.2.0`;
 - Windows and Linux only.
@@ -152,3 +152,8 @@ package-wide correctness, production filesystem behavior, link/permission/
 timestamp behavior, concurrency behavior, security, or external adoption.
 Manifest closure provides integrity only relative to itself; a trusted commit
 or release digest is still required for publisher authenticity.
+
+The committed historical reference artifacts retain their original SDK 1.29.0
+lock binding. Offline verification accepts that exact historical pair; runtime
+setup only accepts the current dependency lock. See the
+[dependency security refresh](filesystem-dependency-security-refresh.md) for this boundary.
