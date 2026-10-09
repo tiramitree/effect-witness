@@ -141,7 +141,7 @@ jobs:
           --only-binary=:all:
           --constraint integrations/mini-swe-agent/constraints-py312.txt
           -e ".[dev]"
-          litellm==1.91.1
+          litellm==1.91.5
           "${{ runner.temp }}/coding-agent-deps/mini_swe_agent-2.4.6-py3-none-any.whl"
       - run: python -m pip check
       - run: >-
