@@ -421,21 +421,31 @@ def _verify_case(
     return value
 
 
-def _expected_provenance(*, historical: bool = False) -> dict[str, Any]:
+def _expected_provenance(
+    *, historical: bool = False, historical_python: bool = False
+) -> dict[str, Any]:
     dependency = (
         HISTORICAL_FILESYSTEM_LOCK
         if historical
         else {"javascript_sdk": JAVASCRIPT_SDK, "lockfile_sha256": PACKAGE_LOCK_SHA256}
     )
+    historical_python = historical or historical_python
+    packages = {name: dict(values) for name, values in LANGGRAPH_PACKAGES.items()}
+    if historical_python:
+        packages["langgraph-checkpoint-sqlite"]["version"] = "3.1.0"
     return {
         "javascript_sdk": dependency["javascript_sdk"],
-        "langgraph_packages": LANGGRAPH_PACKAGES,
+        "langgraph_packages": packages,
         "lockfile_sha256": dependency["lockfile_sha256"],
         "npm_package": FILESYSTEM_PACKAGE,
         "npm_package_files_in_artifact": False,
         "python_mcp_sdk_version": PYTHON_MCP_VERSION,
         "python_version_constraint_package_count": PYTHON_CONSTRAINT_PACKAGE_COUNT,
-        "python_version_constraints_sha256": PYTHON_CONSTRAINTS_SHA256,
+        "python_version_constraints_sha256": (
+            "80d38536c0223ca5c38af76cde70ff0ad379e38cae0c859941a992e671195af9"
+            if historical_python
+            else PYTHON_CONSTRAINTS_SHA256
+        ),
         "python_version_constraints_are_hash_lock": False,
         "raw_checkpoint_database_in_artifact": False,
         "server_distribution_files": {
@@ -452,6 +462,7 @@ def _verify_summary(
     *,
     cases: dict[str, dict[str, Any]],
     errors: list[str],
+    registered_packages: dict[str, dict[str, Any]],
 ) -> dict[str, Any] | None:
     if not isinstance(summary, dict):
         errors.append("summary.json is not an object")
@@ -533,7 +544,7 @@ def _verify_summary(
             or dependencies["mcp-python"] != PYTHON_MCP_VERSION
             or any(
                 dependencies[package] != registration["version"]
-                for package, registration in LANGGRAPH_PACKAGES.items()
+                for package, registration in registered_packages.items()
             )
         ):
             errors.append("summary dependency versions differ from registration")
@@ -762,15 +773,24 @@ def _verify_langgraph_artifact_impl(artifact_dir: str | Path) -> dict[str, Any]:
         if case is not None:
             cases[scenario_id] = case
     provenance = _read_json(snapshot, "provenance.json", errors)
-    if not any(
-        json_exact_equal(provenance, _expected_provenance(historical=historical))
-        for historical in (False, True)
-    ):
+    # Exact complete registrations only; never mix a historical hash with
+    # independently selected package versions. These do not authorize execution.
+    registrations = (
+        _expected_provenance(),
+        _expected_provenance(historical_python=True),
+        _expected_provenance(historical=True),
+    )
+    matched = next(
+        (entry for entry in registrations if json_exact_equal(provenance, entry)),
+        None,
+    )
+    if matched is None:
         errors.append("provenance.json differs from registration")
     summary = _verify_summary(
         _read_json(snapshot, "summary.json", errors),
         cases=cases,
         errors=errors,
+        registered_packages=(matched or registrations[0])["langgraph_packages"],
     )
     _verify_junit(snapshot.get("junit.xml"), cases, errors)
     return {

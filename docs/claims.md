@@ -66,7 +66,7 @@ observations ephemerally without publishing their artifacts.
 
 ## Supported by the schema-v4 LangGraph replay lane
 
-- The lane fixes LangGraph 1.2.9, checkpoint 4.1.1, SQLite checkpointer 3.1.0,
+- The lane fixes LangGraph 1.2.9, checkpoint 4.1.1, SQLite checkpointer 3.1.1,
   sqlite-vec 0.1.9, MCP Python 1.28.1, Node 24.18.0, and the schema-v3
   filesystem registration under synchronous durability and strict msgpack.
 - Before worker launch, the runner checks the exact 58-package constraint
@@ -119,7 +119,7 @@ particular run passed.
   The upstream wheel metadata reports MIT, Python `>=3.10`, and an Alpha
   development-status classifier.
 - The runner checks a 93-version CPython 3.12 constraint snapshot with SHA-256
-  `a2a4b3cf0af75c357e1e4578d0cc4b0ffa222dcb9358a0b60a4e3a47512196eb`
+  `678d01971005108ce01039c2f297ce27f1e78e8cedc97515bf992a13d1b4aa50`
   and the registered selected mini-swe-agent runtime-file bytes. The constraint
   snapshot is not a cross-platform hash lock.
 - Four scenarios run for three rounds each on registered x86-64 Windows or

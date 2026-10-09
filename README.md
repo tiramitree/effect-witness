@@ -133,7 +133,7 @@ privacy-scans fresh Windows and Ubuntu artifacts without uploading them.
 
 The schema-v4 replay lane includes:
 
-- LangGraph 1.2.9, checkpoint 4.1.1, SQLite checkpointer 3.1.0, and
+- LangGraph 1.2.9, checkpoint 4.1.1, SQLite checkpointer 3.1.1, and
   sqlite-vec 0.1.9 under `durability="sync"` and strict msgpack;
 - four scenarios repeated for ten rounds, with a fault worker and resume worker
   in separate processes for every round;
@@ -289,7 +289,7 @@ and atomically publishes a one-file dependency directory:
   --only-binary=:all: `
   --constraint integrations\mini-swe-agent\constraints-py312.txt `
   -e ".[dev]" `
-  litellm==1.91.1 `
+  litellm==1.91.5 `
   .coding-agent-deps\mini_swe_agent-2.4.6-py3-none-any.whl
 .venv\Scripts\effect-witness run-coding-agent `
   --constraints-file integrations\mini-swe-agent\constraints-py312.txt `
@@ -302,7 +302,7 @@ and atomically publishes a one-file dependency directory:
 
 POSIX uses the corresponding `.venv/bin/` executables and `/` separators. The
 93-version constraint snapshot has SHA-256
-`a2a4b3cf0af75c357e1e4578d0cc4b0ffa222dcb9358a0b60a4e3a47512196eb`;
+`678d01971005108ce01039c2f297ce27f1e78e8cedc97515bf992a13d1b4aa50`;
 it is a version snapshot, not a cross-platform hash lock. Dependency, output,
 and optional work directories must be mutually disjoint and must start absent.
 Preparation requires access to the registered PyPI wheel URL; running and

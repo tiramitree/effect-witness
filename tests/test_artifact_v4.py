@@ -743,6 +743,10 @@ def test_historical_dependency_binding_remains_exact(tmp_path: Path) -> None:
     _registered_artifact(artifact)
     provenance_path = artifact / "provenance.json"
     historical = _expected_provenance(historical=True)
+    summary_path = artifact / "summary.json"
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    summary["dependencies"]["langgraph-checkpoint-sqlite"] = "3.1.0"
+    _write_json(summary_path, summary)
     _write_json(provenance_path, historical)
     _rewrite_manifest(artifact)
     assert verify_langgraph_artifact(artifact)["verified"] is True
@@ -753,3 +757,22 @@ def test_historical_dependency_binding_remains_exact(tmp_path: Path) -> None:
     report = verify_langgraph_artifact(artifact)
     assert report["verified"] is False
     assert "provenance.json differs from registration" in report["errors"]
+
+
+def test_historical_python_summary_must_match_provenance(tmp_path: Path) -> None:
+    artifact = tmp_path / "artifact"
+    _registered_artifact(artifact)
+    _write_json(
+        artifact / "provenance.json",
+        _expected_provenance(historical_python=True),
+    )
+    _rewrite_manifest(artifact)
+    report = verify_langgraph_artifact(artifact)
+    assert report["verified"] is False
+    assert "summary dependency versions differ from registration" in report["errors"]
+    summary_path = artifact / "summary.json"
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    summary["dependencies"]["langgraph-checkpoint-sqlite"] = "3.1.0"
+    _write_json(summary_path, summary)
+    _rewrite_manifest(artifact)
+    assert verify_langgraph_artifact(artifact)["verified"] is True

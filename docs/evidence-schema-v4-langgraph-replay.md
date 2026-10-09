@@ -11,7 +11,7 @@ The lane fixes:
   accepts the registered 0.3.0, 0.3.1, 0.3.2, and 0.3.3 producers;
 - LangGraph 1.2.9;
 - langgraph-checkpoint 4.1.1;
-- langgraph-checkpoint-sqlite 3.1.0;
+- langgraph-checkpoint-sqlite 3.1.1;
 - sqlite-vec 0.1.9;
 - Python MCP SDK 1.28.1;
 - Node 24.18.0;

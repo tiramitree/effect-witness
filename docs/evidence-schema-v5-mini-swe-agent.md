@@ -18,7 +18,7 @@ The lane fixes:
 - upstream wheel metadata reporting MIT, Python `>=3.10`, and an Alpha
   development-status classifier;
 - a 93-version CPython 3.12 constraint snapshot with SHA-256
-  `a2a4b3cf0af75c357e1e4578d0cc4b0ffa222dcb9358a0b60a4e3a47512196eb`;
+  `678d01971005108ce01039c2f297ce27f1e78e8cedc97515bf992a13d1b4aa50`;
 - selected installed mini-swe-agent runtime-file size and SHA-256 values;
 - x86-64 Windows or Linux and CPython 3.12.
 
@@ -170,7 +170,7 @@ Windows:
   --only-binary=:all: `
   --constraint integrations\mini-swe-agent\constraints-py312.txt `
   -e ".[dev]" `
-  litellm==1.91.1 `
+  litellm==1.91.5 `
   .coding-agent-deps\mini_swe_agent-2.4.6-py3-none-any.whl
 .venv\Scripts\effect-witness run-coding-agent `
   --constraints-file integrations\mini-swe-agent\constraints-py312.txt `

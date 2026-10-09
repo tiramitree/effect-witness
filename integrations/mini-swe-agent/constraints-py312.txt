@@ -35,7 +35,7 @@ jiter==0.16.0
 jsonschema==4.26.0
 jsonschema-specifications==2025.9.1
 linkify-it-py==2.1.0
-litellm==1.91.1
+litellm==1.91.5
 markdown-it-py==4.2.0
 markupsafe==3.0.3
 mcp==1.28.1

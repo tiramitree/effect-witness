@@ -34,6 +34,21 @@ from effect_witness.coding_registration import (
 from effect_witness.models import canonical_json, sha256_json
 
 
+def test_historical_python_constraints_are_offline_only(tmp_path: Path) -> None:
+    artifact = tmp_path / "artifact"
+    _registered_artifact(artifact)
+    provenance = verifier._expected_provenance(historical=True)
+    _write_json(artifact / "provenance.json", provenance)
+    _rewrite_manifest(artifact)
+    assert verify_coding_agent_artifact(artifact)["verified"] is True
+    provenance["python_constraints_sha256"] = "0" * 64
+    _write_json(artifact / "provenance.json", provenance)
+    _rewrite_manifest(artifact)
+    report = verify_coding_agent_artifact(artifact)
+    assert report["verified"] is False
+    assert "provenance.json differs from registration" in report["errors"]
+
+
 def _write_json(path: Path, value: object) -> None:
     path.write_text(canonical_json(value) + "\n", encoding="utf-8", newline="\n")
 

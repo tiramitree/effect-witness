@@ -59,6 +59,20 @@ def test_constraint_gate_rejects_byte_drift(tmp_path: Path) -> None:
         verify_python_constraints(drifted)
 
 
+def test_constraint_gate_rejects_pre_security_refresh_lock(tmp_path: Path) -> None:
+    historical = tmp_path / "historical.txt"
+    historical.write_bytes(
+        _constraint_path()
+        .read_bytes()
+        .replace(
+            b"langgraph-checkpoint-sqlite==3.1.1",
+            b"langgraph-checkpoint-sqlite==3.1.0",
+        )
+    )
+    with pytest.raises(RuntimeError, match="bytes differ from registration"):
+        verify_python_constraints(historical)
+
+
 def test_constraint_gate_rejects_missing_applicable_distribution(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

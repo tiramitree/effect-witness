@@ -584,7 +584,7 @@ def _verify_case(
     return value
 
 
-def _expected_provenance() -> dict[str, Any]:
+def _expected_provenance(*, historical: bool = False) -> dict[str, Any]:
     return {
         "mini_swe_agent": {
             "development_status": MINI_SWE_AGENT_DEVELOPMENT_STATUS,
@@ -602,7 +602,11 @@ def _expected_provenance() -> dict[str, Any]:
         "paid_service_calls": 0,
         "python_constraint_package_count": PYTHON_CONSTRAINT_PACKAGE_COUNT,
         "python_constraints_are_hash_lock": False,
-        "python_constraints_sha256": PYTHON_CONSTRAINTS_SHA256,
+        "python_constraints_sha256": (
+            "a2a4b3cf0af75c357e1e4578d0cc4b0ffa222dcb9358a0b60a4e3a47512196eb"
+            if historical
+            else PYTHON_CONSTRAINTS_SHA256
+        ),
         "raw_trajectory_in_artifact": False,
         "selected_runtime_bytes_verified": True,
     }
@@ -963,7 +967,10 @@ def _verify_coding_agent_artifact_impl(
         if case is not None:
             cases[scenario_id] = case
     provenance = _read_json(snapshot, "provenance.json", errors)
-    if not json_exact_equal(provenance, _expected_provenance()):
+    if not any(
+        json_exact_equal(provenance, _expected_provenance(historical=historical))
+        for historical in (False, True)
+    ):
         errors.append("provenance.json differs from registration")
     summary = _verify_summary(
         _read_json(snapshot, "summary.json", errors),

@@ -59,6 +59,15 @@ def test_constraint_gate_rejects_byte_drift(tmp_path: Path) -> None:
         verify_coding_constraints(drifted)
 
 
+def test_constraint_gate_rejects_pre_security_refresh_lock(tmp_path: Path) -> None:
+    historical = tmp_path / "historical.txt"
+    historical.write_bytes(
+        _constraint_path().read_bytes().replace(b"litellm==1.91.5", b"litellm==1.91.1")
+    )
+    with pytest.raises(RuntimeError, match="bytes differ from registration"):
+        verify_coding_constraints(historical)
+
+
 def test_constraint_gate_rejects_missing_applicable_distribution(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

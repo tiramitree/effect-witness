@@ -11,7 +11,7 @@ INJECTED_EXIT_CODE: Final = 17
 DURABILITY: Final = "sync"
 MACHINE_ARCHITECTURE: Final = "x86_64"
 PYTHON_CONSTRAINTS_SHA256: Final = (
-    "80d38536c0223ca5c38af76cde70ff0ad379e38cae0c859941a992e671195af9"
+    "ad4ee58ce68f49ce0cd2c0b98d410af9c2a887ead107a2ff254c3be35c4925d7"
 )
 PYTHON_CONSTRAINT_PACKAGE_COUNT: Final = 58
 
@@ -25,7 +25,7 @@ LANGGRAPH_PACKAGES: Final[dict[str, dict[str, str]]] = {
         "license": "MIT",
     },
     "langgraph-checkpoint-sqlite": {
-        "version": "3.1.0",
+        "version": "3.1.1",
         "license": "MIT",
     },
     "sqlite-vec": {
